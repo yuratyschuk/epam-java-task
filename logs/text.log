@@ -1,0 +1,50 @@
+2020-04-06 21:14:33 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 21:15:16 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 21:16:47 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 21:17:30 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 21:19:18 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 22:00:30 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 22:08:58 [main] WARN  com.demo.service.impl.WorkerDaoImpl - SQLException in GalaxyDAO in findAll method
+2020-04-06 22:15:55 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data successfully deleted
+2020-04-06 22:18:57 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data successfully deleted
+2020-04-06 22:18:57 [main] ERROR com.demo.service.impl.WorkerDaoImpl - No operations allowed after statement closed.0S1009
+2020-04-06 22:20:45 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data successfully deleted
+2020-04-06 22:20:45 [main] ERROR com.demo.service.impl.WorkerDaoImpl - No operations allowed after statement closed.0S1009
+2020-04-06 22:22:59 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data successfully deleted
+2020-04-06 22:24:07 [main] INFO  com.demo.service.impl.WorkerDaoImpl - User created successfully
+2020-04-06 22:24:31 [main] INFO  com.demo.service.impl.WorkerDaoImpl - User created successfully
+2020-04-06 22:25:03 [main] INFO  com.demo.service.impl.WorkerDaoImpl - User created successfully
+2020-04-06 22:26:16 [main] INFO  com.demo.service.impl.WorkerDaoImpl - User created successfully
+2020-04-06 22:27:58 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:29:39 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:30:27 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:30:30 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:31:14 [main] INFO  com.demo.service.impl.WorkerDaoImpl - com.mysql.cj.jdbc.ClientPreparedStatement: INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date) VALUES('Test', 'User', 2, 2, '3917-12-21')
+2020-04-06 22:31:14 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:31:19 [main] INFO  com.demo.service.impl.WorkerDaoImpl - com.mysql.cj.jdbc.ClientPreparedStatement: INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date) VALUES('Test', 'User', 2, 2, '3917-12-21')
+2020-04-06 22:31:19 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:32:11 [main] WARN  com.demo.service.impl.WorkerDaoImpl - Sql Exception in GalaxyDAO add method
+2020-04-06 22:32:29 [main] INFO  com.demo.service.impl.WorkerDaoImpl - com.mysql.cj.jdbc.ClientPreparedStatement: INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date, id) VALUES('Test', 'User', 2, 2, '3917-12-21', 5)
+2020-04-06 22:32:29 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:33:56 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:36:36 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:39:36 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:44:42 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:45:00 [main] WARN  com.demo.service.impl.WorkerDaoImpl - Sql Exception in GalaxyDAO add method
+2020-04-06 22:45:18 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:45:32 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Info added to data base
+2020-04-06 22:55:12 [main] ERROR com.demo.service.impl.WorkerDaoImpl - No value specified for parameter 1070010
+2020-04-06 22:56:51 [main] ERROR com.demo.service.impl.WorkerDaoImpl - No value specified for parameter 1070010
+2020-04-06 22:57:53 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Illegal operation on empty result set.S10000
+2020-04-06 22:58:29 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Can not issue executeUpdate() or executeLargeUpdate() for SELECTs01S030
+2020-04-06 23:00:17 [main] ERROR com.demo.service.impl.WorkerDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '{id}' at line 1420001064
+2020-04-06 23:00:42 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Illegal operation on empty result set.S10000
+2020-04-06 23:01:44 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Before start of result setS10000
+2020-04-06 23:08:27 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Invalid argument value: java.io.NotSerializableException0S1009
+2020-04-06 23:09:30 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data deleted
+2020-04-06 23:18:12 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Incorrect integer value: 'null' for column 'position_id' at row 1HY0001366
+2020-04-06 23:18:56 [main] INFO  com.demo.service.impl.WorkerDaoImpl - update successful
+2020-04-06 23:39:48 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data successfully deleted
+2020-04-06 23:40:16 [main] INFO  com.demo.service.impl.WorkerDaoImpl - Data successfully deleted
+2020-04-07 00:01:04 [main] INFO  com.demo.service.impl.WorkerDaoImpl - update successful
+2020-04-07 00:02:40 [main] ERROR com.demo.service.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2
