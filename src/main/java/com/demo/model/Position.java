@@ -1,6 +1,7 @@
 package com.demo.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
@@ -11,9 +12,10 @@ public class Position {
 
     private BigDecimal salary;
 
-    private List<Worker> workerList;
+    private transient List<Worker> workerList;
 
     public Position() {
+        this.workerList = new ArrayList<>();
     }
 
     public Position(String jobName, BigDecimal salary, List<Worker> workerList) {
@@ -23,12 +25,24 @@ public class Position {
         this.workerList = workerList;
     }
 
+    public Position(Integer id, String jobName, BigDecimal salary) {
+        this.id = id;
+        this.jobName = jobName;
+        this.salary = salary;
+        this.workerList = new ArrayList<>();
+    }
+
+    public Position(String jobName, BigDecimal salary) {
+        this.jobName = jobName;
+        this.salary = salary;
+    }
+
     public List<Worker> getWorkerList() {
         return workerList;
     }
 
     public void setWorkerList(List<Worker> workerList) {
-        this.workerList = workerList;
+        this.workerList.addAll(workerList);
     }
 
     public Integer getId() {
@@ -55,12 +69,14 @@ public class Position {
         this.salary = salary;
     }
 
+
     @Override
     public String toString() {
         return "Position{" +
                 "id=" + id +
                 ", jobName='" + jobName + '\'' +
                 ", salary=" + salary +
+                ", workerList=" + workerList +
                 '}';
     }
 }

@@ -27,6 +27,13 @@ public class Worker {
         this.hireDate = hireDate;
     }
 
+    public Worker(String firstName, String lastName, int workingExperience, Date hireDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.workingExperience = workingExperience;
+        this.hireDate = hireDate;
+    }
+
     public Integer getId() {
         return id;
     }

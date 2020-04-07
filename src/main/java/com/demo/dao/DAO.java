@@ -1,6 +1,4 @@
-package com.demo.service;
-
-import com.demo.model.Worker;
+package com.demo.dao;
 
 import java.util.List;
 
@@ -15,6 +13,8 @@ public interface DAO<T> {
     List<T> getAll();
 
     T getById(Integer id);
+
+    T getByName(String name);
 
     boolean create(T t);
 }

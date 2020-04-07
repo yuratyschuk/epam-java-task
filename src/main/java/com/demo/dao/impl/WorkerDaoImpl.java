@@ -1,11 +1,11 @@
-package com.demo.service.impl;
+package com.demo.dao.impl;
 
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.demo.service.DAO;
+import com.demo.dao.DAO;
 import com.demo.utils.ConnectionFactory;
 
 import java.sql.*;
@@ -13,24 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerDaoImpl implements DAO<Worker> {
-
-    private final String UPDATE = "UPDATE worker SET first_name='" + worker.getFirstName() + "', last_name='" + worker.getLastName() +
-            "', position_id='" + worker.getPosition().getId() + "', working_experience='" + worker.getWorkingExperience() +
-            "', hire_date='" + worker.getHireDate() + "' WHERE id=" + worker.getId();
-
-    private final String SQL_DELETE_BY_USERNAME = "DELETE FROM worker WHERE worker.last_name=?";
-
-    private final String SQL_DELETE_BY_ID = "DELETE FROM worker WHERE worker.id=?";
-
-    private final String SQL_ALL = "SELECT worker.*, position.job_name, position.salary " +
-            "FROM worker JOIN position ON position.id = worker.position_id";
-
-    private final String SQL_FIND_BY_ID = "SELECT worker.*, position.job_name, position.salary FROM worker " +
-            "JOIN position ON position.id = worker.position_id WHERE worker.id=" + id;
-
-    private final String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
-            " VALUES(?, ?, ?, ?, ?)";
-
 
     private Connection connection = null;
 
@@ -45,6 +27,9 @@ public class WorkerDaoImpl implements DAO<Worker> {
 
     @Override
     public boolean update(Worker worker) {
+        String UPDATE = "UPDATE worker SET first_name='" + worker.getFirstName() + "', last_name='" + worker.getLastName() +
+                "', position_id='" + worker.getPosition().getId() + "', working_experience='" + worker.getWorkingExperience() +
+                "', hire_date='" + worker.getHireDate() + "' WHERE id=" + worker.getId();
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(UPDATE);
@@ -81,6 +66,7 @@ public class WorkerDaoImpl implements DAO<Worker> {
 
     @Override
     public boolean delete(Worker worker) {
+        String SQL_DELETE_BY_USERNAME = "DELETE FROM worker WHERE worker.last_name=?";
         try {
             connection = getConnection();
 
@@ -117,6 +103,7 @@ public class WorkerDaoImpl implements DAO<Worker> {
 
     @Override
     public boolean deleteById(Integer id) {
+        String SQL_DELETE_BY_ID = "DELETE FROM worker WHERE worker.id=?";
         try {
             connection = getConnection();
 
@@ -153,7 +140,8 @@ public class WorkerDaoImpl implements DAO<Worker> {
     @Override
     public List<Worker> getAll() {
         List<Worker> workerList = new ArrayList<>();
-
+        String SQL_ALL = "SELECT worker.*, positions.job_name, positions.salary " +
+                "FROM worker JOIN positions ON positions.id = worker.position_id";
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_ALL);
@@ -207,6 +195,9 @@ public class WorkerDaoImpl implements DAO<Worker> {
 
     @Override
     public Worker getById(Integer id) {
+        String SQL_FIND_BY_ID = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
+                "JOIN positions ON positions.id = worker.position_id WHERE worker.id=" + id;
+
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
@@ -251,7 +242,57 @@ public class WorkerDaoImpl implements DAO<Worker> {
     }
 
     @Override
+    public Worker getByName(String name) {
+        try {
+            String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name='" + name + "'";
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {  // because cursor is before first row
+                Worker worker = new Worker();
+
+                worker.setId(Integer.parseInt(resultSet.getString("id")));
+                worker.setFirstName(resultSet.getString("first_name"));
+                worker.setLastName(resultSet.getString("last_name"));
+                worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
+
+                Position position = new Position();
+                position.setJobName(resultSet.getString("job_name"));
+                position.setJobName(resultSet.getString("salary"));
+                worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+                worker.setPosition(position);
+
+                return worker;
+            } else {
+                logger.error("Worker with last name: " + name + " not found");
+                throw new WorkerException("Worker with last name " + name + " not found");
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+
+    }
+
+    @Override
     public boolean create(Worker worker) {
+          String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
+                " VALUES(?, ?, ?, ?, ?)";
+
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_ADD);
