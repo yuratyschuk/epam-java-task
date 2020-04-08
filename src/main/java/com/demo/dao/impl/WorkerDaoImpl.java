@@ -21,25 +21,16 @@ import java.util.List;
 
 public class WorkerDaoImpl implements WorkerDao {
 
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
-
-
     private static Logger logger = LogManager.getLogger();
-
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Worker worker) {
         String UPDATE = "UPDATE worker SET worker.first_name=?, worker.last_name=?," +
                 "worker.position_id=?, worker.working_experience=?," +
                 "worker.hire_date=? WHERE worker.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+
             preparedStatement.setString(1, worker.getFirstName());
             preparedStatement.setString(2, worker.getLastName());
             preparedStatement.setInt(3, worker.getPosition().getId());
@@ -59,20 +50,6 @@ public class WorkerDaoImpl implements WorkerDao {
         } catch (SQLException e) {
             logger.error("Error in Worker in update method");
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
 
         return false;
@@ -81,10 +58,9 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public boolean delete(Worker worker) {
         String SQL_DELETE_BY_USERNAME = "DELETE FROM worker WHERE worker.last_name=?";
-        try {
-            connection = getConnection();
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME)) {
 
-            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME);
             preparedStatement.setString(1, worker.getLastName());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -98,19 +74,6 @@ public class WorkerDaoImpl implements WorkerDao {
         } catch (SQLException e) {
             logger.error("Exception in worker in delete method");
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return false;
     }
@@ -118,10 +81,9 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public boolean deleteById(Integer id) {
         String SQL_DELETE_BY_ID = "DELETE FROM worker WHERE worker.id=?";
-        try {
-            connection = getConnection();
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
 
-            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
             preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -135,18 +97,6 @@ public class WorkerDaoImpl implements WorkerDao {
         } catch (SQLException e) {
             logger.error("Error in WorkerDao in deleteById method");
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }
@@ -156,10 +106,9 @@ public class WorkerDaoImpl implements WorkerDao {
         List<Worker> workerList = new ArrayList<>();
         String SQL_ALL = "SELECT worker.*, positions.job_name, positions.salary " +
                 "FROM worker JOIN positions ON positions.id = worker.position_id";
-        try {
-            connection = ConnectionFactory.getInstance().getDataSource().getConnection();
 
-            preparedStatement = connection.prepareStatement(SQL_ALL);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -187,22 +136,9 @@ public class WorkerDaoImpl implements WorkerDao {
             }
 
             return workerList;
-        } catch (SQLException | PropertyVetoException e) {
+        } catch (SQLException e) {
             logger.warn("SQLException in WorkerDao in getAll method");
             logger.warn(e.getMessage());
-
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
 
         }
         return workerList;
@@ -213,9 +149,9 @@ public class WorkerDaoImpl implements WorkerDao {
         String SQL_FIND_BY_ID = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
                 "JOIN positions ON positions.id = worker.position_id WHERE worker.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -240,28 +176,16 @@ public class WorkerDaoImpl implements WorkerDao {
             }
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return null;
     }
 
     @Override
     public Worker getByLastName(String lastName) {
-        try {
-            String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name=?";
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME);
+        String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name=?";
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME)) {
+
             preparedStatement.setString(1, lastName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -286,18 +210,6 @@ public class WorkerDaoImpl implements WorkerDao {
             }
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return null;
 
@@ -308,9 +220,9 @@ public class WorkerDaoImpl implements WorkerDao {
         String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
                 " VALUES(?, ?, ?, ?, ?)";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_ADD);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD)) {
+
 
             preparedStatement.setString(1, worker.getFirstName());
             preparedStatement.setString(2, worker.getLastName());
@@ -329,18 +241,6 @@ public class WorkerDaoImpl implements WorkerDao {
         } catch (SQLException e) {
             logger.error("Sql Exception in WorkerDao create method");
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }

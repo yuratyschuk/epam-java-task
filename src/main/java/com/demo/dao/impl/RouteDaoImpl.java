@@ -17,26 +17,16 @@ import java.util.List;
 
 public class RouteDaoImpl implements RouteDao {
 
-
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
-
-
     private static Logger logger = LogManager.getLogger();
 
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Route route) {
 
         String UPDATE = "UPDATE route SET route.arrival_place_id=?, route.departure_place_id=? WHERE route.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -59,9 +49,9 @@ public class RouteDaoImpl implements RouteDao {
                 "ON route.departure_place_id = departure_place.id " +
                 "JOIN  arrival_place ON route.arrival_place_id = arrival_place.id";
         List<Route> routeList = new ArrayList<>();
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL);
+
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -100,9 +90,9 @@ public class RouteDaoImpl implements RouteDao {
                 "departure_place.departure_name, arrival_place.arrival_name FROM route JOIN departure_place " +
                 "ON route.departure_place_id = departure_place.id " +
                 "JOIN  arrival_place ON route.arrival_place_id = arrival_place.id WHERE route.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -129,26 +119,17 @@ public class RouteDaoImpl implements RouteDao {
 
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                connection.close();
-                preparedStatement.close();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-            }
-
         }
         return null;
     }
 
 
-
     @Override
     public boolean deleteById(Integer id) {
         String DELETE_BY_ID = "DELETE FROM route WHERE route.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -161,13 +142,6 @@ public class RouteDaoImpl implements RouteDao {
             return true;
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                connection.close();
-                preparedStatement.close();
-            } catch (SQLException e) {
-                e.getErrorCode();
-            }
         }
         return false;
     }
@@ -175,9 +149,8 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public boolean save(Route route) {
         String SAVE = "INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?)";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SAVE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             if (!route.getDeparturePlace().getPlaceName().equals(route.getArrivalPlace().getPlaceName())) {
                 preparedStatement.setInt(1, route.getDeparturePlace().getId());
@@ -197,13 +170,6 @@ public class RouteDaoImpl implements RouteDao {
             return true;
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                connection.close();
-                preparedStatement.close();
-            } catch (SQLException e) {
-                e.getSQLState();
-            }
         }
         return false;
     }

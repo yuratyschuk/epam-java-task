@@ -16,23 +16,15 @@ import java.util.List;
 
 public class TicketDaoImpl implements TicketDao {
 
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
-
     private static Logger logger = LogManager.getLogger();
 
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Ticket ticket) {
         String UPDATE = "UPDATE ticket SET ticket.trip_id=?, ticket.time_when_bought=? WHERE ticket.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setInt(1, ticket.getTrip().getId());
             preparedStatement.setDate(2, ticket.getTimeWhenTicketWasBought());
@@ -65,9 +57,8 @@ public class TicketDaoImpl implements TicketDao {
                 "JOIN train ON trip.train_id = train.id";
 
         List<Ticket> ticketList = new ArrayList<>();
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -135,9 +126,9 @@ public class TicketDaoImpl implements TicketDao {
                 "JOIN train ON trip.train_id = train.id WHERE ticket.id=?";
 
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
+
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -195,9 +186,9 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public boolean deleteById(Integer id) {
         String DELETE_BY_ID = "DELETE FROM ticket WHERE ticket.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -217,9 +208,8 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public boolean save(Ticket ticket) {
         String SAVE = "INSERT INTO ticket(trip_id, time_when_bought) VALUES(?,?)";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SAVE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setInt(1, ticket.getTrip().getId());
             preparedStatement.setDate(2, ticket.getTimeWhenTicketWasBought());

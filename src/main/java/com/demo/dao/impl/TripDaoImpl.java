@@ -31,24 +31,17 @@ public class TripDaoImpl implements DAO<Trip> {
             "JOIN departure_place ON route.departure_place_id = departure_place.id " +
             "JOIN arrival_place ON route.arrival_place_id = arrival_place.id";
 
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
 
     private static Logger logger = LogManager.getLogger();
 
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Trip trip) {
         String UPDATE = "UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, " +
                 "trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
             preparedStatement.setDate(2, trip.getArrivalTime());
@@ -59,7 +52,7 @@ public class TripDaoImpl implements DAO<Trip> {
             preparedStatement.setInt(7, trip.getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
-            if(checkIfNotNull == 0) {
+            if (checkIfNotNull == 0) {
                 throw new TripException("Error while updating trip");
             }
 
@@ -79,13 +72,13 @@ public class TripDaoImpl implements DAO<Trip> {
     @Override
     public boolean deleteById(Integer id) {
         String DELETE_BY_ID = "DELETE FROM trip WHERE trip.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
-            if(checkIfNotNull == 0) {
+            if (checkIfNotNull == 0) {
                 logger.error("Can't delete data because it doesn't exists. Id " + id);
                 throw new TripException("Can't delete data because it doesn't exists. Id " + id);
             }
@@ -102,9 +95,8 @@ public class TripDaoImpl implements DAO<Trip> {
         List<Trip> tripList = new ArrayList<>();
 
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL);
+        try(Connection connection = ConnectionFactory.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -152,9 +144,9 @@ public class TripDaoImpl implements DAO<Trip> {
 
     @Override
     public Trip getById(Integer id) {
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.id=?");
+        try(Connection connection = ConnectionFactory.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.id=?")) {
+
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -198,11 +190,10 @@ public class TripDaoImpl implements DAO<Trip> {
 
     @Override
     public boolean save(Trip trip) {
-        String CREATE_TRIP = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
+        String SAVE = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
                 "VALUES(?, ?, ?, ?, ?, ?)";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(CREATE_TRIP);
+        try(Connection connection = ConnectionFactory.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
             preparedStatement.setDate(2, trip.getArrivalTime());
@@ -221,18 +212,6 @@ public class TripDaoImpl implements DAO<Trip> {
             return true;
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }

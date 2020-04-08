@@ -10,6 +10,8 @@ import com.demo.utils.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.sql.Date;
@@ -17,27 +19,15 @@ import java.util.*;
 
 public class PositionDaoImpl implements PositionDao {
 
-
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
-
     private static Logger logger = LogManager.getLogger();
-
-
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Position position) {
 
         String UPDATE = "UPDATE positions SET job_name=?, salary=? WHERE id=?";
 
-        try {
-
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());
             preparedStatement.setBigDecimal(2, position.getSalary());
@@ -53,23 +43,8 @@ public class PositionDaoImpl implements PositionDao {
             return true;
         } catch (SQLException e) {
             logger.error("Error in Position in update method");
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+            logger.error(e.getMessage());
         }
-
         return false;
     }
 
@@ -77,10 +52,9 @@ public class PositionDaoImpl implements PositionDao {
     public boolean delete(Position position) {
         String SQL_DELETE_BY_USERNAME = "DELETE FROM positions WHERE job_name=?";
 
-        try {
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME)) {
 
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME);
             preparedStatement.setString(1, position.getJobName().toLowerCase());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -94,19 +68,6 @@ public class PositionDaoImpl implements PositionDao {
         } catch (SQLException e) {
             logger.error("Exception in Position in delete method");
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return false;
     }
@@ -115,10 +76,9 @@ public class PositionDaoImpl implements PositionDao {
     public boolean deleteById(Integer id) {
         String SQL_DELETE_BY_ID = "DELETE FROM positions WHERE positions.id=?";
 
-        try {
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
 
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
             preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -132,18 +92,6 @@ public class PositionDaoImpl implements PositionDao {
         } catch (SQLException e) {
             logger.error("Error in PositionDAO in deleteById method");
             logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }
@@ -154,9 +102,10 @@ public class PositionDaoImpl implements PositionDao {
         String SQL_ALL = "SELECT positions.*, worker.last_name, worker.first_name, worker.hire_date, worker.working_experience" +
                 " FROM positions JOIN worker ON  worker.position_id = positions.id";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_ALL);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL)) {
+
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             Map<Integer, Position> positionById = new HashMap<>();
@@ -188,19 +137,6 @@ public class PositionDaoImpl implements PositionDao {
             logger.warn("SQLException in PositionDao in getAll method");
             logger.warn(e.getMessage() + e.getErrorCode() + e.getSQLState());
 
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return null;
     }
@@ -212,10 +148,9 @@ public class PositionDaoImpl implements PositionDao {
                 " FROM positions LEFT JOIN worker ON  positions.id = worker.position_id " +
                 "WHERE positions.id=?";
 
-        try {
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
 
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -243,18 +178,6 @@ public class PositionDaoImpl implements PositionDao {
             return position;
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return null;
     }
@@ -266,10 +189,9 @@ public class PositionDaoImpl implements PositionDao {
                 " positions.id, positions.job_name, positions.salary " +
                 " FROM positions LEFT JOIN worker ON  positions.id = worker.position_id " +
                 " WHERE positions.job_name=?";
-        try {
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME)) {
 
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME);
             preparedStatement.setString(1, jobName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -298,18 +220,6 @@ public class PositionDaoImpl implements PositionDao {
             return position;
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return null;
 
@@ -320,10 +230,8 @@ public class PositionDaoImpl implements PositionDao {
 
         String SQL_ADD = "INSERT INTO positions(job_name, salary) VALUES (?, ?)";
 
-        try {
-
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SQL_ADD);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());
             preparedStatement.setBigDecimal(2, position.getSalary());
@@ -339,18 +247,6 @@ public class PositionDaoImpl implements PositionDao {
         } catch (SQLException e) {
             logger.error("Sql Exception in PositionDao create method");
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }

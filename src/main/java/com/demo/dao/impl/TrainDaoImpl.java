@@ -16,26 +16,16 @@ import java.util.List;
 
 public class TrainDaoImpl implements TrainDao {
 
-
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
-
-
     private static Logger logger = LogManager.getLogger();
 
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Train train) {
         String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=? " +
                 "WHERE train.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());
@@ -59,9 +49,8 @@ public class TrainDaoImpl implements TrainDao {
         String FIND_ALL = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages " +
                 "FROM train";
         List<Train> trainList = new ArrayList<>();
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_ALL);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -88,9 +77,9 @@ public class TrainDaoImpl implements TrainDao {
                 "train.max_number_of_carriages " +
                 "FROM train WHERE train.train_name=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_BY_TRAIN_NAME);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TRAIN_NAME)) {
+
             preparedStatement.setString(1, trainName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -116,9 +105,9 @@ public class TrainDaoImpl implements TrainDao {
     public Train getById(Integer id) {
         String FIND_BY_ID = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages " +
                 "FROM train WHERE train.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -145,9 +134,9 @@ public class TrainDaoImpl implements TrainDao {
     public boolean delete(Train train) {
         String DELETE_BY_NAME = "DELETE FROM train WHERE train.train_name=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_NAME);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
+
             preparedStatement.setString(1, train.getTrainName());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -167,9 +156,9 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public boolean deleteById(Integer id) {
         String DELETE_BY_ID = "DELETE FROM train WHERE train.id=?";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
+
             preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
@@ -189,9 +178,8 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public boolean save(Train train) {
         String SAVE = "INSERT INTO train(train_name, train_number, max_number_of_carriages) VALUES(?, ?, ?)";
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SAVE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());

@@ -7,6 +7,7 @@ import com.demo.utils.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.GenericArrayType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,24 +17,15 @@ import java.util.List;
 
 public class StopDaoImpl implements StopDao {
 
-    private Connection connection = null;
-
-    private PreparedStatement preparedStatement = null;
-
-
     private static Logger logger = LogManager.getLogger();
 
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
 
     @Override
     public boolean update(Stop stop) {
         String UPDATE = "UPDATE stop SET stop.name=?, stop.duration=? WHERE stop.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, stop.getName());
             preparedStatement.setInt(2, stop.getDuration());
@@ -57,9 +49,8 @@ public class StopDaoImpl implements StopDao {
         String GET_ALL = "SELECT stop.id, stop.name, stop.duration FROM stop";
         List<Stop> stopList = new ArrayList<>();
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -87,9 +78,8 @@ public class StopDaoImpl implements StopDao {
     public Stop getByName(String stopName) {
         String FIND_BY_STOP_NAME = "SELECT stop.id, stop.duration FROM stop WHERE stop.name=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_BY_STOP_NAME);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_STOP_NAME)) {
 
             preparedStatement.setString(1, stopName);
 
@@ -114,9 +104,8 @@ public class StopDaoImpl implements StopDao {
     public Stop getById(Integer id) {
         String FIND_BY_ID = "SELECT stop.id, stop.name, stop.duration FROM stop WHERE stop.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(FIND_BY_ID);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
             preparedStatement.setInt(1, id);
 
@@ -141,9 +130,8 @@ public class StopDaoImpl implements StopDao {
     public boolean delete(Stop stop) {
         String DELETE_BY_NAME = "DELETE FROM stop WHERE stop.name=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_NAME);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
 
             preparedStatement.setString(1, stop.getName());
 
@@ -163,9 +151,8 @@ public class StopDaoImpl implements StopDao {
     public boolean deleteById(Integer id) {
         String DELETE_BY_NAME = "DELETE FROM stop WHERE stop.id=?";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_NAME);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
 
             preparedStatement.setInt(1, id);
 
@@ -186,15 +173,14 @@ public class StopDaoImpl implements StopDao {
     public boolean save(Stop stop) {
         String SAVE = "INSERT INTO stop(stop.name, stop.duration) VALUES(?,?)";
 
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(SAVE);
+        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setString(1, stop.getName());
             preparedStatement.setInt(2, stop.getDuration());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
-            if(checkIfNotNull == 0) {
+            if (checkIfNotNull == 0) {
                 throw new StopException("Error while saving stop");
             }
 
