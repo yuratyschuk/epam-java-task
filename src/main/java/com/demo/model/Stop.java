@@ -2,7 +2,7 @@ package com.demo.model;
 
 public class Stop {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -11,17 +11,17 @@ public class Stop {
     public Stop() {
     }
 
-    public Stop(Long id, String name, int duration) {
+    public Stop(Integer id, String name, int duration) {
         this.id = id;
         this.name = name;
         this.duration = duration;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

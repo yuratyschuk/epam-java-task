@@ -1,24 +1,24 @@
 package com.demo.model;
 
-public class DepartureArrivalPlace {
+public class Places {
 
-    private Long id;
+    private Integer id;
 
     private String placeName;
 
-    public DepartureArrivalPlace() {
+    public Places() {
     }
 
-    public DepartureArrivalPlace(Long id, String placeName) {
+    public Places(Integer id, String placeName) {
         this.id = id;
         this.placeName = placeName;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class DepartureArrivalPlace {
 
     @Override
     public String toString() {
-        return "DepartureArrivalPlace{" +
+        return "Places{" +
                 "id=" + id +
                 ", placeName='" + placeName + '\'' +
                 '}';

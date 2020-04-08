@@ -47,3 +47,12 @@
 2020-04-07 17:00:40 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`worker`, CONSTRAINT `worker_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`))145123000
 2020-04-07 17:03:49 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Exception in Position in delete method
 2020-04-07 17:03:49 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Unknown column 'Tester' in 'where clause'105442S22
+2020-04-07 20:54:15 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Column 'departure_place_id' not found.0S0022
+2020-04-07 20:55:15 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Column 'arrival_place' not found.0S0022
+2020-04-07 21:30:59 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`stop_route`, CONSTRAINT `stop_route_ibfk_2` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`))230001451
+2020-04-07 21:44:01 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Departure place and arrival place is equal
+2020-04-07 22:08:33 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Duplicate entry 'Test train' for key 'train_name'230001062
+2020-04-07 23:28:14 [main] ERROR com.demo.dao.impl.TripDaoImpl - Column 'arrival_place_id' not found.S00220
+2020-04-08 14:05:17 [main] ERROR com.demo.dao.impl.TripDaoImpl - Unknown column 'arrival_place.id2' in 'on clause'105442S22
+2020-04-08 14:06:11 [main] ERROR com.demo.dao.impl.TripDaoImpl - Unknown column 'arrival_place.id2' in 'on clause'105442S22
+2020-04-08 14:06:29 [main] ERROR com.demo.dao.impl.TripDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2' at line 4106442000

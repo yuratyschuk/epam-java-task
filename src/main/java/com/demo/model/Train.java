@@ -1,34 +1,36 @@
 package com.demo.model;
 
+import com.demo.model.utils.TrainType;
+
 public class Train {
 
-    private Long id;
+    private Integer id;
 
     private String trainName;
 
     private String trainNumber;
 
-    private int countOfRailwayCarriage;
+    private int maxNumberOfCarriages;
 
-    private int countOfPlaces;
+    private TrainType trainType;
 
 
     public Train() {
     }
 
-    public Train(Long id, String trainName, String trainNumber, int countOfRailwayCarriage, int countOfPlaces) {
+    public Train(Integer id, String trainName, String trainNumber, int maxNumberOfCarriages, TrainType trainType) {
         this.id = id;
         this.trainName = trainName;
         this.trainNumber = trainNumber;
-        this.countOfRailwayCarriage = countOfRailwayCarriage;
-        this.countOfPlaces = countOfPlaces;
+        this.maxNumberOfCarriages = maxNumberOfCarriages;
+        this.trainType = trainType;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,20 +50,20 @@ public class Train {
         this.trainNumber = trainNumber;
     }
 
-    public int getCountOfRailwayCarriage() {
-        return countOfRailwayCarriage;
+    public int getMaxNumberOfCarriages() {
+        return maxNumberOfCarriages;
     }
 
-    public void setCountOfRailwayCarriage(int countOfRailwayCarriage) {
-        this.countOfRailwayCarriage = countOfRailwayCarriage;
+    public void setMaxNumberOfCarriages(int maxNumberOfCarriages) {
+        this.maxNumberOfCarriages = maxNumberOfCarriages;
     }
 
-    public int getCountOfPlaces() {
-        return countOfPlaces;
+    public TrainType getTrainType() {
+        return trainType;
     }
 
-    public void setCountOfPlaces(int countOfPlaces) {
-        this.countOfPlaces = countOfPlaces;
+    public void setTrainType(TrainType trainType) {
+        this.trainType = trainType;
     }
 
     @Override
@@ -70,8 +72,8 @@ public class Train {
                 "id=" + id +
                 ", trainName='" + trainName + '\'' +
                 ", trainNumber='" + trainNumber + '\'' +
-                ", countOfRailwayCarriage=" + countOfRailwayCarriage +
-                ", countOfPlaces=" + countOfPlaces +
+                ", maxNumberOfCarriages=" + maxNumberOfCarriages +
+                ", trainType=" + trainType +
                 '}';
     }
 }

@@ -1,54 +1,58 @@
 package com.demo.model;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.sql.Date;
 
 public class Trip {
 
-    private Long id;
+    private Integer id;
 
-    private LocalDate departureTime;
+    private Date departureTime;
 
-    private LocalDate arrivalTime;
+    private Date arrivalTime;
 
     private Route route;
 
-    private int ticketPrice;
+    private BigDecimal ticketPrice;
 
     private Train train;
+
+    private int numberOfCarriages;
 
     public Trip() {
     }
 
-    public Trip(Long id, LocalDate departureTime, LocalDate arrivalTime, Route route, int ticketPrice, Train train) {
+    public Trip(Integer id, Date departureTime, Date arrivalTime, Route route, BigDecimal ticketPrice, Train train, int numberOfCarriages) {
         this.id = id;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.route = route;
         this.ticketPrice = ticketPrice;
         this.train = train;
+        this.numberOfCarriages = numberOfCarriages;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public LocalDate getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDate departureTime) {
+    public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
 
-    public LocalDate getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDate arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -60,11 +64,11 @@ public class Trip {
         this.route = route;
     }
 
-    public int getTicketPrice() {
+    public BigDecimal getTicketPrice() {
         return ticketPrice;
     }
 
-    public void setTicketPrice(int ticketPrice) {
+    public void setTicketPrice(BigDecimal ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
@@ -76,6 +80,14 @@ public class Trip {
         this.train = train;
     }
 
+    public int getNumberOfCarriages() {
+        return numberOfCarriages;
+    }
+
+    public void setNumberOfCarriages(int numberOfCarriages) {
+        this.numberOfCarriages = numberOfCarriages;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +
@@ -85,6 +97,7 @@ public class Trip {
                 ", route=" + route +
                 ", ticketPrice=" + ticketPrice +
                 ", train=" + train +
+                ", numberOfCarriages=" + numberOfCarriages +
                 '}';
     }
 }

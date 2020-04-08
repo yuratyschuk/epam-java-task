@@ -1,5 +1,7 @@
 package com.demo.dao;
 
+import com.demo.model.Position;
+
 import java.util.List;
 
 public interface DAO<T> {
@@ -8,13 +10,12 @@ public interface DAO<T> {
 
     boolean delete(T t);
 
-    boolean deleteById(Integer id);
-
     List<T> getAll();
+
+    boolean save(T t);
 
     T getById(Integer id);
 
-    T getByName(String name);
+    boolean deleteById(Integer id);
 
-    boolean create(T t);
 }

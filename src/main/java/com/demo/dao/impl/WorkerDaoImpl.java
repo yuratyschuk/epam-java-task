@@ -1,5 +1,6 @@
 package com.demo.dao.impl;
 
+import com.demo.dao.WorkerDao;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
@@ -12,7 +13,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkerDaoImpl implements DAO<Worker> {
+public class WorkerDaoImpl implements WorkerDao {
 
     private Connection connection = null;
 
@@ -27,12 +28,19 @@ public class WorkerDaoImpl implements DAO<Worker> {
 
     @Override
     public boolean update(Worker worker) {
-        String UPDATE = "UPDATE worker SET first_name='" + worker.getFirstName() + "', last_name='" + worker.getLastName() +
-                "', position_id='" + worker.getPosition().getId() + "', working_experience='" + worker.getWorkingExperience() +
-                "', hire_date='" + worker.getHireDate() + "' WHERE id=" + worker.getId();
+        String UPDATE = "UPDATE worker SET worker.first_name=?, worker.last_name=?," +
+                "worker.position_id=?, worker.working_experience=?," +
+                "worker.hire_date=? WHERE worker.id=?";
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(UPDATE);
+            preparedStatement.setString(1, worker.getFirstName());
+            preparedStatement.setString(2, worker.getLastName());
+            preparedStatement.setInt(3, worker.getPosition().getId());
+            preparedStatement.setInt(4, worker.getWorkingExperience());
+            preparedStatement.setDate(5, worker.getHireDate());
+            preparedStatement.setInt(6, worker.getId());
+
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -196,14 +204,14 @@ public class WorkerDaoImpl implements DAO<Worker> {
     @Override
     public Worker getById(Integer id) {
         String SQL_FIND_BY_ID = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
-                "JOIN positions ON positions.id = worker.position_id WHERE worker.id=" + id;
+                "JOIN positions ON positions.id = worker.position_id WHERE worker.id=?";
 
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+            preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {  // because cursor is before first row
                 Worker worker = new Worker();
 
@@ -242,14 +250,14 @@ public class WorkerDaoImpl implements DAO<Worker> {
     }
 
     @Override
-    public Worker getByName(String name) {
+    public Worker getByLastName(String lastName) {
         try {
-            String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name='" + name + "'";
+            String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name=?";
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME);
+            preparedStatement.setString(1, lastName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {  // because cursor is before first row
                 Worker worker = new Worker();
 
@@ -266,8 +274,8 @@ public class WorkerDaoImpl implements DAO<Worker> {
 
                 return worker;
             } else {
-                logger.error("Worker with last name: " + name + " not found");
-                throw new WorkerException("Worker with last name " + name + " not found");
+                logger.error("Worker with last name: " + lastName + " not found");
+                throw new WorkerException("Worker with last name " + lastName + " not found");
             }
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
@@ -289,8 +297,8 @@ public class WorkerDaoImpl implements DAO<Worker> {
     }
 
     @Override
-    public boolean create(Worker worker) {
-          String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
+    public boolean save(Worker worker) {
+        String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
                 " VALUES(?, ?, ?, ?, ?)";
 
         try {

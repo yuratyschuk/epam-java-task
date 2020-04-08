@@ -1,5 +1,6 @@
 package com.demo.dao.impl;
 
+import com.demo.dao.PositionDao;
 import com.demo.exceptions.PositionException;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
@@ -10,12 +11,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.net.Inet4Address;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
-public class PositionDaoImpl implements DAO<Position> {
+public class PositionDaoImpl implements PositionDao {
 
 
     private Connection connection = null;
@@ -32,13 +32,16 @@ public class PositionDaoImpl implements DAO<Position> {
     @Override
     public boolean update(Position position) {
 
-        String UPDATE = "UPDATE positions SET job_name='" + position.getJobName().toLowerCase() + "', salary='" + position.getSalary()
-                + "' WHERE id=" + position.getId();
+        String UPDATE = "UPDATE positions SET job_name=?, salary=? WHERE id=?";
 
         try {
 
             connection = getConnection();
             preparedStatement = connection.prepareStatement(UPDATE);
+
+            preparedStatement.setString(1, position.getJobName().toLowerCase());
+            preparedStatement.setBigDecimal(2, position.getSalary());
+            preparedStatement.setInt(3, position.getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -72,13 +75,13 @@ public class PositionDaoImpl implements DAO<Position> {
 
     @Override
     public boolean delete(Position position) {
-        String SQL_DELETE_BY_USERNAME = "DELETE FROM positions WHERE job_name='" + position.getJobName().toLowerCase() + "'";
+        String SQL_DELETE_BY_USERNAME = "DELETE FROM positions WHERE job_name=?";
 
         try {
 
             connection = getConnection();
-
             preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME);
+            preparedStatement.setString(1, position.getJobName().toLowerCase());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -110,13 +113,13 @@ public class PositionDaoImpl implements DAO<Position> {
 
     @Override
     public boolean deleteById(Integer id) {
-        String SQL_DELETE_BY_ID = "DELETE FROM positions WHERE id=" + id;
+        String SQL_DELETE_BY_ID = "DELETE FROM positions WHERE positions.id=?";
 
         try {
 
             connection = getConnection();
-
             preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
+            preparedStatement.setInt(1, id);
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -207,12 +210,13 @@ public class PositionDaoImpl implements DAO<Position> {
         String SQL_FIND_BY_ID = "SELECT worker.first_name, worker.last_name, worker.hire_date, worker.working_experience," +
                 " positions.id, positions.job_name, positions.salary" +
                 " FROM positions LEFT JOIN worker ON  positions.id = worker.position_id " +
-                "WHERE positions.id=" + id;
+                "WHERE positions.id=?";
 
         try {
 
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+            preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -261,15 +265,15 @@ public class PositionDaoImpl implements DAO<Position> {
         String SQL_GET_BY_NAME = "SELECT worker.first_name, worker.last_name, worker.hire_date, worker.working_experience, " +
                 " positions.id, positions.job_name, positions.salary " +
                 " FROM positions LEFT JOIN worker ON  positions.id = worker.position_id " +
-                " WHERE positions.job_name='" + jobName.toLowerCase() + "'";
+                " WHERE positions.job_name=?";
         try {
 
             connection = getConnection();
             preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME);
+            preparedStatement.setString(1, jobName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             Position position = new Position();
-
             while (resultSet.next()) {  // because cursor is before first row
 
                 position.setId(Integer.parseInt(resultSet.getString("id")));
@@ -312,7 +316,7 @@ public class PositionDaoImpl implements DAO<Position> {
     }
 
     @Override
-    public boolean create(Position position) {
+    public boolean save(Position position) {
 
         String SQL_ADD = "INSERT INTO positions(job_name, salary) VALUES (?, ?)";
 

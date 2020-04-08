@@ -1,29 +1,30 @@
 package com.demo.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
-public class Tickets {
+public class Ticket {
 
-    private Long id;
+    private Integer id;
 
     private Trip trip;
 
-    private LocalDate timeWhenTicketWasBought;
+    private Date timeWhenTicketWasBought;
 
-    public Tickets() {
+    public Ticket() {
     }
 
-    public Tickets(Long id, Trip trip, LocalDate timeWhenTicketWasBought) {
+    public Ticket(Integer id, Trip trip, Date timeWhenTicketWasBought) {
         this.id = id;
         this.trip = trip;
         this.timeWhenTicketWasBought = timeWhenTicketWasBought;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,11 +36,11 @@ public class Tickets {
         this.trip = trip;
     }
 
-    public LocalDate getTimeWhenTicketWasBought() {
+    public Date getTimeWhenTicketWasBought() {
         return timeWhenTicketWasBought;
     }
 
-    public void setTimeWhenTicketWasBought(LocalDate timeWhenTicketWasBought) {
+    public void setTimeWhenTicketWasBought(Date timeWhenTicketWasBought) {
         this.timeWhenTicketWasBought = timeWhenTicketWasBought;
     }
 

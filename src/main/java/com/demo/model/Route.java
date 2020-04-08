@@ -4,38 +4,38 @@ import java.util.Set;
 
 public class Route {
 
-    private Long id;
+    private Integer id;
 
-    private DepartureArrivalPlace departurePlace;
+    private Places departurePlace;
 
-    private DepartureArrivalPlace arrivalPlace;
+    private Places arrivalPlace;
 
     private Set<Stop> stopsList;
 
     public Route() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public DepartureArrivalPlace getDeparturePlace() {
+    public Places getDeparturePlace() {
         return departurePlace;
     }
 
-    public void setDeparturePlace(DepartureArrivalPlace departurePlace) {
+    public void setDeparturePlace(Places departurePlace) {
         this.departurePlace = departurePlace;
     }
 
-    public DepartureArrivalPlace getArrivalPlace() {
+    public Places getArrivalPlace() {
         return arrivalPlace;
     }
 
-    public void setArrivalPlace(DepartureArrivalPlace arrivalPlace) {
+    public void setArrivalPlace(Places arrivalPlace) {
         this.arrivalPlace = arrivalPlace;
     }
 
