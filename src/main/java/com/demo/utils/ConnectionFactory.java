@@ -1,5 +1,8 @@
 package com.demo.utils;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,4 +43,24 @@ public class ConnectionFactory {
     }
     return connectionFactory;
   }
+
+  public ComboPooledDataSource getDataSource() throws PropertyVetoException
+  {
+    ComboPooledDataSource cpds = new ComboPooledDataSource();
+    cpds.setJdbcUrl(CONNECTION_URL + "?serverTimezone=UTC");
+    cpds.setUser("root");
+    cpds.setPassword("ryjgrfryjgrf");
+
+
+    // Optional Settings
+    cpds.setInitialPoolSize(5);
+    cpds.setMinPoolSize(5);
+    cpds.setAcquireIncrement(5);
+    cpds.setMaxPoolSize(20);
+    cpds.setMaxStatements(100);
+
+    return cpds;
+  }
+
+
 }

@@ -26,7 +26,7 @@ public class RouteService {
     }
 
     public Route getById(Integer id) {
-        return routeDao.findById(id);
+        return routeDao.getById(id);
     }
 
     public List<Route> getAll() {

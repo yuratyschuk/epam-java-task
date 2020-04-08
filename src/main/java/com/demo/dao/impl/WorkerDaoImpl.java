@@ -4,11 +4,17 @@ import com.demo.dao.WorkerDao;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.demo.dao.DAO;
 import com.demo.utils.ConnectionFactory;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +157,8 @@ public class WorkerDaoImpl implements WorkerDao {
         String SQL_ALL = "SELECT worker.*, positions.job_name, positions.salary " +
                 "FROM worker JOIN positions ON positions.id = worker.position_id";
         try {
-            connection = getConnection();
+            connection = ConnectionFactory.getInstance().getDataSource().getConnection();
+
             preparedStatement = connection.prepareStatement(SQL_ALL);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -180,9 +187,9 @@ public class WorkerDaoImpl implements WorkerDao {
             }
 
             return workerList;
-        } catch (SQLException e) {
+        } catch (SQLException | PropertyVetoException e) {
             logger.warn("SQLException in WorkerDao in getAll method");
-            logger.warn(e.getMessage() + e.getErrorCode() + e.getSQLState());
+            logger.warn(e.getMessage());
 
         } finally {
             try {

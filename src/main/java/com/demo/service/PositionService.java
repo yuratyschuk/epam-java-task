@@ -1,6 +1,7 @@
 package com.demo.service;
 
 import com.demo.dao.DAO;
+import com.demo.dao.PositionDao;
 import com.demo.dao.impl.PositionDaoImpl;
 import com.demo.model.Position;
 import com.demo.model.Worker;
@@ -8,9 +9,9 @@ import com.demo.model.Worker;
 import java.util.List;
 
 public class PositionService {
-    private DAO<Position> positionDao = new PositionDaoImpl();
+    private PositionDao positionDao = new PositionDaoImpl();
 
-    public PositionService(DAO<Position> positionDao) {
+    public PositionService(PositionDao positionDao) {
         this.positionDao = positionDao;
     }
 
@@ -27,7 +28,7 @@ public class PositionService {
     }
 
     public boolean create(Position position) {
-        return positionDao.create(position);
+        return positionDao.save(position);
     }
 
     public boolean delete(Position position) {
