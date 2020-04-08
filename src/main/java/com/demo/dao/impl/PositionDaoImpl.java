@@ -1,6 +1,6 @@
 package com.demo.dao.impl;
 
-import com.demo.dao.PositionDao;
+import com.demo.dao.interfaces.PositionDao;
 import com.demo.exceptions.PositionException;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
