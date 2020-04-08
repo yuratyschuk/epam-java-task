@@ -5,13 +5,10 @@ import com.demo.exceptions.PositionException;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
-import com.demo.dao.DAO;
-import com.demo.utils.ConnectionFactory;
+import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.sql.Date;
@@ -26,7 +23,7 @@ public class PositionDaoImpl implements PositionDao {
 
         String UPDATE = "UPDATE positions SET job_name=?, salary=? WHERE id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());
@@ -52,7 +49,7 @@ public class PositionDaoImpl implements PositionDao {
     public boolean delete(Position position) {
         String SQL_DELETE_BY_USERNAME = "DELETE FROM positions WHERE job_name=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());
@@ -76,7 +73,7 @@ public class PositionDaoImpl implements PositionDao {
     public boolean deleteById(Integer id) {
         String SQL_DELETE_BY_ID = "DELETE FROM positions WHERE positions.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -102,7 +99,7 @@ public class PositionDaoImpl implements PositionDao {
         String SQL_ALL = "SELECT positions.*, worker.last_name, worker.first_name, worker.hire_date, worker.working_experience" +
                 " FROM positions JOIN worker ON  worker.position_id = positions.id";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL)) {
 
 
@@ -148,7 +145,7 @@ public class PositionDaoImpl implements PositionDao {
                 " FROM positions LEFT JOIN worker ON  positions.id = worker.position_id " +
                 "WHERE positions.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -189,7 +186,7 @@ public class PositionDaoImpl implements PositionDao {
                 " positions.id, positions.job_name, positions.salary " +
                 " FROM positions LEFT JOIN worker ON  positions.id = worker.position_id " +
                 " WHERE positions.job_name=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME)) {
 
             preparedStatement.setString(1, jobName);
@@ -230,7 +227,7 @@ public class PositionDaoImpl implements PositionDao {
 
         String SQL_ADD = "INSERT INTO positions(job_name, salary) VALUES (?, ?)";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());

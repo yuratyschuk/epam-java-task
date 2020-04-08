@@ -18,8 +18,8 @@ public class RouteService {
     }
 
     public boolean update(Route route) {
-        if(!route.getDeparturePlace().getPlaceName().equals(route.getArrivalPlace().getPlaceName())) {
-            routeDao.save(route);
+        if (!route.getDeparturePlace().getPlaceName().equals(route.getArrivalPlace().getPlaceName())) {
+            routeDao.update(route);
             return true;
         }
         return false;
@@ -35,6 +35,10 @@ public class RouteService {
 
     public boolean deleteById(Integer id) {
         return routeDao.deleteById(id);
+    }
+
+    public boolean delete(Route route) {
+        return routeDao.delete(route);
     }
 
 

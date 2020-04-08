@@ -1,9 +1,9 @@
 package com.demo.dao.impl;
 
-import com.demo.dao.TrainDao;
+import com.demo.dao.interfaces.TrainDao;
 import com.demo.exceptions.TrainException;
 import com.demo.model.Train;
-import com.demo.utils.ConnectionFactory;
+import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class TrainDaoImpl implements TrainDao {
         String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=? " +
                 "WHERE train.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, train.getTrainName());
@@ -49,7 +49,7 @@ public class TrainDaoImpl implements TrainDao {
         String FIND_ALL = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages " +
                 "FROM train";
         List<Train> trainList = new ArrayList<>();
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -77,7 +77,7 @@ public class TrainDaoImpl implements TrainDao {
                 "train.max_number_of_carriages " +
                 "FROM train WHERE train.train_name=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TRAIN_NAME)) {
 
             preparedStatement.setString(1, trainName);
@@ -105,7 +105,7 @@ public class TrainDaoImpl implements TrainDao {
     public Train getById(Integer id) {
         String FIND_BY_ID = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages " +
                 "FROM train WHERE train.id=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -134,7 +134,7 @@ public class TrainDaoImpl implements TrainDao {
     public boolean delete(Train train) {
         String DELETE_BY_NAME = "DELETE FROM train WHERE train.train_name=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
 
             preparedStatement.setString(1, train.getTrainName());
@@ -156,7 +156,7 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public boolean deleteById(Integer id) {
         String DELETE_BY_ID = "DELETE FROM train WHERE train.id=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -178,7 +178,7 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public boolean save(Train train) {
         String SAVE = "INSERT INTO train(train_name, train_number, max_number_of_carriages) VALUES(?, ?, ?)";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setString(1, train.getTrainName());

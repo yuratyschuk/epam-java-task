@@ -1,13 +1,12 @@
 package com.demo.dao.impl;
 
-import com.demo.dao.StopDao;
+import com.demo.dao.interfaces.StopDao;
 import com.demo.exceptions.StopException;
 import com.demo.model.Stop;
-import com.demo.utils.ConnectionFactory;
+import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.GenericArrayType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +23,7 @@ public class StopDaoImpl implements StopDao {
     public boolean update(Stop stop) {
         String UPDATE = "UPDATE stop SET stop.name=?, stop.duration=? WHERE stop.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, stop.getName());
@@ -49,7 +48,7 @@ public class StopDaoImpl implements StopDao {
         String GET_ALL = "SELECT stop.id, stop.name, stop.duration FROM stop";
         List<Stop> stopList = new ArrayList<>();
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -78,7 +77,7 @@ public class StopDaoImpl implements StopDao {
     public Stop getByName(String stopName) {
         String FIND_BY_STOP_NAME = "SELECT stop.id, stop.duration FROM stop WHERE stop.name=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_STOP_NAME)) {
 
             preparedStatement.setString(1, stopName);
@@ -104,7 +103,7 @@ public class StopDaoImpl implements StopDao {
     public Stop getById(Integer id) {
         String FIND_BY_ID = "SELECT stop.id, stop.name, stop.duration FROM stop WHERE stop.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -130,7 +129,7 @@ public class StopDaoImpl implements StopDao {
     public boolean delete(Stop stop) {
         String DELETE_BY_NAME = "DELETE FROM stop WHERE stop.name=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
 
             preparedStatement.setString(1, stop.getName());
@@ -151,7 +150,7 @@ public class StopDaoImpl implements StopDao {
     public boolean deleteById(Integer id) {
         String DELETE_BY_NAME = "DELETE FROM stop WHERE stop.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
 
             preparedStatement.setInt(1, id);
@@ -173,7 +172,7 @@ public class StopDaoImpl implements StopDao {
     public boolean save(Stop stop) {
         String SAVE = "INSERT INTO stop(stop.name, stop.duration) VALUES(?,?)";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setString(1, stop.getName());

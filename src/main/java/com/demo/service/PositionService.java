@@ -1,19 +1,15 @@
 package com.demo.service;
 
 import com.demo.dao.DAO;
-import com.demo.dao.PositionDao;
 import com.demo.dao.impl.PositionDaoImpl;
+import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 import com.demo.model.Worker;
 
 import java.util.List;
 
 public class PositionService {
-    private PositionDao positionDao = new PositionDaoImpl();
-
-    public PositionService(PositionDao positionDao) {
-        this.positionDao = positionDao;
-    }
+    private PositionDaoImpl positionDao = new PositionDaoImpl();
 
     public Position getById(Integer id) {
         return positionDao.getById(id);
@@ -27,7 +23,7 @@ public class PositionService {
         return positionDao.getAll();
     }
 
-    public boolean create(Position position) {
+    public boolean save(Position position) {
         return positionDao.save(position);
     }
 

@@ -8,7 +8,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.demo.dao.DAO;
-import com.demo.utils.ConnectionFactory;
+import com.demo.utils.ConnectionPool;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,7 +28,7 @@ public class WorkerDaoImpl implements WorkerDao {
         String UPDATE = "UPDATE worker SET worker.first_name=?, worker.last_name=?," +
                 "worker.position_id=?, worker.working_experience=?," +
                 "worker.hire_date=? WHERE worker.id=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setString(1, worker.getFirstName());
@@ -58,7 +58,7 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public boolean delete(Worker worker) {
         String SQL_DELETE_BY_USERNAME = "DELETE FROM worker WHERE worker.last_name=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME)) {
 
             preparedStatement.setString(1, worker.getLastName());
@@ -81,7 +81,7 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public boolean deleteById(Integer id) {
         String SQL_DELETE_BY_ID = "DELETE FROM worker WHERE worker.id=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -107,7 +107,7 @@ public class WorkerDaoImpl implements WorkerDao {
         String SQL_ALL = "SELECT worker.*, positions.job_name, positions.salary " +
                 "FROM worker JOIN positions ON positions.id = worker.position_id";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -149,7 +149,7 @@ public class WorkerDaoImpl implements WorkerDao {
         String SQL_FIND_BY_ID = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
                 "JOIN positions ON positions.id = worker.position_id WHERE worker.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -183,7 +183,7 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public Worker getByLastName(String lastName) {
         String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME)) {
 
             preparedStatement.setString(1, lastName);
@@ -220,7 +220,7 @@ public class WorkerDaoImpl implements WorkerDao {
         String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
                 " VALUES(?, ?, ?, ?, ?)";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD)) {
 
 

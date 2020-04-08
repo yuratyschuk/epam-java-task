@@ -1,18 +1,12 @@
 package com.demo.service;
 
-import com.demo.dao.DAO;
-import com.demo.dao.WorkerDao;
 import com.demo.dao.impl.WorkerDaoImpl;
 import com.demo.model.Worker;
 
 import java.util.List;
 
 public class WorkerService {
-    private WorkerDao workerDao;
-
-    public WorkerService(WorkerDao workerDao) {
-        this.workerDao = workerDao;
-    }
+    private WorkerDaoImpl workerDao;
 
     public Worker getById(Integer id) {
         return workerDao.getById(id);
@@ -26,7 +20,7 @@ public class WorkerService {
         return workerDao.getAll();
     }
 
-    public boolean create(Worker worker) {
+    public boolean save(Worker worker) {
         return workerDao.save(worker);
     }
 

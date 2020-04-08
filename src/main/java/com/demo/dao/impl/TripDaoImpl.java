@@ -7,7 +7,7 @@ import com.demo.model.Places;
 import com.demo.model.Route;
 import com.demo.model.Train;
 import com.demo.model.Trip;
-import com.demo.utils.ConnectionFactory;
+import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +40,7 @@ public class TripDaoImpl implements DAO<Trip> {
         String UPDATE = "UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, " +
                 "trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=?";
 
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
@@ -72,7 +72,7 @@ public class TripDaoImpl implements DAO<Trip> {
     @Override
     public boolean deleteById(Integer id) {
         String DELETE_BY_ID = "DELETE FROM trip WHERE trip.id=?";
-        try (Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
 
             preparedStatement.setInt(1, id);
@@ -95,7 +95,7 @@ public class TripDaoImpl implements DAO<Trip> {
         List<Trip> tripList = new ArrayList<>();
 
 
-        try(Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -144,7 +144,7 @@ public class TripDaoImpl implements DAO<Trip> {
 
     @Override
     public Trip getById(Integer id) {
-        try(Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.id=?")) {
 
             preparedStatement.setInt(1, id);
@@ -192,7 +192,7 @@ public class TripDaoImpl implements DAO<Trip> {
     public boolean save(Trip trip) {
         String SAVE = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
                 "VALUES(?, ?, ?, ?, ?, ?)";
-        try(Connection connection = ConnectionFactory.getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
