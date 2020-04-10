@@ -14,7 +14,6 @@ public class Train {
 
     private TrainType trainType;
 
-
     public Train() {
     }
 

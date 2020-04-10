@@ -1,7 +1,5 @@
 package com.demo.dao;
 
-import com.demo.model.Position;
-
 import java.util.List;
 
 public interface DAO<T> {

@@ -58,8 +58,9 @@ CREATE TABLE IF NOT EXISTS route
 CREATE TABLE IF NOT EXISTS train
 (
     id                      INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    train_name              VARCHAR(40)  NOT NULL UNIQUE ,
-    train_number            VARCHAR(20)  NOT NULL UNIQUE ,
+    train_name              VARCHAR(40)  NOT NULL UNIQUE,
+    train_number            VARCHAR(20)  NOT NULL UNIQUE,
+    type                    VARCHAR(15)  NOT NULL,
     max_number_of_carriages INT UNSIGNED NOT NULL
 );
 

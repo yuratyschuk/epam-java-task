@@ -6,7 +6,7 @@ import com.demo.model.Worker;
 import java.util.List;
 
 public class WorkerService {
-    private WorkerDaoImpl workerDao;
+    private WorkerDaoImpl workerDao = new WorkerDaoImpl();
 
     public Worker getById(Integer id) {
         return workerDao.getById(id);

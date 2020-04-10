@@ -96,8 +96,7 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public List<Position> getAll() {
         List<Position> positionList = new ArrayList<>();
-        String SQL_ALL = "SELECT positions.*, worker.last_name, worker.first_name, worker.hire_date, worker.working_experience" +
-                " FROM positions JOIN worker ON  worker.position_id = positions.id";
+        String SQL_ALL = "SELECT positions.* FROM positions";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL)) {
@@ -107,27 +106,30 @@ public class PositionDaoImpl implements PositionDao {
 
             Map<Integer, Position> positionById = new HashMap<>();
             while (resultSet.next()) {
-
+                Position position = new Position();
                 Integer id = resultSet.getInt("id");
                 String jobName = resultSet.getString("job_name");
                 BigDecimal salary = resultSet.getBigDecimal("salary");
-
-                String firstName = resultSet.getString("first_name");
-                String lastName = resultSet.getString("last_name");
-                int workingExperience = Integer.parseInt(resultSet.getString("working_experience"));
-                Date hireDate = Date.valueOf(resultSet.getString("hire_date"));
-
-                Position position = positionById.get(id);
-                if (position == null) {
-                    position = new Position(id, jobName, salary);
-                    positionById.put(position.getId(), position);
-                }
-
-                Worker worker = new Worker(firstName, lastName, workingExperience, hireDate);
-                position.setWorkerList(Collections.singletonList(worker));
-
+                position.setId(id);
+                position.setJobName(jobName);
+                position.setSalary(salary);
+                //
+//                String firstName = resultSet.getString("first_name");
+//                String lastName = resultSet.getString("last_name");
+//                int workingExperience = Integer.parseInt(resultSet.getString("working_experience"));
+//                Date hireDate = Date.valueOf(resultSet.getString("hire_date"));
+//
+//                Position position = positionById.get(id);
+//                if (position == null) {
+//                    position = new Position(id, jobName, salary);
+//                    positionById.put(position.getId(), position);
+//                }
+//
+//                Worker worker = new Worker(firstName, lastName, workingExperience, hireDate);
+//                position.setWorkerList(Collections.singletonList(worker));
+                positionList.add(position);
             }
-            positionList.addAll(positionById.values());
+//            positionList.addAll(positionById.values());
 
             return positionList;
         } catch (SQLException e) {
@@ -198,16 +200,13 @@ public class PositionDaoImpl implements PositionDao {
                 position.setId(Integer.parseInt(resultSet.getString("id")));
                 position.setJobName(resultSet.getString("job_name"));
                 position.setSalary(BigDecimal.valueOf(Long.parseLong(resultSet.getString("salary"))));
-                if (resultSet.getString("first_name") == null) {
-                    break;
-                } else {
-                    Worker worker = new Worker();
-                    worker.setFirstName(resultSet.getString("first_name"));
-                    worker.setLastName(resultSet.getString("last_name"));
-                    worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
-                    worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                    position.setWorkerList(Collections.singletonList(worker));
-                }
+                Worker worker = new Worker();
+                worker.setFirstName(resultSet.getString("first_name"));
+                worker.setLastName(resultSet.getString("last_name"));
+                worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
+                worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+                position.setWorkerList(Collections.singletonList(worker));
+
             }
             if (position.getId() == null) {
                 logger.error("Position with job name " + jobName + " doesn't exists");

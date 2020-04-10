@@ -3,6 +3,7 @@ package com.demo.dao.impl;
 import com.demo.dao.interfaces.TrainDao;
 import com.demo.exceptions.TrainException;
 import com.demo.model.Train;
+import com.demo.model.utils.TrainType;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +22,8 @@ public class TrainDaoImpl implements TrainDao {
 
     @Override
     public boolean update(Train train) {
-        String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=? " +
+        String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=?," +
+                "train.type=? " +
                 "WHERE train.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -30,7 +32,8 @@ public class TrainDaoImpl implements TrainDao {
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());
             preparedStatement.setInt(3, train.getMaxNumberOfCarriages());
-            preparedStatement.setInt(4, train.getMaxNumberOfCarriages());
+            preparedStatement.setString(4, train.getTrainType().toString());
+            preparedStatement.setInt(5, train.getMaxNumberOfCarriages());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -46,7 +49,7 @@ public class TrainDaoImpl implements TrainDao {
 
     @Override
     public List<Train> getAll() {
-        String FIND_ALL = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages " +
+        String FIND_ALL = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages, train.type " +
                 "FROM train";
         List<Train> trainList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -59,7 +62,8 @@ public class TrainDaoImpl implements TrainDao {
                 train.setTrainName(resultSet.getString("train_name"));
                 train.setTrainNumber(resultSet.getString("train_number"));
                 train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-
+                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                train.setTrainType(trainType);
                 trainList.add(train);
             }
 
@@ -74,7 +78,7 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public Train getByName(String trainName) {
         String FIND_BY_TRAIN_NAME = "SELECT train.id, train.train_name, train.train_number," +
-                "train.max_number_of_carriages " +
+                "train.max_number_of_carriages, train.type " +
                 "FROM train WHERE train.train_name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -89,7 +93,10 @@ public class TrainDaoImpl implements TrainDao {
                 train.setTrainName(resultSet.getString("train_name"));
                 train.setTrainNumber(resultSet.getString("train_number"));
                 train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
+                TrainType trainType = TrainType.valueOf("type");
+                train.setTrainType(trainType);
 
+                resultSet.close();
                 return train;
             } else {
                 logger.error("Train with name " + trainName + " not found");
@@ -103,7 +110,8 @@ public class TrainDaoImpl implements TrainDao {
 
     @Override
     public Train getById(Integer id) {
-        String FIND_BY_ID = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages " +
+        String FIND_BY_ID = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages," +
+                "train.type " +
                 "FROM train WHERE train.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
@@ -117,7 +125,10 @@ public class TrainDaoImpl implements TrainDao {
                 train.setTrainName(resultSet.getString("train_name"));
                 train.setTrainNumber(resultSet.getString("train_number"));
                 train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
+                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                train.setTrainType(trainType);
 
+                resultSet.close();
                 return train;
             } else {
                 logger.error("Train with id " + id + " not found");
@@ -177,13 +188,14 @@ public class TrainDaoImpl implements TrainDao {
 
     @Override
     public boolean save(Train train) {
-        String SAVE = "INSERT INTO train(train_name, train_number, max_number_of_carriages) VALUES(?, ?, ?)";
+        String SAVE = "INSERT INTO train(train_name, train_number, max_number_of_carriages, type) VALUES(?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());
             preparedStatement.setInt(3, train.getMaxNumberOfCarriages());
+            preparedStatement.setString(4, train.getTrainType().toString());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {

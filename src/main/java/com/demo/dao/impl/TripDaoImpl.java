@@ -7,6 +7,7 @@ import com.demo.model.Places;
 import com.demo.model.Route;
 import com.demo.model.Train;
 import com.demo.model.Trip;
+import com.demo.model.utils.TrainType;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,7 @@ public class TripDaoImpl implements DAO<Trip> {
 
     private String GET_ALL = "SELECT trip.id, trip.departure_time, trip.arrival_time, " +
             "trip.route_id, trip.ticket_price, trip.train_id, " +
-            "train.train_name, train.train_number, route.arrival_place_id, " +
+            "train.train_name, train.train_number, train.type, route.arrival_place_id, " +
             "route.departure_place_id, departure_place.departure_name, " +
             "arrival_place.arrival_name, trip.number_of_carriages " +
             "FROM trip " +
@@ -65,7 +66,14 @@ public class TripDaoImpl implements DAO<Trip> {
 
     @Override
     public boolean delete(Trip trip) {
-        String delete = "DELETE FROM trip WHERE trip=";
+        String DELETE = "DELETE FROM trip WHERE trip.id=?";
+
+        try(Connection connection = ConnectionPool.getDataSource().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+        }
         return false;
     }
 
@@ -123,6 +131,8 @@ public class TripDaoImpl implements DAO<Trip> {
                 train.setId(resultSet.getInt("train_id"));
                 train.setTrainName(resultSet.getString("train_name"));
                 train.setTrainNumber(resultSet.getString("train_number"));
+                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                train.setTrainType(trainType);
 
                 trip.setRoute(route);
                 trip.setTrain(train);
@@ -173,6 +183,9 @@ public class TripDaoImpl implements DAO<Trip> {
                 train.setId(resultSet.getInt("train_id"));
                 train.setTrainName(resultSet.getString("train_name"));
                 train.setTrainNumber(resultSet.getString("train_number"));
+                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                train.setTrainType(trainType);
+
 
                 trip.setRoute(route);
                 trip.setTrain(train);

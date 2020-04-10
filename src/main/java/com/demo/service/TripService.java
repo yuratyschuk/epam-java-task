@@ -1,7 +1,9 @@
 package com.demo.service;
 
 import com.demo.dao.impl.TripDaoImpl;
+import com.demo.exceptions.TripException;
 import com.demo.model.Trip;
+import com.demo.model.utils.TrainType;
 
 import java.util.List;
 
@@ -10,7 +12,11 @@ public class TripService {
     TripDaoImpl tripDao = new TripDaoImpl();
 
     public boolean update(Trip trip) {
-        return tripDao.update(trip);
+        if (trip.getTrain().getTrainType() != TrainType.CARGO) {
+            return tripDao.update(trip);
+        } else {
+            throw new TripException("Trip type isn't PASSENGER");
+        }
     }
 
     public boolean delete(Trip trip) {
@@ -30,6 +36,10 @@ public class TripService {
     }
 
     public boolean save(Trip trip) {
-        return tripDao.save(trip);
+        if (trip.getTrain().getTrainType() != TrainType.CARGO) {
+            return tripDao.save(trip);
+        } else {
+            throw new TripException("Can't save trip because it isn't PASSENGER");
+        }
     }
 }

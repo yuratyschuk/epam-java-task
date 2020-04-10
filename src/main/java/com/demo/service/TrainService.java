@@ -1,7 +1,6 @@
 package com.demo.service;
 
 import com.demo.dao.impl.TrainDaoImpl;
-import com.demo.model.Ticket;
 import com.demo.model.Train;
 
 import java.util.List;

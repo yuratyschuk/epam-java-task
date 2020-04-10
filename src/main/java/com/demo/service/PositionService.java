@@ -1,10 +1,7 @@
 package com.demo.service;
 
-import com.demo.dao.DAO;
 import com.demo.dao.impl.PositionDaoImpl;
-import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
-import com.demo.model.Worker;
 
 import java.util.List;
 

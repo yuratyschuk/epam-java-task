@@ -2,12 +2,15 @@ package com.demo.utils;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,8 +27,9 @@ public class ConnectionPool {
 
     static {
         try {
+            URL resource = ConnectionPool.class.getClassLoader().getResource("application.properties");
             Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/resources/application.properties"));
+            properties.load(new FileInputStream(resource.toURI().getPath()));
 
             dataSource = new ComboPooledDataSource();
             dataSource.setDriverClass(properties.getProperty(DB_DRIVER_CLASS));
@@ -38,7 +42,7 @@ public class ConnectionPool {
             dataSource.setMaxPoolSize(10);
             dataSource.setAcquireIncrement(5);
 
-        } catch (IOException | PropertyVetoException e) {
+        } catch (IOException | PropertyVetoException | URISyntaxException e) {
             e.printStackTrace();
         }
     }

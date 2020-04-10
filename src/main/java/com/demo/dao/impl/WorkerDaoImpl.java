@@ -4,17 +4,10 @@ import com.demo.dao.interfaces.WorkerDao;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.demo.dao.DAO;
-import com.demo.utils.ConnectionPool;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,9 +101,8 @@ public class WorkerDaoImpl implements WorkerDao {
                 "FROM worker JOIN positions ON positions.id = worker.position_id";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL)) {
-
-            ResultSet resultSet = preparedStatement.executeQuery();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 Worker worker = new Worker();
@@ -135,6 +127,7 @@ public class WorkerDaoImpl implements WorkerDao {
                 throw new WorkerException("Worker data table is empty");
             }
 
+            resultSet.close();
             return workerList;
         } catch (SQLException e) {
             logger.warn("SQLException in WorkerDao in getAll method");
@@ -169,6 +162,7 @@ public class WorkerDaoImpl implements WorkerDao {
                 worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
                 worker.setPosition(position);
 
+                resultSet.close();
                 return worker;
             } else {
                 logger.error("Worker with id " + id + " not found");
@@ -203,6 +197,7 @@ public class WorkerDaoImpl implements WorkerDao {
                 worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
                 worker.setPosition(position);
 
+                resultSet.close();
                 return worker;
             } else {
                 logger.error("Worker with last name: " + lastName + " not found");
