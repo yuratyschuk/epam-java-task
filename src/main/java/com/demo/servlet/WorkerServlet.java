@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
-
-//@WebServlet("/worker")
 public class WorkerServlet extends HttpServlet {
 
     private WorkerService workerService;
@@ -81,9 +79,10 @@ public class WorkerServlet extends HttpServlet {
 
         String workerId = request.getParameter("workerId");
 
-        if (workerId == null || workerId.isEmpty())
+        if (workerId == null || workerId.isEmpty()) {
             workerService.save(worker);
-        else {
+
+        } else {
             worker.setId(Integer.parseInt(workerId));
             workerService.update(worker);
         }

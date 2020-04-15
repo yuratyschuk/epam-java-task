@@ -83,6 +83,32 @@ public class RouteDaoImpl implements RouteDao {
         return null;
     }
 
+    @Override
+    public Route getByArrivalPlaceIdAndDeparturePlaceId(Integer departurePlaceId, Integer arrivalPlaceId) {
+        String FIND_BY_ARRIVAL_PLACE_ID_AND_DEPARTURE_PLACE_ID = "SELECT route.id FROM route " +
+                "WHERE route.departure_place_id=? AND route.arrival_place_id=?";
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.
+                     prepareStatement(FIND_BY_ARRIVAL_PLACE_ID_AND_DEPARTURE_PLACE_ID)) {
+
+            preparedStatement.setInt(1, departurePlaceId);
+            preparedStatement.setInt(2, arrivalPlaceId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Route route = new Route();
+                route.setId(resultSet.getInt("id"));
+                return route;
+            } else {
+                throw new RouteException("Route not found");
+            }
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+        }
+        return null;
+    }
 
     @Override
     public Route getById(Integer id) {

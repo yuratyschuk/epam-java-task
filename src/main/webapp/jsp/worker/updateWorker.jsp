@@ -16,7 +16,6 @@
 
     <form action="worker" method="post">
 
-        <input type="hidden" name="command" value="UPDATE" />
 
         <input type="hidden" name="workerId" value="${worker.id}" />
 
@@ -67,7 +66,6 @@
         </table>
     </form>
 
-    <div style="clear: both;"></div>
 
     <p>
         <a href="worker?action=listWorkers">Back to List</a>

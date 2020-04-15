@@ -7,6 +7,8 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.servletContext.contextPath}/worker?action=listWorkers">Workers info</a>
             <a class="nav-link" href="${pageContext.servletContext.contextPath}/trip?action=search">Search trip</a>
+            <a class="nav-link" href="${pageContext.servletContext.contextPath}/train?action=listTrain">Train list</a>
+
         </li>
     </ul>
 </nav>

@@ -25,6 +25,10 @@ public class RouteService {
         return false;
     }
 
+    public Route getByDeparturePlaceIdAndArrivalPlaceId(Integer departurePlaceId, Integer arrivalPlaceId) {
+        return routeDao.getByArrivalPlaceIdAndDeparturePlaceId(departurePlaceId, arrivalPlaceId);
+    }
+
     public Route getById(Integer id) {
         return routeDao.getById(id);
     }

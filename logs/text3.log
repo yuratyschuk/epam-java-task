@@ -76,3 +76,6 @@
 2020-04-08 20:41:16 [main] WARN  com.demo.dao.impl.WorkerDaoImpl - Connections could not be acquired from the underlying database!
 2020-04-08 20:42:31 [main] WARN  com.demo.dao.impl.WorkerDaoImpl - SQLException in WorkerDao in getAll method
 2020-04-08 20:42:31 [main] WARN  com.demo.dao.impl.WorkerDaoImpl - Connections could not be acquired from the underlying database!
+2020-04-10 23:25:29 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`ticket`, CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`))145123000
+2020-04-10 23:27:10 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`trip`, CONSTRAINT `trip_ibfk_2` FOREIGN KEY (`train_id`) REFERENCES `train` (`id`))145123000
+2020-04-10 23:59:03 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2

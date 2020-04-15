@@ -35,6 +35,10 @@ public class TripService {
         return tripDao.getById(id);
     }
 
+    public List<Trip> getByRouteId(int routeId) {
+        return tripDao.getByRouteId(routeId);
+    }
+
     public boolean save(Trip trip) {
         if (trip.getTrain().getTrainType() != TrainType.CARGO) {
             return tripDao.save(trip);

@@ -22,7 +22,7 @@ public class TrainDaoImpl implements TrainDao {
 
     @Override
     public boolean update(Train train) {
-        String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=?," +
+        String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=?, " +
                 "train.type=? " +
                 "WHERE train.id=?";
 
@@ -33,11 +33,11 @@ public class TrainDaoImpl implements TrainDao {
             preparedStatement.setString(2, train.getTrainNumber());
             preparedStatement.setInt(3, train.getMaxNumberOfCarriages());
             preparedStatement.setString(4, train.getTrainType().toString());
-            preparedStatement.setInt(5, train.getMaxNumberOfCarriages());
+            preparedStatement.setInt(5, train.getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new TrainException("Error while updating train with id" + train.getId());
+                throw new TrainException("Error while updating train with id " + train.getId());
             }
 
             return true;

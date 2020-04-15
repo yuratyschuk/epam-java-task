@@ -16,31 +16,19 @@ values (3, 'Artur', 'Mikhailiv', 1, 3, '2015-12-31');
 INSERT INTO worker
     value (5, 'Anton', 'Vakoluk', 1, 2, '2020-03-05');
 
-INSERT INTO departure_place
+INSERT INTO places
 VALUES (1, 'Rivne');
-INSERT INTO departure_place
+INSERT INTO places
 VALUES (2, 'Lviv');
-INSERT INTO departure_place
+INSERT INTO places
 VALUES (3, 'Kyiv');
-INSERT INTO departure_place
+INSERT INTO places
 VALUES (4, 'Ternopil');
-INSERT INTO departure_place
+INSERT INTO places
 VALUES (5, 'Kharkiv');
-INSERT INTO departure_place
+INSERT INTO places
 VALUES (6, 'Odesa');
 
-INSERT INTO arrival_place
-VALUES (1, 'Rivne');
-INSERT INTO arrival_place
-VALUES (2, 'Lviv');
-INSERT INTO arrival_place
-VALUES (3, 'Kyiv');
-INSERT INTO arrival_place
-VALUES (4, 'Ternopil');
-INSERT INTO arrival_place
-VALUES (5, 'Kharkiv');
-INSERT INTO arrival_place
-VALUES (6, 'Odesa');
 
 INSERT INTO route
 VALUES (1, 1, 2);

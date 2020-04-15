@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.DAO;
+import com.demo.dao.interfaces.TripDao;
 import com.demo.exceptions.TrainException;
 import com.demo.exceptions.TripException;
 import com.demo.model.Places;
@@ -19,18 +20,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripDaoImpl implements DAO<Trip> {
+public class TripDaoImpl implements TripDao {
 
     private String GET_ALL = "SELECT trip.id, trip.departure_time, trip.arrival_time, " +
             "trip.route_id, trip.ticket_price, trip.train_id, " +
             "train.train_name, train.train_number, train.type, route.arrival_place_id, " +
-            "route.departure_place_id, departure_place.departure_name, " +
-            "arrival_place.arrival_name, trip.number_of_carriages " +
+            "route.departure_place_id, departure_place.name AS departure_name, " +
+            "arrival_place.name AS arrival_name, trip.number_of_carriages " +
             "FROM trip " +
             "JOIN train ON train.id = trip.train_id " +
             "JOIN route ON route.id = trip.route_id " +
-            "JOIN departure_place ON route.departure_place_id = departure_place.id " +
-            "JOIN arrival_place ON route.arrival_place_id = arrival_place.id";
+            "JOIN places departure_place ON route.departure_place_id = departure_place.id " +
+            "JOIN places arrival_place ON route.arrival_place_id = arrival_place.id";
 
 
     private static Logger logger = LogManager.getLogger();
@@ -68,14 +69,15 @@ public class TripDaoImpl implements DAO<Trip> {
     public boolean delete(Trip trip) {
         String DELETE = "DELETE FROM trip WHERE trip.id=?";
 
-        try(Connection connection = ConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
 
         } catch (SQLException e) {
             logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
         }
         return false;
     }
+
 
     @Override
     public boolean deleteById(Integer id) {
@@ -98,13 +100,14 @@ public class TripDaoImpl implements DAO<Trip> {
         return false;
     }
 
+
     @Override
     public List<Trip> getAll() {
         List<Trip> tripList = new ArrayList<>();
 
 
-        try(Connection connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -153,9 +156,63 @@ public class TripDaoImpl implements DAO<Trip> {
     }
 
     @Override
+    public List<Trip> getByRouteId(int routeId) {
+        List<Trip> tripList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.route_id=?")) {
+            preparedStatement.setInt(1, routeId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Trip trip = new Trip();
+                trip.setId(resultSet.getInt("id"));
+                trip.setDepartureTime(resultSet.getDate("departure_time"));
+                trip.setArrivalTime(resultSet.getDate("arrival_time"));
+                trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
+                trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
+
+                Route route = new Route();
+                route.setId(resultSet.getInt("route_id"));
+                Places departurePlace = new Places();
+                departurePlace.setId(resultSet.getInt("departure_place_id"));
+                departurePlace.setPlaceName(resultSet.getString("departure_name"));
+                Places arrivalPlace = new Places();
+                arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
+                arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
+                route.setDeparturePlace(departurePlace);
+                route.setArrivalPlace(arrivalPlace);
+
+                Train train = new Train();
+                train.setId(resultSet.getInt("train_id"));
+                train.setTrainName(resultSet.getString("train_name"));
+                train.setTrainNumber(resultSet.getString("train_number"));
+                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                train.setTrainType(trainType);
+
+
+                trip.setRoute(route);
+                trip.setTrain(train);
+
+                tripList.add(trip);
+            }
+
+            if(tripList.isEmpty()) {
+                throw new TripException("Trips not found");
+            }
+
+            return tripList;
+        } catch (SQLException e) {
+            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+        }
+
+        return null;
+    }
+
+    @Override
     public Trip getById(Integer id) {
-        try(Connection connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.id=?")) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.id=?")) {
 
             preparedStatement.setInt(1, id);
 
@@ -205,8 +262,8 @@ public class TripDaoImpl implements DAO<Trip> {
     public boolean save(Trip trip) {
         String SAVE = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
                 "VALUES(?, ?, ?, ?, ?, ?)";
-        try(Connection connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
             preparedStatement.setDate(2, trip.getArrivalTime());

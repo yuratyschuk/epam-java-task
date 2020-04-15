@@ -24,18 +24,6 @@ CREATE TABLE IF NOT EXISTS places
     name VARCHAR(40)  NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS departure_place
-(
-    id             INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    departure_name VARCHAR(40)  NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS arrival_place
-(
-    id           INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    arrival_name VARCHAR(40)  NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS stop
 (
     id       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -49,9 +37,9 @@ CREATE TABLE IF NOT EXISTS route
     departure_place_id INT UNSIGNED NOT NULL,
     arrival_place_id   INT UNSIGNED NOT NULL,
 
-    foreign key (departure_place_id) references departure_place (id)
+    foreign key (departure_place_id) references places(id)
         ON DELETE CASCADE,
-    foreign key (arrival_place_id) references arrival_place (id)
+    foreign key (arrival_place_id) references places (id)
         ON DELETE CASCADE
 );
 
@@ -72,13 +60,13 @@ CREATE TABLE IF NOT EXISTS trip
     arrival_time        DATE         NOT NULL,
     route_id            INT UNSIGNED NOT NULL,
     ticket_price        DECIMAL      NOT NULL,
-    train_id            INT UNSIGNED NOT NULL,
+    train_id            INT UNSIGNED,
     number_of_carriages INT UNSIGNED NOT NULL,
 
     FOREIGN KEY (route_id) REFERENCES route (id)
         ON DELETE CASCADE,
     FOREIGN KEY (train_id) REFERENCES train (id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 
 );
 

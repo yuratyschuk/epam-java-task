@@ -36,4 +36,14 @@
         <servlet-name>TrainServlet</servlet-name>
         <url-pattern>/train</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TicketServlet</servlet-name>
+        <servlet-class>com.demo.servlet.TripServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TripServlet</servlet-name>
+        <url-pattern>/ticket</url-pattern>
+    </servlet-mapping>
+
 </web-app>
