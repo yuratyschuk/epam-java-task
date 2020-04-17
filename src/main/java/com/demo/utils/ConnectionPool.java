@@ -2,18 +2,12 @@ package com.demo.utils;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionPool {

@@ -127,3 +127,8 @@
 2020-04-10 23:27:10 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`trip`, CONSTRAINT `trip_ibfk_2` FOREIGN KEY (`train_id`) REFERENCES `train` (`id`))145123000
 2020-04-10 23:31:09 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
 2020-04-10 23:59:03 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2
+2020-04-16 16:49:13 [main] ERROR com.demo.Application - Test message
+2020-04-16 18:04:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: No value specified for parameter 3
+2020-04-16 18:04:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 0
+2020-04-16 18:04:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 07001
+2020-04-16 18:07:13 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved

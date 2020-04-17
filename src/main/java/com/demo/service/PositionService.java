@@ -20,7 +20,7 @@ public class PositionService {
         return positionDao.getAll();
     }
 
-    public boolean save(Position position) {
+    public Position save(Position position) {
         return positionDao.save(position);
     }
 

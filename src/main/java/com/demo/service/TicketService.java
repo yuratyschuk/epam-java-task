@@ -29,7 +29,7 @@ public class TicketService {
         return ticketDao.deleteById(id);
     }
 
-    public boolean save(Ticket ticket) {
+    public Ticket save(Ticket ticket) {
         return ticketDao.save(ticket);
     }
 }

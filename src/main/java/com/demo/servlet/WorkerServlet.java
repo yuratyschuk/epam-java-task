@@ -18,12 +18,12 @@ import java.util.List;
 
 public class WorkerServlet extends HttpServlet {
 
-    private WorkerService workerService;
+    private final WorkerService workerService;
     private final String LIST_WORKERS = "jsp/worker/listWorkers.jsp";
     private final String INSERT_UPDATE_WORKER = "jsp/worker/updateWorker.jsp";
 
-    private static Logger logger = LogManager.getLogger();
-    private PositionService positionService;
+    private static final Logger logger = LogManager.getLogger();
+    private final PositionService positionService;
 
     public WorkerServlet() {
         positionService = new PositionService();

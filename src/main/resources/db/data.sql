@@ -81,39 +81,46 @@ VALUES (3, 4);
 
 
 INSERT INTO train
-VALUES (2,'train name2', 'train number2', 'PASSENGER', 10);
+VALUES (2, 'train name2', 'train number2', 'PASSENGER', 10);
 INSERT INTO train
-VALUES (3,'train name3', 'train number3', 'PASSENGER', 30);
+VALUES (3, 'train name3', 'train number3', 'PASSENGER', 30);
 INSERT INTO train
-VALUES (4,'train name4', 'train number4', 'PASSENGER', 25);
+VALUES (4, 'train name4', 'train number4', 'PASSENGER', 25);
 INSERT INTO train
-VALUES (5,'train name5', 'train number5', 'PASSENGER', 15);
+VALUES (5, 'train name5', 'train number5', 'PASSENGER', 15);
 INSERT INTO train
-VALUES (6,'train name6', 'train number6', 'PASSENGER', 20);
+VALUES (6, 'train name6', 'train number6', 'PASSENGER', 20);
 
 
 INSERT INTO trip
-VALUES(1, '2020-11-21', '2020-11-21', 1, 250, 2, 5);
+VALUES (1, '2020-11-21', '2020-11-21', 1, 250, 2, 5);
 INSERT INTO trip
-VALUES(2, '2020-11-22', '2020-11-22', 2, 300, 3, 29);
+VALUES (2, '2020-11-22', '2020-11-22', 2, 300, 3, 29);
 INSERT INTO trip
-VALUES(3, '2020-11-23', '2020-11-23', 3, 200, 4, 25);
+VALUES (3, '2020-11-23', '2020-11-23', 3, 200, 4, 25);
 INSERT INTO trip
-VALUES(4, '2020-11-24', '2020-11-24', 4, 150, 5, 10);
+VALUES (4, '2020-11-24', '2020-11-24', 4, 150, 5, 10);
 INSERT INTO trip
-VALUES(5, '2020-11-25', '2020-11-25', 1, 350, 6, 15);
+VALUES (5, '2020-11-25', '2020-11-25', 1, 350, 6, 15);
+
+INSERT INTO users
+VALUES (1, 'testFirstName1', 'testLastName1', 'testUsername1', 'test1@gmail.com', 'password');
+INSERT INTO users
+VALUES (2, 'testFirstName2', 'testLastName2', 'testUsername2', 'test2@gmail.com', 'password');
+INSERT INTO users
+VALUES (3, 'testFirstName3', 'testLastName3', 'testUsername3', 'test3@gmail.com', 'password');
 
 INSERT INTO ticket
-VALUES (1, 2, '2020-08-04');
+VALUES (1, 2, '2020-08-04', 1);
 INSERT INTO ticket
-VALUES (2, 3, '2020-08-04');
+VALUES (2, 3, '2020-08-04', 1);
 INSERT INTO ticket
-VALUES (3, 1, '2020-08-04');
+VALUES (3, 1, '2020-08-04', 2);
 INSERT INTO ticket
-VALUES (4, 2, '2020-08-04');
+VALUES (4, 2, '2020-08-04', 2);
 INSERT INTO ticket
-VALUES (5, 3, '2020-08-04');
+VALUES (5, 3, '2020-08-04', 3);
 INSERT INTO ticket
-VALUES (6, 4, '2020-08-04');
+VALUES (6, 4, '2020-08-04', 3);
 INSERT INTO ticket
-VALUES (7, 5, '2020-08-04');
+VALUES (7, 5, '2020-08-04', 1);

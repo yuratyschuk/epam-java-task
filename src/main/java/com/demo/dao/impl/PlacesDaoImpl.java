@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlacesDaoImpl implements PlacesDao {
@@ -30,11 +31,11 @@ public class PlacesDaoImpl implements PlacesDao {
 
     @Override
     public List<Places> getAll() {
-        String GET_ALL = "SELECT places.id, places.name FROM places";
+        String getAllSql = "SELECT places.id, places.name FROM places";
         List<Places> placesList = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
+             PreparedStatement preparedStatement = connection.prepareStatement(getAllSql);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -50,14 +51,16 @@ public class PlacesDaoImpl implements PlacesDao {
             }
             return placesList;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
-    public boolean save(Places places) {
-        return false;
+    public Places save(Places places) {
+        return null;
     }
 
     @Override

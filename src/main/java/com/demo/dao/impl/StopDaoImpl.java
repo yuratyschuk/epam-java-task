@@ -12,19 +12,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StopDaoImpl implements StopDao {
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
 
     @Override
     public boolean update(Stop stop) {
-        String UPDATE = "UPDATE stop SET stop.name=?, stop.duration=? WHERE stop.id=?";
+        String updateSql = "UPDATE stop SET stop.name=?, stop.duration=? WHERE stop.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
             preparedStatement.setString(1, stop.getName());
             preparedStatement.setInt(2, stop.getDuration());
@@ -38,20 +39,23 @@ public class StopDaoImpl implements StopDao {
             logger.info("Data successfully updated");
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
     public List<Stop> getAll() {
-        String GET_ALL = "SELECT stop.id, stop.name, stop.duration FROM stop";
+        String getAllSql = "SELECT stop.id, stop.name, stop.duration FROM stop";
         List<Stop> stopList = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(getAllSql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Stop stop = new Stop();
                 stop.setId(resultSet.getInt("id"));
@@ -67,70 +71,81 @@ public class StopDaoImpl implements StopDao {
 
             return stopList;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public Stop getByName(String stopName) {
-        String FIND_BY_STOP_NAME = "SELECT stop.id, stop.duration FROM stop WHERE stop.name=?";
+        String findByStopNameSql = "SELECT stop.id, stop.duration FROM stop WHERE stop.name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_STOP_NAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(findByStopNameSql)) {
 
             preparedStatement.setString(1, stopName);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            if (resultSet.next()) {
-                Stop stop = new Stop();
-                stop.setId(resultSet.getInt("id"));
-                stop.setName(resultSet.getString("name"));
-                stop.setDuration(resultSet.getInt("duration"));
-                return stop;
-            } else {
-                throw new StopException("Stop with name " + stopName + " doesn't exists");
+                if (resultSet.next()) {
+                    Stop stop = new Stop();
+                    stop.setId(resultSet.getInt("id"));
+                    stop.setName(resultSet.getString("name"));
+                    stop.setDuration(resultSet.getInt("duration"));
+                    return stop;
+                } else {
+                    throw new StopException("Stop with name " + stopName + " doesn't exists");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
     }
 
     @Override
     public Stop getById(Integer id) {
-        String FIND_BY_ID = "SELECT stop.id, stop.name, stop.duration FROM stop WHERE stop.id=?";
+        String findByIdSql = "SELECT stop.id, stop.name, stop.duration FROM stop WHERE stop.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(findByIdSql)) {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            if (resultSet.next()) {
-                Stop stop = new Stop();
-                stop.setId(resultSet.getInt("id"));
-                stop.setName(resultSet.getString("name"));
-                stop.setDuration(resultSet.getInt("duration"));
-                return stop;
-            } else {
-                throw new StopException("Stop with id " + id + " doesn't exists");
+                if (resultSet.next()) {
+                    Stop stop = new Stop();
+                    stop.setId(resultSet.getInt("id"));
+                    stop.setName(resultSet.getString("name"));
+                    stop.setDuration(resultSet.getInt("duration"));
+                    return stop;
+                } else {
+                    throw new StopException("Stop with id " + id + " doesn't exists");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
     }
 
     @Override
     public boolean delete(Stop stop) {
-        String DELETE_BY_NAME = "DELETE FROM stop WHERE stop.name=?";
+        String deleteByNameSql = "DELETE FROM stop WHERE stop.name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteByNameSql)) {
 
             preparedStatement.setString(1, stop.getName());
 
@@ -141,17 +156,20 @@ public class StopDaoImpl implements StopDao {
 
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        String DELETE_BY_NAME = "DELETE FROM stop WHERE stop.id=?";
+        String deleteByNameSql = "DELETE FROM stop WHERE stop.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteByNameSql)) {
 
             preparedStatement.setInt(1, id);
 
@@ -162,18 +180,21 @@ public class StopDaoImpl implements StopDao {
 
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
 
     }
 
     @Override
-    public boolean save(Stop stop) {
-        String SAVE = "INSERT INTO stop(stop.name, stop.duration) VALUES(?,?)";
+    public Stop save(Stop stop) {
+        String saveSql = "INSERT INTO stop(stop.name, stop.duration) VALUES(?,?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
 
             preparedStatement.setString(1, stop.getName());
             preparedStatement.setInt(2, stop.getDuration());
@@ -183,11 +204,14 @@ public class StopDaoImpl implements StopDao {
                 throw new StopException("Error while saving stop");
             }
 
-            return true;
+            return stop;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
 
-        return false;
+        return stop;
     }
 }

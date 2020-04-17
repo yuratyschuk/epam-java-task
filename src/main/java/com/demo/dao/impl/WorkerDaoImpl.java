@@ -10,19 +10,20 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class WorkerDaoImpl implements WorkerDao {
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public boolean update(Worker worker) {
-        String UPDATE = "UPDATE worker SET worker.first_name=?, worker.last_name=?," +
+        String updateSql = "UPDATE worker SET worker.first_name=?, worker.last_name=?," +
                 "worker.position_id=?, worker.working_experience=?," +
                 "worker.hire_date=? WHERE worker.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
             preparedStatement.setString(1, worker.getFirstName());
             preparedStatement.setString(2, worker.getLastName());
@@ -41,8 +42,10 @@ public class WorkerDaoImpl implements WorkerDao {
             logger.info("update successful");
             return true;
         } catch (SQLException e) {
-            logger.error("Error in Worker in update method");
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
 
         return false;
@@ -50,9 +53,9 @@ public class WorkerDaoImpl implements WorkerDao {
 
     @Override
     public boolean delete(Worker worker) {
-        String SQL_DELETE_BY_USERNAME = "DELETE FROM worker WHERE worker.last_name=?";
+        String deleteByUsernameSql = "DELETE FROM worker WHERE worker.last_name=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_USERNAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteByUsernameSql)) {
 
             preparedStatement.setString(1, worker.getLastName());
 
@@ -65,17 +68,19 @@ public class WorkerDaoImpl implements WorkerDao {
             logger.info("Data deleted");
             return true;
         } catch (SQLException e) {
-            logger.error("Exception in worker in delete method");
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        String SQL_DELETE_BY_ID = "DELETE FROM worker WHERE worker.id=?";
+        String deleteByIdSql = "DELETE FROM worker WHERE worker.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteByIdSql)) {
 
             preparedStatement.setInt(1, id);
 
@@ -88,8 +93,10 @@ public class WorkerDaoImpl implements WorkerDao {
             logger.info("Data successfully deleted");
             return true;
         } catch (SQLException e) {
-            logger.error("Error in WorkerDao in deleteById method");
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
@@ -97,11 +104,11 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public List<Worker> getAll() {
         List<Worker> workerList = new ArrayList<>();
-        String SQL_ALL = "SELECT worker.*, positions.job_name, positions.salary " +
+        String getAllSql = "SELECT worker.*, positions.job_name, positions.salary " +
                 "FROM worker JOIN positions ON positions.id = worker.position_id";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ALL);
+             PreparedStatement preparedStatement = connection.prepareStatement(getAllSql);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -130,93 +137,104 @@ public class WorkerDaoImpl implements WorkerDao {
             resultSet.close();
             return workerList;
         } catch (SQLException e) {
-            logger.warn("SQLException in WorkerDao in getAll method");
-            logger.warn(e.getMessage());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+
 
         }
-        return workerList;
+        return Collections.emptyList();
     }
 
     @Override
     public Worker getById(Integer id) {
-        String SQL_FIND_BY_ID = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
+        String findByIdSql = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
                 "JOIN positions ON positions.id = worker.position_id WHERE worker.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(findByIdSql)) {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {  // because cursor is before first row
-                Worker worker = new Worker();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {  // because cursor is before first row
+                    Worker worker = new Worker();
 
-                worker.setId(Integer.parseInt(resultSet.getString("id")));
-                worker.setFirstName(resultSet.getString("first_name"));
-                worker.setLastName(resultSet.getString("last_name"));
-                worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
+                    worker.setId(Integer.parseInt(resultSet.getString("id")));
+                    worker.setFirstName(resultSet.getString("first_name"));
+                    worker.setLastName(resultSet.getString("last_name"));
+                    worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
 
-                Position position = new Position();
-                position.setJobName(resultSet.getString("job_name"));
-                position.setJobName(resultSet.getString("salary"));
-                worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                worker.setPosition(position);
+                    Position position = new Position();
+                    position.setJobName(resultSet.getString("job_name"));
+                    position.setJobName(resultSet.getString("salary"));
+                    worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+                    worker.setPosition(position);
 
-                resultSet.close();
-                return worker;
-            } else {
-                logger.error("Worker with id " + id + " not found");
-                throw new WorkerException("Worker with id " + id + " not found");
+                    resultSet.close();
+                    return worker;
+                } else {
+                    logger.error("Worker with id " + id + " not found");
+                    throw new WorkerException("Worker with id " + id + " not found");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
     }
 
     @Override
     public Worker getByLastName(String lastName) {
-        String SQL_GET_BY_NAME = "SELECT * FROM worker WHERE worker.last_name=?";
+        String getByNameSql = "SELECT * FROM worker WHERE worker.last_name=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_NAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(getByNameSql)) {
 
             preparedStatement.setString(1, lastName);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {  // because cursor is before first row
-                Worker worker = new Worker();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {  // because cursor is before first row
+                    Worker worker = new Worker();
 
-                worker.setId(Integer.parseInt(resultSet.getString("id")));
-                worker.setFirstName(resultSet.getString("first_name"));
-                worker.setLastName(resultSet.getString("last_name"));
-                worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
+                    worker.setId(Integer.parseInt(resultSet.getString("id")));
+                    worker.setFirstName(resultSet.getString("first_name"));
+                    worker.setLastName(resultSet.getString("last_name"));
+                    worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
 
-                Position position = new Position();
-                position.setJobName(resultSet.getString("job_name"));
-                position.setJobName(resultSet.getString("salary"));
-                worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                worker.setPosition(position);
+                    Position position = new Position();
+                    position.setJobName(resultSet.getString("job_name"));
+                    position.setJobName(resultSet.getString("salary"));
+                    worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+                    worker.setPosition(position);
 
-                resultSet.close();
-                return worker;
-            } else {
-                logger.error("Worker with last name: " + lastName + " not found");
-                throw new WorkerException("Worker with last name " + lastName + " not found");
+                    resultSet.close();
+                    return worker;
+                } else {
+                    logger.error("Worker with last name: " + lastName + " not found");
+                    throw new WorkerException("Worker with last name " + lastName + " not found");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
 
     }
 
     @Override
-    public boolean save(Worker worker) {
-        String SQL_ADD = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
+    public Worker save(Worker worker) {
+        String saveSql = "INSERT INTO worker(first_name, last_name, working_experience, position_id, hire_date)" +
                 " VALUES(?, ?, ?, ?, ?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
 
 
             preparedStatement.setString(1, worker.getFirstName());
@@ -232,12 +250,14 @@ public class WorkerDaoImpl implements WorkerDao {
             }
 
             logger.info("Info added to data base");
-            return true;
+            return worker;
         } catch (SQLException e) {
-            logger.error("Sql Exception in WorkerDao create method");
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
-        return false;
+        return null;
     }
 
 }

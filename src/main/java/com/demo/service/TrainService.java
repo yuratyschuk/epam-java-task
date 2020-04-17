@@ -33,7 +33,7 @@ public class TrainService {
         return trainDao.deleteById(id);
     }
 
-    public boolean save(Train train) {
+    public Train save(Train train) {
         return trainDao.save(train);
     }
 }

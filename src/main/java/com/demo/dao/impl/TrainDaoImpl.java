@@ -13,21 +13,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TrainDaoImpl implements TrainDao {
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
 
     @Override
     public boolean update(Train train) {
-        String UPDATE = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=?, " +
+        String updateSql = "UPDATE train SET train.train_name=?, train.train_number=?, train.max_number_of_carriages=?, " +
                 "train.type=? " +
                 "WHERE train.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());
@@ -42,20 +43,23 @@ public class TrainDaoImpl implements TrainDao {
 
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
     public List<Train> getAll() {
-        String FIND_ALL = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages, train.type " +
+        String findAllSql = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages, train.type " +
                 "FROM train";
         List<Train> trainList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(findAllSql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Train train = new Train();
                 train.setId(resultSet.getInt("id"));
@@ -70,83 +74,91 @@ public class TrainDaoImpl implements TrainDao {
             return trainList;
 
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public Train getByName(String trainName) {
-        String FIND_BY_TRAIN_NAME = "SELECT train.id, train.train_name, train.train_number," +
+        String findByTrainNameSql = "SELECT train.id, train.train_name, train.train_number," +
                 "train.max_number_of_carriages, train.type " +
                 "FROM train WHERE train.train_name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TRAIN_NAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(findByTrainNameSql)) {
 
             preparedStatement.setString(1, trainName);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                Train train = new Train();
-                train.setId(resultSet.getInt("id"));
-                train.setTrainName(resultSet.getString("train_name"));
-                train.setTrainNumber(resultSet.getString("train_number"));
-                train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-                TrainType trainType = TrainType.valueOf("type");
-                train.setTrainType(trainType);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Train train = new Train();
+                    train.setId(resultSet.getInt("id"));
+                    train.setTrainName(resultSet.getString("train_name"));
+                    train.setTrainNumber(resultSet.getString("train_number"));
+                    train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
+                    TrainType trainType = TrainType.valueOf("type");
+                    train.setTrainType(trainType);
 
-                resultSet.close();
-                return train;
-            } else {
-                logger.error("Train with name " + trainName + " not found");
-                throw new TrainException("Train with name " + trainName + " not found");
+                    return train;
+                } else {
+                    logger.error("Train with name " + trainName + " not found");
+                    throw new TrainException("Train with name " + trainName + " not found");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
     }
 
     @Override
     public Train getById(Integer id) {
-        String FIND_BY_ID = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages," +
+        String findByIdSql = "SELECT train.id, train.train_name, train.train_number, train.max_number_of_carriages," +
                 "train.type " +
                 "FROM train WHERE train.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(findByIdSql)) {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                Train train = new Train();
-                train.setId(resultSet.getInt("id"));
-                train.setTrainName(resultSet.getString("train_name"));
-                train.setTrainNumber(resultSet.getString("train_number"));
-                train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
-                train.setTrainType(trainType);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Train train = new Train();
+                    train.setId(resultSet.getInt("id"));
+                    train.setTrainName(resultSet.getString("train_name"));
+                    train.setTrainNumber(resultSet.getString("train_number"));
+                    train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
+                    TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                    train.setTrainType(trainType);
 
-                resultSet.close();
-                return train;
-            } else {
-                logger.error("Train with id " + id + " not found");
-                throw new TrainException("Train with id " + id + " not found");
+                    return train;
+                } else {
+                    logger.error("Train with id " + id + " not found");
+                    throw new TrainException("Train with id " + id + " not found");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState()
-            );
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
     }
 
     @Override
     public boolean delete(Train train) {
-        String DELETE_BY_NAME = "DELETE FROM train WHERE train.train_name=?";
+        String deleteByNameSql = "DELETE FROM train WHERE train.train_name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_NAME)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteByNameSql)) {
 
             preparedStatement.setString(1, train.getTrainName());
 
@@ -159,16 +171,19 @@ public class TrainDaoImpl implements TrainDao {
             logger.info("Successfully deleted");
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        String DELETE_BY_ID = "DELETE FROM train WHERE train.id=?";
+        String deleteByIdSql = "DELETE FROM train WHERE train.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteByIdSql)) {
 
             preparedStatement.setInt(1, id);
 
@@ -181,16 +196,19 @@ public class TrainDaoImpl implements TrainDao {
             logger.info("Data successfully deleted");
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
-    public boolean save(Train train) {
-        String SAVE = "INSERT INTO train(train_name, train_number, max_number_of_carriages, type) VALUES(?, ?, ?, ?)";
+    public Train save(Train train) {
+        String saveSql = "INSERT INTO train(train_name, train_number, max_number_of_carriages, type) VALUES(?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
 
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());
@@ -204,10 +222,13 @@ public class TrainDaoImpl implements TrainDao {
             }
 
             logger.info("Data saved successfully");
-            return true;
+            return train;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
-        return false;
+        return null;
     }
 }

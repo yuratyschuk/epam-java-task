@@ -1,14 +1,13 @@
 package com.demo.model;
 
+import com.demo.model.utils.Person;
+
 import java.sql.Date;
 
-public class Worker {
+public class Worker extends Person {
 
     private Integer id;
 
-    private String firstName;
-
-    private String lastName;
 
     private Position position;
 
@@ -19,17 +18,14 @@ public class Worker {
     public Worker() {
     }
 
-    public Worker(String firstName, String lastName, Position position, int workingExperience, Date hireDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Worker(Position position, int workingExperience, Date hireDate) {
+
         this.position = position;
         this.workingExperience = workingExperience;
         this.hireDate = hireDate;
     }
 
-    public Worker(String firstName, String lastName, int workingExperience, Date hireDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Worker(int workingExperience, Date hireDate) {
         this.workingExperience = workingExperience;
         this.hireDate = hireDate;
     }
@@ -42,21 +38,6 @@ public class Worker {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public Position getPosition() {
         return position;
@@ -86,8 +67,6 @@ public class Worker {
     public String toString() {
         return "Workers{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", position=" + position +
                 ", workingExperience=" + workingExperience +
                 ", hireDate=" + hireDate +

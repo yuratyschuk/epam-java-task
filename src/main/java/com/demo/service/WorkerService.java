@@ -20,7 +20,7 @@ public class WorkerService {
         return workerDao.getAll();
     }
 
-    public boolean save(Worker worker) {
+    public Worker save(Worker worker) {
         return workerDao.save(worker);
     }
 

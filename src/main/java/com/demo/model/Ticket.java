@@ -1,7 +1,6 @@
 package com.demo.model;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Ticket {
 
@@ -11,14 +10,11 @@ public class Ticket {
 
     private Date timeWhenTicketWasBought;
 
+    private User client;
+
     public Ticket() {
     }
 
-    public Ticket(Integer id, Trip trip, Date timeWhenTicketWasBought) {
-        this.id = id;
-        this.trip = trip;
-        this.timeWhenTicketWasBought = timeWhenTicketWasBought;
-    }
 
     public Integer getId() {
         return id;
@@ -42,6 +38,14 @@ public class Ticket {
 
     public void setTimeWhenTicketWasBought(Date timeWhenTicketWasBought) {
         this.timeWhenTicketWasBought = timeWhenTicketWasBought;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
     }
 
     @Override

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS route
     departure_place_id INT UNSIGNED NOT NULL,
     arrival_place_id   INT UNSIGNED NOT NULL,
 
-    foreign key (departure_place_id) references places(id)
+    foreign key (departure_place_id) references places (id)
         ON DELETE CASCADE,
     foreign key (arrival_place_id) references places (id)
         ON DELETE CASCADE
@@ -81,14 +81,29 @@ CREATE TABLE IF NOT EXISTS stop_route
         ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS users
+(
+    id        INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(40)  NOT NULL,
+    lastName  VARCHAR(40)  NOT NULL,
+    username  VARCHAR(40)  NOT NULL,
+    email     VARCHAR(40)  NOT NULL UNIQUE,
+    password  VARCHAR(40)  NOT NULL
+
+);
+
 CREATE TABLE IF NOT EXISTS ticket
 (
     id               INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     trip_id          INT UNSIGNED NOT NULL,
     time_when_bought DATE         NOT NULL,
+    user_id          INT UNSIGNED NOT NULL,
 
+
+    FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (trip_id) REFERENCES trip (id)
 
 );
+
 
 

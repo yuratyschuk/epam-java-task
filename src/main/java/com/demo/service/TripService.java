@@ -39,7 +39,7 @@ public class TripService {
         return tripDao.getByRouteId(routeId);
     }
 
-    public boolean save(Trip trip) {
+    public Trip save(Trip trip) {
         if (trip.getTrain().getTrainType() != TrainType.CARGO) {
             return tripDao.save(trip);
         } else {

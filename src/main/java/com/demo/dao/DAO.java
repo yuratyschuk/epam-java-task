@@ -10,7 +10,7 @@ public interface DAO<T> {
 
     List<T> getAll();
 
-    boolean save(T t);
+    T save(T t);
 
     T getById(Integer id);
 

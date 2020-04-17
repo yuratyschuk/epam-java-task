@@ -12,7 +12,7 @@ public class Position {
 
     private BigDecimal salary;
 
-    private transient List<Worker> workerList;
+    private List<Worker> workerList;
 
     public Position() {
         this.workerList = new ArrayList<>();

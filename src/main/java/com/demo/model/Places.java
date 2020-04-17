@@ -9,10 +9,7 @@ public class Places {
     public Places() {
     }
 
-    public Places(Integer id, String placeName) {
-        this.id = id;
-        this.placeName = placeName;
-    }
+
 
     public Integer getId() {
         return id;

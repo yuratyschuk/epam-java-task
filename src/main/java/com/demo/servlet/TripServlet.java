@@ -2,9 +2,7 @@ package com.demo.servlet;
 
 import com.demo.model.Places;
 import com.demo.model.Route;
-import com.demo.model.Train;
 import com.demo.model.Trip;
-import com.demo.model.utils.TrainType;
 import com.demo.service.PlaceService;
 import com.demo.service.RouteService;
 import com.demo.service.TripService;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 public class TripServlet extends HttpServlet {

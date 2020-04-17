@@ -9,7 +9,7 @@ public class StopService {
 
     StopDaoImpl stopDao = new StopDaoImpl();
 
-    public boolean save(Stop stop) {
+    public Stop save(Stop stop) {
         return stopDao.save(stop);
     }
 

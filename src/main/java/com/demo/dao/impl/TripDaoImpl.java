@@ -1,13 +1,9 @@
 package com.demo.dao.impl;
 
-import com.demo.dao.DAO;
 import com.demo.dao.interfaces.TripDao;
 import com.demo.exceptions.TrainException;
 import com.demo.exceptions.TripException;
-import com.demo.model.Places;
-import com.demo.model.Route;
-import com.demo.model.Train;
-import com.demo.model.Trip;
+import com.demo.model.*;
 import com.demo.model.utils.TrainType;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -18,11 +14,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TripDaoImpl implements TripDao {
 
-    private String GET_ALL = "SELECT trip.id, trip.departure_time, trip.arrival_time, " +
+    private final static String GET_ALL = "SELECT trip.id, trip.departure_time, trip.arrival_time, " +
             "trip.route_id, trip.ticket_price, trip.train_id, " +
             "train.train_name, train.train_number, train.type, route.arrival_place_id, " +
             "route.departure_place_id, departure_place.name AS departure_name, " +
@@ -34,16 +31,16 @@ public class TripDaoImpl implements TripDao {
             "JOIN places arrival_place ON route.arrival_place_id = arrival_place.id";
 
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
 
     @Override
     public boolean update(Trip trip) {
-        String UPDATE = "UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, " +
+        String updateSql = "UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, " +
                 "trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
             preparedStatement.setDate(2, trip.getArrivalTime());
@@ -60,20 +57,26 @@ public class TripDaoImpl implements TripDao {
 
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
 
     @Override
     public boolean delete(Trip trip) {
-        String DELETE = "DELETE FROM trip WHERE trip.id=?";
+        String deleteSql = "DELETE FROM trip WHERE trip.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
 
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
@@ -81,9 +84,9 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public boolean deleteById(Integer id) {
-        String DELETE_BY_ID = "DELETE FROM trip WHERE trip.id=?";
+        String deleteById = "DELETE FROM trip WHERE trip.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteById)) {
 
             preparedStatement.setInt(1, id);
 
@@ -95,7 +98,10 @@ public class TripDaoImpl implements TripDao {
 
             return true;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return false;
     }
@@ -107,9 +113,8 @@ public class TripDaoImpl implements TripDao {
 
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
-
-            ResultSet resultSet = preparedStatement.executeQuery();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 Trip trip = new Trip();
@@ -150,9 +155,12 @@ public class TripDaoImpl implements TripDao {
 
             return tripList;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -162,48 +170,52 @@ public class TripDaoImpl implements TripDao {
              PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL + " WHERE trip.route_id=?")) {
             preparedStatement.setInt(1, routeId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            while (resultSet.next()) {
-                Trip trip = new Trip();
-                trip.setId(resultSet.getInt("id"));
-                trip.setDepartureTime(resultSet.getDate("departure_time"));
-                trip.setArrivalTime(resultSet.getDate("arrival_time"));
-                trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
-                trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
+                while (resultSet.next()) {
+                    Trip trip = new Trip();
+                    trip.setId(resultSet.getInt("id"));
+                    trip.setDepartureTime(resultSet.getDate("departure_time"));
+                    trip.setArrivalTime(resultSet.getDate("arrival_time"));
+                    trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
+                    trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
 
-                Route route = new Route();
-                route.setId(resultSet.getInt("route_id"));
-                Places departurePlace = new Places();
-                departurePlace.setId(resultSet.getInt("departure_place_id"));
-                departurePlace.setPlaceName(resultSet.getString("departure_name"));
-                Places arrivalPlace = new Places();
-                arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
-                arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
-                route.setDeparturePlace(departurePlace);
-                route.setArrivalPlace(arrivalPlace);
+                    Route route = new Route();
+                    route.setId(resultSet.getInt("route_id"));
+                    Places departurePlace = new Places();
+                    departurePlace.setId(resultSet.getInt("departure_place_id"));
+                    departurePlace.setPlaceName(resultSet.getString("departure_name"));
+                    Places arrivalPlace = new Places();
+                    arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
+                    arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
+                    route.setDeparturePlace(departurePlace);
+                    route.setArrivalPlace(arrivalPlace);
 
-                Train train = new Train();
-                train.setId(resultSet.getInt("train_id"));
-                train.setTrainName(resultSet.getString("train_name"));
-                train.setTrainNumber(resultSet.getString("train_number"));
-                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
-                train.setTrainType(trainType);
+                    Train train = new Train();
+                    train.setId(resultSet.getInt("train_id"));
+                    train.setTrainName(resultSet.getString("train_name"));
+                    train.setTrainNumber(resultSet.getString("train_number"));
+                    TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                    train.setTrainType(trainType);
 
 
-                trip.setRoute(route);
-                trip.setTrain(train);
+                    trip.setRoute(route);
+                    trip.setTrain(train);
 
-                tripList.add(trip);
+                    tripList.add(trip);
+                }
+
+                if (tripList.isEmpty()) {
+                    throw new TripException("Trips not found");
+                }
+
+                return tripList;
             }
-
-            if(tripList.isEmpty()) {
-                throw new TripException("Trips not found");
-            }
-
-            return tripList;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getSQLState() + e.getErrorCode());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
 
         return null;
@@ -216,54 +228,58 @@ public class TripDaoImpl implements TripDao {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                Trip trip = new Trip();
-                trip.setId(resultSet.getInt("id"));
-                trip.setDepartureTime(resultSet.getDate("departure_time"));
-                trip.setArrivalTime(resultSet.getDate("arrival_time"));
-                trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
-                trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Trip trip = new Trip();
+                    trip.setId(resultSet.getInt("id"));
+                    trip.setDepartureTime(resultSet.getDate("departure_time"));
+                    trip.setArrivalTime(resultSet.getDate("arrival_time"));
+                    trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
+                    trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
 
-                Route route = new Route();
-                route.setId(resultSet.getInt("route_id"));
-                Places departurePlace = new Places();
-                departurePlace.setId(resultSet.getInt("departure_place_id"));
-                departurePlace.setPlaceName(resultSet.getString("departure_name"));
-                Places arrivalPlace = new Places();
-                arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
-                arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
-                route.setDeparturePlace(departurePlace);
-                route.setArrivalPlace(arrivalPlace);
+                    Route route = new Route();
+                    route.setId(resultSet.getInt("route_id"));
+                    Places departurePlace = new Places();
+                    departurePlace.setId(resultSet.getInt("departure_place_id"));
+                    departurePlace.setPlaceName(resultSet.getString("departure_name"));
+                    Places arrivalPlace = new Places();
+                    arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
+                    arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
+                    route.setDeparturePlace(departurePlace);
+                    route.setArrivalPlace(arrivalPlace);
 
-                Train train = new Train();
-                train.setId(resultSet.getInt("train_id"));
-                train.setTrainName(resultSet.getString("train_name"));
-                train.setTrainNumber(resultSet.getString("train_number"));
-                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
-                train.setTrainType(trainType);
+                    Train train = new Train();
+                    train.setId(resultSet.getInt("train_id"));
+                    train.setTrainName(resultSet.getString("train_name"));
+                    train.setTrainNumber(resultSet.getString("train_number"));
+                    TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+                    train.setTrainType(trainType);
 
 
-                trip.setRoute(route);
-                trip.setTrain(train);
-                return trip;
-            } else {
-                logger.error("Trip with id " + id + " doesn't exists");
-                throw new TripException("Trip with id " + id + " doesn't exists");
+                    trip.setRoute(route);
+                    trip.setTrain(train);
+                    return trip;
+                } else {
+                    logger.error("Trip with id " + id + " doesn't exists");
+                    throw new TripException("Trip with id " + id + " doesn't exists");
+                }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
     }
 
 
     @Override
-    public boolean save(Trip trip) {
-        String SAVE = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
+    public Trip save(Trip trip) {
+        String saveSql = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
                 "VALUES(?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
 
             preparedStatement.setDate(1, trip.getDepartureTime());
             preparedStatement.setDate(2, trip.getArrivalTime());
@@ -279,10 +295,13 @@ public class TripDaoImpl implements TripDao {
             }
 
             logger.info("data added to database");
-            return true;
+            return trip;
         } catch (SQLException e) {
-            logger.error(e.getMessage() + e.getErrorCode() + e.getSQLState());
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
         }
-        return false;
+        return null;
     }
 }
