@@ -1,8 +1,9 @@
 CREATE TABLE IF NOT EXISTS positions
 (
     id       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    job_name VARCHAR(40)  NOT NULL,
-    salary   DECIMAL      NOT NULL
+    job_name VARCHAR(40)  NOT NULL UNIQUE,
+    salary   DECIMAL      NOT NULL,
+    active   TINYINT      NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS worker
@@ -62,6 +63,7 @@ CREATE TABLE IF NOT EXISTS trip
     ticket_price        DECIMAL      NOT NULL,
     train_id            INT UNSIGNED,
     number_of_carriages INT UNSIGNED NOT NULL,
+    number_of_places    INT UNSIGNED NOT NULL,
 
     FOREIGN KEY (route_id) REFERENCES route (id)
         ON DELETE CASCADE,
@@ -92,11 +94,12 @@ CREATE TABLE IF NOT EXISTS users
 
 );
 
+
 CREATE TABLE IF NOT EXISTS ticket
 (
     id               INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     trip_id          INT UNSIGNED NOT NULL,
-    time_when_bought DATE         NOT NULL,
+    time_when_bought DATETIME         NOT NULL,
     user_id          INT UNSIGNED NOT NULL,
 
 

@@ -1,11 +1,11 @@
 INSERT INTO positions
-values (4, 'director', 20000);
+values (4, 'director', 20000, 0);
 INSERT INTO positions
-VALUES (2, 'operator', 15000);
+VALUES (2, 'operator', 15000, 0);
 INSERT INTO positions
-VALUES (3, 'security', 10000);
+VALUES (3, 'security', 10000, 1);
 INSERT INTO positions
-VALUES (5, 'tester', 25000);
+VALUES (5, 'tester', 25000, 0);
 
 INSERT INTO worker
 values (4, 'Yura', 'Tyschuk', 2, 4, '2014-12-31');
@@ -93,15 +93,15 @@ VALUES (6, 'train name6', 'train number6', 'PASSENGER', 20);
 
 
 INSERT INTO trip
-VALUES (1, '2020-11-21', '2020-11-21', 1, 250, 2, 5);
+VALUES (1, '2020-11-21', '2020-11-21', 1, 250, 2, 5, 250);
 INSERT INTO trip
-VALUES (2, '2020-11-22', '2020-11-22', 2, 300, 3, 29);
+VALUES (2, '2020-11-22', '2020-11-22', 2, 300, 3, 29, 300);
 INSERT INTO trip
-VALUES (3, '2020-11-23', '2020-11-23', 3, 200, 4, 25);
+VALUES (3, '2020-11-23', '2020-11-23', 3, 200, 4, 25, 450);
 INSERT INTO trip
-VALUES (4, '2020-11-24', '2020-11-24', 4, 150, 5, 10);
+VALUES (4, '2020-11-24', '2020-11-24', 4, 150, 5, 10, 200);
 INSERT INTO trip
-VALUES (5, '2020-11-25', '2020-11-25', 1, 350, 6, 15);
+VALUES (5, '2020-11-25', '2020-11-25', 1, 350, 6, 15, 150);
 
 INSERT INTO users
 VALUES (1, 'testFirstName1', 'testLastName1', 'testUsername1', 'test1@gmail.com', 'password');

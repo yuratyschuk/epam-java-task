@@ -49,9 +49,10 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public List<Route> getAll() {
         String getAllSql = "SELECT route.id, route.arrival_place_id, route.departure_place_id, " +
-                "departure_place.departure_name, arrival_place.arrival_name FROM route JOIN departure_place " +
-                "ON route.departure_place_id = departure_place.id " +
-                "JOIN  arrival_place ON route.arrival_place_id = arrival_place.id";
+                "departure_place.name AS departure_name, arrival_place.name AS arrival_name " +
+                "FROM route " +
+                "JOIN places departure_place ON route.departure_place_id = departure_place.id " +
+                "JOIN  places arrival_place ON route.arrival_place_id = arrival_place.id";
         List<Route> routeList = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -124,9 +125,10 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public Route getById(Integer id) {
         String findByIdSql = "SELECT route.id, route.departure_place_id, route.arrival_place_id, " +
-                "departure_place.departure_name, arrival_place.arrival_name FROM route JOIN departure_place " +
-                "ON route.departure_place_id = departure_place.id " +
-                "JOIN  arrival_place ON route.arrival_place_id = arrival_place.id WHERE route.id=?";
+                "departure_place.name AS departure_name, arrival_place.name AS arrival_name " +
+                "FROM route " +
+                "JOIN places departure_place ON route.departure_place_id = departure_place.id " +
+                "JOIN  places arrival_place ON route.arrival_place_id = arrival_place.id WHERE route.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(findByIdSql)) {
 

@@ -29,6 +29,10 @@ public class TripServlet extends HttpServlet {
 
     private final String DETAILS_PAGE = "jsp/trip/tripDetails.jsp";
 
+    private final String ADD_TRIP = "jsp/trip/trip.jsp";
+
+    private String forward;
+
     private final static Logger logger = LogManager.getLogger();
 
     public TripServlet() {
@@ -39,7 +43,6 @@ public class TripServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward = " ";
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("search")) {
@@ -48,15 +51,20 @@ public class TripServlet extends HttpServlet {
 
             request.setAttribute("placesList", placesList);
 
-
         } else if (action.equalsIgnoreCase("details")) {
             forward = DETAILS_PAGE;
-            Trip trip = tripService.getById(Integer.parseInt(request.getParameter("tripId")));
+            int tripId = Integer.parseInt(request.getParameter("tripId"));
+            Trip trip = tripService.getById(tripId);
             request.setAttribute("trip", trip);
 
-        } else {
-//            forward = LIST_TRAIN;
-//            request.setAttribute("trainList", trainService.getAll());
+        } else if(action.equalsIgnoreCase("tripAdd")) {
+            forward = ADD_TRIP;
+        } else if(action.equalsIgnoreCase("tripEdit")) {
+            forward = ADD_TRIP;
+            int tripId = Integer.parseInt(request.getParameter("tripId"));
+
+            request.setAttribute("trip", tripService.getById(tripId));
+
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
@@ -66,7 +74,6 @@ public class TripServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         Integer departurePlace = Integer.parseInt(request.getParameter("from"));
         Integer arrivalPlace = Integer.parseInt(request.getParameter("to"));
 
@@ -75,7 +82,7 @@ public class TripServlet extends HttpServlet {
         List<Trip> tripList = tripService.getByRouteId(route.getId());
 
         request.setAttribute("tripList", tripList);
-        logger.info(tripList);
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/trip/searchResults.jsp");
         requestDispatcher.forward(request, response);
 

@@ -11,6 +11,8 @@ public class TripService {
 
     TripDaoImpl tripDao = new TripDaoImpl();
 
+    StopService stopService = new StopService();
+
     public boolean update(Trip trip) {
         if (trip.getTrain().getTrainType() != TrainType.CARGO) {
             return tripDao.update(trip);
@@ -28,7 +30,14 @@ public class TripService {
     }
 
     public List<Trip> getAll() {
-        return tripDao.getAll();
+
+        List<Trip> tripList = tripDao.getAll();
+
+        for(Trip trip : tripList) {
+            trip.getRoute().setStopsList(stopService.getStopByRouteId(trip.getRoute().getId()));
+        }
+
+        return tripList;
     }
 
     public Trip getById(int id) {

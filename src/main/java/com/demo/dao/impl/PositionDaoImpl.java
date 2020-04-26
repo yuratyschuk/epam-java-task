@@ -21,14 +21,16 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public boolean update(Position position) {
 
-        String updateSql = "UPDATE positions SET job_name=?, salary=? WHERE id=?";
+        String updateSql = "UPDATE positions SET job_name=?, salary=?, active=? WHERE id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());
             preparedStatement.setBigDecimal(2, position.getSalary());
-            preparedStatement.setInt(3, position.getId());
+            preparedStatement.setBoolean(3, position.getActive());
+            preparedStatement.setInt(4, position.getId());
+
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -103,7 +105,8 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public List<Position> getAll() {
         List<Position> positionList = new ArrayList<>();
-        String getAllSql = "SELECT positions.* FROM positions";
+        String getAllSql = "SELECT positions.id, positions.job_name, positions.salary, positions.active " +
+                "FROM positions";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getAllSql);
@@ -115,9 +118,12 @@ public class PositionDaoImpl implements PositionDao {
                 Integer id = resultSet.getInt("id");
                 String jobName = resultSet.getString("job_name");
                 BigDecimal salary = resultSet.getBigDecimal("salary");
+                boolean active = resultSet.getBoolean("active");
                 position.setId(id);
                 position.setJobName(jobName);
                 position.setSalary(salary);
+                position.setActive(active);
+
                 positionList.add(position);
             }
 
@@ -224,13 +230,14 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public Position save(Position position) {
 
-        String addSql = "INSERT INTO positions(job_name, salary) VALUES (?, ?)";
+        String addSql = "INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(addSql)) {
 
             preparedStatement.setString(1, position.getJobName().toLowerCase());
             preparedStatement.setBigDecimal(2, position.getSalary());
+            preparedStatement.setBoolean(3, position.getActive());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -247,5 +254,46 @@ public class PositionDaoImpl implements PositionDao {
             logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
+    }
+
+    @Override
+    public List<Position> getPositionListByActive(boolean active) {
+        String getPositionListByActiveSql = "SELECT positions.id, positions.job_name, positions.salary " +
+                "FROM positions " +
+                "WHERE positions.active=?";
+
+        List<Position> positionList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getPositionListByActiveSql)) {
+
+            preparedStatement.setBoolean(1, active);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {  // because cursor is before first row
+                    Position position = new Position();
+
+                    position.setId(Integer.parseInt(resultSet.getString("id")));
+                    position.setJobName(resultSet.getString("job_name"));
+                    position.setSalary(resultSet.getBigDecimal("salary"));
+                    position.setActive(active);
+                    positionList.add(position);
+                }
+
+                if (positionList.isEmpty()) {
+                    throw new PositionException("No active positions");
+                }
+
+                return positionList;
+            }
+
+        } catch (SQLException e) {
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+
+        return Collections.emptyList();
     }
 }

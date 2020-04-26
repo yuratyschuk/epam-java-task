@@ -83,3 +83,9 @@
 2020-04-16 18:04:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: No value specified for parameter 3
 2020-04-16 18:04:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 0
 2020-04-16 18:04:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 07001
+2020-04-26 14:48:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Column 'active' not found.
+2020-04-26 14:48:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-04-26 14:48:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: S0022
+2020-04-26 14:49:25 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Column 'active' not found.
+2020-04-26 14:49:25 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-04-26 14:49:25 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: S0022

@@ -21,6 +21,7 @@ public class WorkerServlet extends HttpServlet {
     private final WorkerService workerService;
     private final String LIST_WORKERS = "jsp/worker/listWorkers.jsp";
     private final String INSERT_UPDATE_WORKER = "jsp/worker/updateWorker.jsp";
+    private String forward;
 
     private static final Logger logger = LogManager.getLogger();
     private final PositionService positionService;
@@ -33,23 +34,23 @@ public class WorkerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        logger.info(request.getServletPath());
-        String forward = "";
         String action = request.getParameter("action");
-        logger.warn(action);
+
         if (action.equalsIgnoreCase("delete")) {
-            String test = request.getContextPath() + "/worker?action=listWorkers";
+            String workerListRedirect = request.getContextPath() + "/worker?action=listWorkers";
 
             int workerId = Integer.parseInt(request.getParameter("workerId"));
             workerService.deleteById(workerId);
             request.setAttribute("workerList", workerService.getAll());
-            response.sendRedirect(test);
+            response.sendRedirect(workerListRedirect);
             return;
         } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_UPDATE_WORKER;
+
             int workerId = Integer.parseInt(request.getParameter("workerId"));
             Worker worker = workerService.getById(workerId);
             request.setAttribute("worker", worker);
+
             List<Position> positionList = positionService.getAll();
             request.setAttribute("positionList", positionList);
 
@@ -68,20 +69,25 @@ public class WorkerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        int workingExperience = Integer.parseInt("workingExperience");
+        Date hireDate = Date.valueOf(request.getParameter("hireDate"));
+        int positionId = Integer.parseInt(request.getParameter("position"));
+
         Worker worker = new Worker();
-        worker.setFirstName(request.getParameter("firstName"));
-        worker.setLastName(request.getParameter("lastName"));
-        worker.setWorkingExperience(Integer.parseInt(request.getParameter("workingExperience")));
-        worker.setHireDate(Date.valueOf(request.getParameter("hireDate")));
+        worker.setFirstName(firstName);
+        worker.setLastName(lastName);
+        worker.setWorkingExperience(workingExperience);
+        worker.setHireDate(hireDate);
+
         Position position = new Position();
-        position.setId(Integer.parseInt(request.getParameter("position")));
+        position.setId(positionId);
         worker.setPosition(position);
 
         String workerId = request.getParameter("workerId");
-
         if (workerId == null || workerId.isEmpty()) {
             workerService.save(worker);
-
         } else {
             worker.setId(Integer.parseInt(workerId));
             workerService.update(worker);

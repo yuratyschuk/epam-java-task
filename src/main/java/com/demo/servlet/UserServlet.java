@@ -1,6 +1,8 @@
 package com.demo.servlet;
 
+import com.demo.model.Ticket;
 import com.demo.model.User;
+import com.demo.service.TicketService;
 import com.demo.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 public class UserServlet extends HttpServlet {
 
@@ -25,15 +28,18 @@ public class UserServlet extends HttpServlet {
 
     private final String REGISTER_PAGE = "jsp/user/register.jsp";
 
+    private String forward;
+
+    private final TicketService ticketService;
+
     public UserServlet() {
         userService = new UserService();
+        ticketService = new TicketService();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        logger.info("DoGet");
-        String forward = "";
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("page")) {
@@ -41,6 +47,9 @@ public class UserServlet extends HttpServlet {
             HttpSession httpSession = request.getSession();
             User user = (User) httpSession.getAttribute("user");
 
+            List<Ticket> ticketList = ticketService.getTicketListByUserId(user.getId());
+
+            request.setAttribute("ticketList", ticketList);
             request.setAttribute("user", user);
         } else if (action.equalsIgnoreCase("login")) {
             forward = LOGIN_PAGE;
@@ -81,8 +90,9 @@ public class UserServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(USER_PAGE);
-            requestDispatcher.forward(request, response);
+            String userPageRedirect = request.getContextPath() + "/user?action=page";
+            response.sendRedirect(userPageRedirect);
+
         }
     }
 }

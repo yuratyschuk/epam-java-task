@@ -54,4 +54,13 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/user</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PositionServlet</servlet-name>
+        <servlet-class>com.demo.servlet.PositionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PositionServlet</servlet-name>
+        <url-pattern>/position  </url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -23,13 +23,14 @@ public class TrainServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
+    private String forward;
+
     public TrainServlet() {
         this.trainService = new TrainService();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward = " ";
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")) {
@@ -62,22 +63,26 @@ public class TrainServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String trainName = request.getParameter("trainName");
+        String trainNumber = request.getParameter("trainNumber");
+        int maxNumberOfCarriages = Integer.parseInt(request.getParameter("maxNumberOfCarriages"));
+        TrainType trainType = TrainType.valueOf(request.getParameter("trainType"));
+
         Train train = new Train();
+        train.setTrainName(trainName);
+        train.setTrainNumber(trainNumber);
+        train.setMaxNumberOfCarriages(maxNumberOfCarriages);
+        train.setTrainType(trainType);
 
-        train.setTrainName(request.getParameter("trainName"));
-        train.setTrainNumber(request.getParameter("trainNumber"));
-        train.setMaxNumberOfCarriages(Integer.parseInt(request.getParameter("maxNumberOfCarriages")));
-        logger.warn(request.getParameter("trainType"));
-        train.setTrainType(TrainType.valueOf(request.getParameter("trainType")));
-        logger.info(train.getTrainType());
         String trainId = request.getParameter("trainId");
-
         if(trainId == null || trainId.isEmpty()) {
             trainService.save(train);
         } else {
             train.setId(Integer.parseInt(trainId));
             trainService.update(train);
         }
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(LIST_TRAIN);
         request.setAttribute("trainList", trainService.getAll());
         requestDispatcher.forward(request, response);

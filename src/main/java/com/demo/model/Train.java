@@ -14,6 +14,7 @@ public class Train {
 
     private TrainType trainType;
 
+
     public Train() {
     }
 
@@ -64,6 +65,7 @@ public class Train {
     public void setTrainType(TrainType trainType) {
         this.trainType = trainType;
     }
+
 
     @Override
     public String toString() {

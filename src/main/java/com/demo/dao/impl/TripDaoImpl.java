@@ -3,7 +3,10 @@ package com.demo.dao.impl;
 import com.demo.dao.interfaces.TripDao;
 import com.demo.exceptions.TrainException;
 import com.demo.exceptions.TripException;
-import com.demo.model.*;
+import com.demo.model.Places;
+import com.demo.model.Route;
+import com.demo.model.Train;
+import com.demo.model.Trip;
 import com.demo.model.utils.TrainType;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -42,8 +45,8 @@ public class TripDaoImpl implements TripDao {
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
-            preparedStatement.setDate(1, trip.getDepartureTime());
-            preparedStatement.setDate(2, trip.getArrivalTime());
+            preparedStatement.setObject(1, trip.getDepartureTime());
+            preparedStatement.setObject(2, trip.getArrivalTime());
             preparedStatement.setInt(3, trip.getRoute().getId());
             preparedStatement.setBigDecimal(4, trip.getTicketPrice());
             preparedStatement.setInt(5, trip.getTrain().getId());
@@ -276,17 +279,19 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public Trip save(Trip trip) {
-        String saveSql = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages) " +
-                "VALUES(?, ?, ?, ?, ?, ?)";
+        String saveSql = "INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, " +
+                "number_of_carriages, number_of_places) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
 
-            preparedStatement.setDate(1, trip.getDepartureTime());
-            preparedStatement.setDate(2, trip.getArrivalTime());
+            preparedStatement.setObject(1, trip.getDepartureTime());
+            preparedStatement.setObject(2, trip.getArrivalTime());
             preparedStatement.setInt(3, trip.getRoute().getId());
             preparedStatement.setBigDecimal(4, trip.getTicketPrice());
             preparedStatement.setInt(5, trip.getTrain().getId());
             preparedStatement.setInt(6, trip.getNumberOfCarriages());
+            preparedStatement.setInt(7, trip.getNumberOfPlaces());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {

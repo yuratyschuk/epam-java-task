@@ -11,9 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class StopDaoImpl implements StopDao {
 
@@ -213,5 +211,45 @@ public class StopDaoImpl implements StopDao {
         }
 
         return stop;
+    }
+
+    @Override
+    public Set<Stop> getStopByRouteId(int routeId) {
+        String getStopByRouteIdSql = "SELECT stop.id, stop.name, stop.duration " +
+                "FROM stop_route  " +
+                "INNER JOIN stop ON stop.id = stop_route.stop_id " +
+                "WHERE stop_route.route_id=?";
+
+        Set<Stop> stopSet = new HashSet<>();
+
+        try(Connection connection = ConnectionPool.getDataSource().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(getStopByRouteIdSql)) {
+
+            preparedStatement.setInt(1, routeId);
+
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while(resultSet.next()) {
+                    Stop stop = new Stop();
+                    stop.setId(resultSet.getInt("id"));
+                    stop.setName(resultSet.getString("name"));
+                    stop.setDuration(resultSet.getInt("duration"));
+
+                    stopSet.add(stop);
+                }
+
+                if(stopSet.isEmpty()) {
+                    throw new StopException("Stops not found for this route");
+                }
+
+                return stopSet;
+            }
+        } catch (SQLException e) {
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+
+        return Collections.emptySet();
     }
 }

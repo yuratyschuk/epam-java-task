@@ -12,6 +12,8 @@ public class Position {
 
     private BigDecimal salary;
 
+    private boolean active;
+
     private List<Worker> workerList;
 
     public Position() {
@@ -69,6 +71,13 @@ public class Position {
         this.salary = salary;
     }
 
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public String toString() {
@@ -76,6 +85,7 @@ public class Position {
                 "id=" + id +
                 ", jobName='" + jobName + '\'' +
                 ", salary=" + salary +
+                ", active=" + active +
                 ", workerList=" + workerList +
                 '}';
     }

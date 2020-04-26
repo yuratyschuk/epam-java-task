@@ -1,11 +1,11 @@
 package com.demo.servlet;
 
-import com.demo.model.User;
 import com.demo.model.Ticket;
 import com.demo.model.Trip;
-import com.demo.service.UserService;
+import com.demo.model.User;
 import com.demo.service.TicketService;
 import com.demo.service.TripService;
+import com.demo.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,8 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @ServletSecurity
 public class TicketServlet extends HttpServlet {
@@ -30,6 +31,12 @@ public class TicketServlet extends HttpServlet {
 
     private final static Logger logger = LogManager.getLogger();
 
+    private final String BUY_TICKET = "jsp/ticket/buyTicket.jsp";
+
+    private String forward;
+
+    private String action;
+
     public TicketServlet() {
         tripService = new TripService();
         ticketService = new TicketService();
@@ -37,62 +44,54 @@ public class TicketServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        try {
-            String forward = " ";
-            String action = request.getParameter("action");
+        action = request.getParameter("action");
 
-            if (action.equalsIgnoreCase("buyTicket")) {
-                forward = "jsp/ticket/buyTicket.jsp";
+        if (action.equalsIgnoreCase("buyTicket")) {
 
-                Trip trip = tripService.getById(Integer.parseInt(request.getParameter("tripId")));
-                logger.info("Ticket: " + trip);
+            forward = BUY_TICKET;
+            int tripId = Integer.parseInt(request.getParameter("tripId"));
+            Trip trip = tripService.getById(tripId);
 
-                request.setAttribute("trip", trip);
-            }
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
-            requestDispatcher.forward(request, response);
-
-        } catch (NumberFormatException | ServletException | IOException e) {
-            logger.error(e.getMessage());
+            request.setAttribute("trip", trip);
         }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
+        requestDispatcher.forward(request, response);
+
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        int tripId = Integer.parseInt(request.getParameter("tripId"));
+        Trip trip = tripService.getById(tripId);
 
-        try {
-            Ticket ticket = new Ticket();
+        int numberOfPlaces = trip.getNumberOfPlaces();
+        trip.setNumberOfPlaces(numberOfPlaces - 1);
 
-            Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-            ticket.setTimeWhenTicketWasBought(currentDate);
-            logger.info(request.getParameter("tripId"));
-            ticket.setTrip(tripService.getById(Integer.parseInt(request.getParameter("tripId"))));
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword("password");
+        user.setUsername("username");
 
-            String email = request.getParameter("email");
-            User client = userService.getByEmail(email);
-            if (client == null) {
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
+        
 
+        Date currentDate = new Date();
+        Ticket ticket = new Ticket();
+        ticket.setTimeWhenTicketWasBought(currentDate);
+        ticket.setTrip(trip);
 
-                User clientToSave = new User();
-                clientToSave.setFirstName(firstName);
-                clientToSave.setLastName(lastName);
-                clientToSave.setEmail(email);
+        user = userService.save(user);
+        ticket.setClient(user);
 
-                client = userService.save(clientToSave);
-                clientToSave.setId(client.getId());
-                ticket.setClient(clientToSave);
-            ticketService.save(ticket);
-            } else {
-                ticket.setClient(client);
-                ticketService.save(ticket);
-            }
-        } catch (NumberFormatException e) {
-            logger.error(e.getMessage());
-        }
+        ticketService.save(ticket);
     }
 }
+

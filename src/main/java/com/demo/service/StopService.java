@@ -4,6 +4,7 @@ import com.demo.dao.impl.StopDaoImpl;
 import com.demo.model.Stop;
 
 import java.util.List;
+import java.util.Set;
 
 public class StopService {
 
@@ -35,5 +36,9 @@ public class StopService {
 
     public boolean deleteById(int id) {
         return stopDao.deleteById(id);
+    }
+
+    public Set<Stop> getStopByRouteId(int routeId) {
+        return stopDao.getStopByRouteId(routeId);
     }
 }

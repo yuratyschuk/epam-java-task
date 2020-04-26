@@ -1,7 +1,8 @@
 package com.demo.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
+
 
 public class Trip {
 
@@ -18,6 +19,8 @@ public class Trip {
     private Train train;
 
     private int numberOfCarriages;
+
+    private int numberOfPlaces;
 
     public Trip() {
     }
@@ -86,6 +89,14 @@ public class Trip {
 
     public void setNumberOfCarriages(int numberOfCarriages) {
         this.numberOfCarriages = numberOfCarriages;
+    }
+
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
+
+    public void setNumberOfPlaces(int numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
     }
 
     @Override

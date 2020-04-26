@@ -14,4 +14,6 @@
     <a class="nav-link" href="${pageContext.servletContext.contextPath}/user?action=register">Registration</a>
 
     <a class="nav-link" href="${pageContext.servletContext.contextPath}/user?action=login">Login</a>
+
+    <a class="nav-link" href="${pageContext.servletContext.contextPath}/position?action=positionList">Positions</a>
 </nav>

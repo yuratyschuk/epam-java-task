@@ -32,4 +32,8 @@ public class TicketService {
     public Ticket save(Ticket ticket) {
         return ticketDao.save(ticket);
     }
+
+    public List<Ticket> getTicketListByUserId(Integer userId) {
+        return ticketDao.getTicketListByUserId(userId);
+    }
 }

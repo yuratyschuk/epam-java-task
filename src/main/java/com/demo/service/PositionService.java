@@ -36,4 +36,8 @@ public class PositionService {
         return positionDao.update(position);
     }
 
+    public List<Position> getPositionListByActive(boolean active) {
+        return positionDao.getPositionListByActive(active);
+    }
+
 }

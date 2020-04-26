@@ -6,14 +6,14 @@
 </head>
 <body>
     <form action="ticket" method="post">
-        <label>First name: </label>
-        <input type="text" name="firstName">
+        <label for="firstName">First name: </label>
+        <input type="text" name="firstName" id="firstName">
 
-        <label>Last name: </label>
-        <input type="text" name="lastName">
+        <label for="lastName">Last name: </label>
+        <input type="text" name="lastName" id="lastName">
 
-        <label>Email: </label>
-        <input type="email" name="email">
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email">
 
         <input type="hidden" name="tripId" value="${trip.id}">
 
