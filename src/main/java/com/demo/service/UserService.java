@@ -18,4 +18,8 @@ public class UserService {
     public User checkLogin(String username, String password) {
         return userDao.validateLogin(username, password);
     }
+
+    public boolean delete(User user) {
+        return userDao.delete(user);
+    }
 }

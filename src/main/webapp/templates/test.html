@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+</head>
+<body>
+<select name="trainType" id="trainType">
+    <option value="passenger">Passenger</option>
+    <option value="cargo">Cargo</option>
+    <option value="multi">Multi</option>
+</select>
+<div id="passenger" style="display: none">
+    <label>
+        Price:
+        <input type="text" name="price" value="${trip.ticketPrice}">
+    </label>
+    <br>
+    <label>
+        Number of places:
+        <input type="text" name="numberOfPlaces" value="${trip.numberOfPlaces}">
+    </label>
+</div>
+<script>
+    $('#trainType').on('change', function () {
+        if ($(this).val() === "passenger") {
+            $("#passenger").show()
+        } else {
+            $("#passenger").hide()
+        }
+    });
+</script>
+
+</body>
+</html>

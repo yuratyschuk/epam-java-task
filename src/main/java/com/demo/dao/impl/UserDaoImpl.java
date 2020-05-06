@@ -19,9 +19,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean delete(User client) {
+    public boolean delete(User user) {
+        String deleteSql = "DELETE FROM users WHERE users.id=?";
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
+
+            preparedStatement.setInt(1, user.getId());
+
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
         return false;
     }
+
 
     @Override
     public List<User> getAll() {

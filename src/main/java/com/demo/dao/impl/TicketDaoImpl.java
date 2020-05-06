@@ -226,7 +226,7 @@ public class TicketDaoImpl implements TicketDao {
 
             preparedStatement.setInt(1, ticket.getTrip().getId());
             preparedStatement.setObject(2, ticket.getTimeWhenTicketWasBought());
-            preparedStatement.setInt(3, ticket.getClient().getId());
+            preparedStatement.setInt(3, ticket.getUser().getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {

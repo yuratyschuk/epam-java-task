@@ -10,7 +10,7 @@ public class Ticket {
 
     private Date timeWhenTicketWasBought;
 
-    private User client;
+    private User user;
 
     public Ticket() {
     }
@@ -40,12 +40,12 @@ public class Ticket {
         this.timeWhenTicketWasBought = timeWhenTicketWasBought;
     }
 
-    public User getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

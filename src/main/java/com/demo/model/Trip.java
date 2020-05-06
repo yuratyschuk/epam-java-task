@@ -2,6 +2,7 @@ package com.demo.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 
 public class Trip {
@@ -21,6 +22,8 @@ public class Trip {
     private int numberOfCarriages;
 
     private int numberOfPlaces;
+
+    private Set<Stop> stopSet;
 
     public Trip() {
     }
@@ -99,6 +102,14 @@ public class Trip {
         this.numberOfPlaces = numberOfPlaces;
     }
 
+    public Set<Stop> getStopSet() {
+        return stopSet;
+    }
+
+    public void setStopSet(Set<Stop> stopSet) {
+        this.stopSet = stopSet;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +
@@ -109,6 +120,8 @@ public class Trip {
                 ", ticketPrice=" + ticketPrice +
                 ", train=" + train +
                 ", numberOfCarriages=" + numberOfCarriages +
+                ", numberOfPlaces=" + numberOfPlaces +
+                ", stopSet=" + stopSet +
                 '}';
     }
 }

@@ -18,6 +18,9 @@ ${user.firstName}
 ${user.lastName}
 ${user.email}
 
+<a href="user?action=userDelete">Delete account</a>
+<a href="user?action=userUpdate">Update info</a>
+
 <table class="table">
     <tr>
         <th>Departure place</th>

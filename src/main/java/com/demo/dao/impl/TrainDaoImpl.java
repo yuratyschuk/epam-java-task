@@ -231,4 +231,39 @@ public class TrainDaoImpl implements TrainDao {
         }
         return null;
     }
+
+    @Override
+    public List<Train> getTrainListByType(TrainType trainType) {
+        String getTrainListByTypeSql = "SELECT train.id, train.train_name FROM train " +
+                "WHERE train.type=?";
+        List<Train> trainList = new ArrayList<>();
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getTrainListByTypeSql)) {
+
+            preparedStatement.setString(1, trainType.toString());
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Train train = new Train();
+                    train.setId(resultSet.getInt("id"));
+                    train.setTrainName("train_name");
+                    train.setTrainType(trainType);
+                    trainList.add(train);
+                }
+
+                if(trainList.isEmpty()) {
+                    throw  new TrainException("Train with type:  "  + trainType + " not found");
+                }
+
+                return trainList;
+            }
+        } catch (SQLException e) {
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+        return Collections.emptyList();
+    }
 }

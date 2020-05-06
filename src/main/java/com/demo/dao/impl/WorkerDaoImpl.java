@@ -118,7 +118,8 @@ public class WorkerDaoImpl implements WorkerDao {
                         "id")));
                 worker.setFirstName(resultSet.getString("first_name"));
                 worker.setLastName(resultSet.getString("last_name"));
-                worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+                worker.setWorkingExperience(resultSet.getInt("working_experience"));
+                worker.setHireDate(resultSet.getDate("hire_date"));
 
                 Position position = new Position();
                 position.setId(Integer.parseInt(resultSet.getString("position_id")));

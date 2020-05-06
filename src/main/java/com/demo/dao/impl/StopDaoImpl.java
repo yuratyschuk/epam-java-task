@@ -238,9 +238,7 @@ public class StopDaoImpl implements StopDao {
                     stopSet.add(stop);
                 }
 
-                if(stopSet.isEmpty()) {
-                    throw new StopException("Stops not found for this route");
-                }
+
 
                 return stopSet;
             }

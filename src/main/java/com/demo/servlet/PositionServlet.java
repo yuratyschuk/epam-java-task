@@ -44,6 +44,7 @@ public class PositionServlet extends HttpServlet {
             forward = LIST_POSITIONS;
 
             request.setAttribute("positionList", positionService.getPositionListByActive(true));
+
         } else if (action.equalsIgnoreCase("positionAdd")) {
             forward = ADD_POSITION;
 

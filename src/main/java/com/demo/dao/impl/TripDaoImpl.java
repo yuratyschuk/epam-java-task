@@ -23,7 +23,7 @@ import java.util.List;
 public class TripDaoImpl implements TripDao {
 
     private final static String GET_ALL = "SELECT trip.id, trip.departure_time, trip.arrival_time, " +
-            "trip.route_id, trip.ticket_price, trip.train_id, " +
+            "trip.route_id, trip.ticket_price, trip.train_id, trip.number_of_places, " +
             "train.train_name, train.train_number, train.type, route.arrival_place_id, " +
             "route.departure_place_id, departure_place.name AS departure_name, " +
             "arrival_place.name AS arrival_name, trip.number_of_carriages " +
@@ -126,6 +126,7 @@ public class TripDaoImpl implements TripDao {
                 trip.setArrivalTime(resultSet.getDate("arrival_time"));
                 trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
                 trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
+                trip.setNumberOfPlaces(resultSet.getInt("number_of_places"));
 
                 Route route = new Route();
                 route.setId(resultSet.getInt("route_id"));

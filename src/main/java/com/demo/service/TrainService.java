@@ -2,6 +2,7 @@ package com.demo.service;
 
 import com.demo.dao.impl.TrainDaoImpl;
 import com.demo.model.Train;
+import com.demo.model.utils.TrainType;
 
 import java.util.List;
 
@@ -35,5 +36,9 @@ public class TrainService {
 
     public Train save(Train train) {
         return trainDao.save(train);
+    }
+
+    public List<Train> getTrainListByType(TrainType trainType) {
+        return trainDao.getTrainListByType(trainType);
     }
 }

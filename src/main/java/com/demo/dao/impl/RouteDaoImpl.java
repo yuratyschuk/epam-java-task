@@ -8,10 +8,7 @@ import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -108,10 +105,9 @@ public class RouteDaoImpl implements RouteDao {
                     Route route = new Route();
                     route.setId(resultSet.getInt("id"));
                     return route;
-                } else {
-                    throw new RouteException("Route not found");
                 }
 
+                return null;
             }
         } catch (SQLException e) {
 
@@ -196,22 +192,27 @@ public class RouteDaoImpl implements RouteDao {
     public Route save(Route route) {
         String saveSql = "INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
-            if (!route.getDeparturePlace().getPlaceName().equals(route.getArrivalPlace().getPlaceName())) {
-                preparedStatement.setInt(1, route.getDeparturePlace().getId());
-                preparedStatement.setInt(2, route.getArrivalPlace().getId());
+            preparedStatement.setInt(1, route.getDeparturePlace().getId());
+            preparedStatement.setInt(2, route.getArrivalPlace().getId());
 
-                int checkIfNotNull = preparedStatement.executeUpdate();
-                if (checkIfNotNull == 0) {
-                    logger.error("Error while creating new route");
-                    throw new RouteException("Error while creating new route");
-                }
-            } else {
-                logger.error("Departure place and arrival place is equal");
-                throw new RouteException("Departure place and arrival place is equal");
+            int checkIfNotNull = preparedStatement.executeUpdate();
+            if (checkIfNotNull == 0) {
+                logger.error("Error while creating new route");
+                throw new RouteException("Error while creating new route");
             }
 
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    route.setId(resultSet.getInt(1));
+
+                    return route;
+                }
+
+
+            }
             logger.info("Route saved successfully");
             return route;
         } catch (SQLException e) {
@@ -226,5 +227,52 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public boolean delete(Route route) {
         return false;
+    }
+
+    @Override
+    public Route getByArrivalPlaceNameAndDeparturePlaceName(String departureName, String arrivalName) {
+        String getByArrivalPlaceNameAndDeparturePlaceNameSql = "SELECT route.id, departure_place.id AS departure_id, " +
+                "arrival_place.id AS arrival_id " +
+                "FROM route \n" +
+                "JOIN places departure_place ON route.departure_place_id = departure_place.id\n" +
+                "JOIN places arrival_place ON route.arrival_place_id = arrival_place.id\n" +
+                "WHERE departure_place.name=? AND arrival_place.name=?";
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement(getByArrivalPlaceNameAndDeparturePlaceNameSql)) {
+
+            preparedStatement.setString(1, departureName);
+            preparedStatement.setString(2, arrivalName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int routeId = resultSet.getInt("id");
+                    int departurePlaceId = resultSet.getInt("departure_id");
+                    int arrivalPlaceId = resultSet.getInt("arrival_id");
+
+                    Route route = new Route();
+                    route.setId(routeId);
+
+                    Places departurePlace = new Places();
+                    departurePlace.setId(departurePlaceId);
+                    Places arrivalPlace = new Places();
+                    arrivalPlace.setId(arrivalPlaceId);
+
+                    route.setDeparturePlace(departurePlace);
+                    route.setArrivalPlace(arrivalPlace);
+
+                    return route;
+                } else {
+                    return null;
+                }
+            }
+
+        } catch (SQLException e) {
+
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+        return null;
     }
 }

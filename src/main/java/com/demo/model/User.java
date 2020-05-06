@@ -2,7 +2,7 @@ package com.demo.model;
 
 import com.demo.model.utils.Person;
 
-public class User extends Person {
+public class   User extends Person {
 
     private Integer id;
 

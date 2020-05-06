@@ -71,7 +71,7 @@ public class WorkerServlet extends HttpServlet {
             throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        int workingExperience = Integer.parseInt("workingExperience");
+        int workingExperience = Integer.parseInt(request.getParameter("workingExperience"));
         Date hireDate = Date.valueOf(request.getParameter("hireDate"));
         int positionId = Integer.parseInt(request.getParameter("position"));
 

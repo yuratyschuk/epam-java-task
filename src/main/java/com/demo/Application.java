@@ -1,14 +1,19 @@
 package com.demo;
 
-import com.demo.model.Ticket;
-import com.demo.service.PositionService;
-import com.demo.service.TicketService;
+import com.demo.model.*;
+import com.demo.model.utils.TrainType;
+import com.demo.service.*;
+import com.demo.servlet.UserServlet;
 
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        PositionService positionService = new PositionService();
-        System.out.println(positionService.getPositionListByActive(true));
+        TripService tripService = new TripService();
+        List<Trip> trips = tripService.getAll();
+
+        for (Trip trip : trips) {
+            System.out.println(trip.getId() + " " + trip.getStopSet());
+        }
     }
 }

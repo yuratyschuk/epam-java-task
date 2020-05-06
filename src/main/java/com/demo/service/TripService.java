@@ -2,10 +2,13 @@ package com.demo.service;
 
 import com.demo.dao.impl.TripDaoImpl;
 import com.demo.exceptions.TripException;
+import com.demo.model.Stop;
 import com.demo.model.Trip;
 import com.demo.model.utils.TrainType;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TripService {
 
@@ -30,18 +33,25 @@ public class TripService {
     }
 
     public List<Trip> getAll() {
-
         List<Trip> tripList = tripDao.getAll();
 
-        for(Trip trip : tripList) {
-            trip.getRoute().setStopsList(stopService.getStopByRouteId(trip.getRoute().getId()));
+        Set<Stop> stopSet = new HashSet<>();
+
+        for (Trip trip : tripList) {
+            stopSet.addAll(stopService.getStopByRouteId(trip.getRoute().getId()));
+            trip.setStopSet(stopSet);
         }
 
         return tripList;
     }
 
     public Trip getById(int id) {
-        return tripDao.getById(id);
+        Trip trip = tripDao.getById(id);
+        Set<Stop> stops = stopService.getStopByRouteId(trip.getRoute().getId());
+
+        trip.setStopSet(stops);
+        return trip;
+
     }
 
     public List<Trip> getByRouteId(int routeId) {

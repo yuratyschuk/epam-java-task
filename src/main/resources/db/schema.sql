@@ -60,10 +60,10 @@ CREATE TABLE IF NOT EXISTS trip
     departure_time      DATE         NOT NULL,
     arrival_time        DATE         NOT NULL,
     route_id            INT UNSIGNED NOT NULL,
-    ticket_price        DECIMAL      NOT NULL,
+    ticket_price        DECIMAL,
     train_id            INT UNSIGNED,
     number_of_carriages INT UNSIGNED NOT NULL,
-    number_of_places    INT UNSIGNED NOT NULL,
+    number_of_places    INT UNSIGNED,
 
     FOREIGN KEY (route_id) REFERENCES route (id)
         ON DELETE CASCADE,
@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS ticket
 
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (trip_id) REFERENCES trip (id)
+    ON DELETE CASCADE
 
 );
 

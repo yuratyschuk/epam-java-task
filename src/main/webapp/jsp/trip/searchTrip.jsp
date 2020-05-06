@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-<form action="trip?action=tripSearchResults" method="post">
+
+<a href="trip?action=tripList">Trip List</a>
+<form action="trip" method="post">
     <select name="from">
         <c:forEach var="from" items="${placesList}">
             <option value="${from.id}">
@@ -23,6 +25,8 @@
             </option>
         </c:forEach>
     </select>
+
+    <input type="hidden" name="action" value="searchTrip">
 
     <button type="submit" value="Search"></button>
 </form>

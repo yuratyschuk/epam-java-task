@@ -28,6 +28,8 @@ public class UserServlet extends HttpServlet {
 
     private final String REGISTER_PAGE = "jsp/user/register.jsp";
 
+    private HttpSession session;
+
     private String forward;
 
     private final TicketService ticketService;
@@ -44,8 +46,8 @@ public class UserServlet extends HttpServlet {
 
         if (action.equalsIgnoreCase("page")) {
             forward = USER_PAGE;
-            HttpSession httpSession = request.getSession();
-            User user = (User) httpSession.getAttribute("user");
+            session = request.getSession();
+            User user = (User) session.getAttribute("user");
 
             List<Ticket> ticketList = ticketService.getTicketListByUserId(user.getId());
 
@@ -55,6 +57,19 @@ public class UserServlet extends HttpServlet {
             forward = LOGIN_PAGE;
         } else if (action.equalsIgnoreCase("register")) {
             forward = REGISTER_PAGE;
+        } else if(action.equalsIgnoreCase("userDelete")) {
+            forward = "index.jsp";
+            session = request.getSession();
+            User user = (User) session.getAttribute("user");
+
+            userService.delete(user);
+
+        } else if(action.equalsIgnoreCase("userUpdate")) {
+            forward = REGISTER_PAGE;
+            session = request.getSession();
+            User user = (User) session.getAttribute("user");
+
+            request.setAttribute("user", user);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
@@ -88,7 +103,7 @@ public class UserServlet extends HttpServlet {
 
             User user = userService.checkLogin(username, password);
 
-            HttpSession session = request.getSession();
+            session = request.getSession();
             session.setAttribute("user", user);
             String userPageRedirect = request.getContextPath() + "/user?action=page";
             response.sendRedirect(userPageRedirect);
