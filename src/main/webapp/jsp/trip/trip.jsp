@@ -14,12 +14,13 @@
 
     <label>
         Departure time:
-        <input type="date" name="departureTime" value="${trip.departureTime}">
+        <input type="date" name="departureTime" value="${trip.departureTime}" required>
     </label>
     <br>
     <label>
         Departure place:
-        <select name="departurePlaceId">
+        <select name="departurePlaceId" required>
+            <option selected disabled hidden>Choose departue place</option>
             <c:forEach items="${placesList}" var="places">
                 <option value="${places.id}"
                     ${trip.route.departurePlace.placeName == places.placeName ? 'selected="selected"' : ' '}>
@@ -30,12 +31,13 @@
     <br>
     <label>
         Arrival time:
-        <input type="date" name="arrivalTime" value="${trip.arrivalTime}">
+        <input type="date" name="arrivalTime" value="${trip.arrivalTime}" required>
     </label>
     <br>
     <label>
         Arrival place:
-        <select name="arrivalPlaceId">
+        <select name="arrivalPlaceId" required >
+            <option selected disabled hidden>Choose arrival place</option>
             <c:forEach items="${placesList}" var="places">
                 <option value="${places.id}"
                     ${trip.route.arrivalPlace.placeName == places.placeName ? 'selected="selected"' : ''}>
@@ -46,9 +48,9 @@
 
     <label>
         Stops:
-        <select name="stopPlaceId" multiple="multiple">
+        <select name="stopPlaceId" multiple="multiple" required>
             <c:forEach items="${placesList}" var="places">
-                <option value="${places.placeName}">
+                <option value="${places.id}">
                         ${places.placeName}
                 </option>
             </c:forEach>
@@ -58,7 +60,7 @@
 
     <label>
         Trip type:
-        <select name="trainType" id="trainType">
+        <select name="trainType" id="trainType" required>
             <option value="PASSENGER">Passenger</option>
             <option value="CARGO">Cargo</option>
             <option value="MULTI">Multi</option>
@@ -68,14 +70,14 @@
 
     <label>
         Number Of carriages:
-        <input type="text" name="numberOfCarriages" value="${trip.numberOfCarriages}">
+        <input type="number" name="numberOfCarriages" value="${trip.numberOfCarriages}" required>
     </label>
     <br>
 
     <div id="passenger" style="display: none">
         <label>
             Price:
-            <input type="text" name="price" value="${trip.ticketPrice}">
+            <input type="number" name="price" value="${trip.ticketPrice}" required>
         </label>
         <br>
         <label>
@@ -85,7 +87,8 @@
 
         <label>
             Train:
-            <select name="trainId">
+            <select name="trainId" required>
+                <option selected disabled hidden>Choose train name</option>
                 <c:forEach items="${trainList}" var="train">
                     <c:if test="${train.trainType == 'PASSENGER' || train.trainType == 'MULTI'}">
 
@@ -99,7 +102,8 @@
     <div id="cargo" style="display: none">
         <label>
             Train:
-            <select name="trainId">
+            <select name="trainId" required>
+                <option selected disabled hidden>Choose train name</option>
                 <c:forEach items="${trainList}" var="train">
                     <c:if test="${train.trainType == 'CARGO'}">
                         <option value="${train.id}">${train.trainName}</option>

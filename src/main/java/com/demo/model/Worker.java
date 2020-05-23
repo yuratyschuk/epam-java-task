@@ -18,17 +18,6 @@ public class Worker extends Person {
     public Worker() {
     }
 
-    public Worker(Position position, int workingExperience, Date hireDate) {
-
-        this.position = position;
-        this.workingExperience = workingExperience;
-        this.hireDate = hireDate;
-    }
-
-    public Worker(int workingExperience, Date hireDate) {
-        this.workingExperience = workingExperience;
-        this.hireDate = hireDate;
-    }
 
     public Integer getId() {
         return id;

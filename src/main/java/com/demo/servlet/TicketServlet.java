@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@ServletSecurity
 public class TicketServlet extends HttpServlet {
 
     private final TripService tripService;
@@ -47,7 +46,7 @@ public class TicketServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         action = request.getParameter("action");
@@ -60,13 +59,12 @@ public class TicketServlet extends HttpServlet {
 
             request.setAttribute("trip", trip);
         } else if(action.equalsIgnoreCase("ticketDelete")) {
-            String redirect = request.getContextPath() + "/trip?action=ticketList";
+            String redirect = request.getContextPath() + "/ticket?action=ticketList";
 
             int ticketId = Integer.parseInt(request.getParameter("ticketId"));
             ticketService.deleteById(ticketId);
 
             response.sendRedirect(redirect);
-            return;
 
         } else if(action.equalsIgnoreCase("ticketUpdate")) {
             forward = BUY_TICKET;
@@ -77,13 +75,13 @@ public class TicketServlet extends HttpServlet {
             forward = TRIP_LIST;
             request.setAttribute("ticketList", ticketService.getAll());
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
-        requestDispatcher.forward(request, response);
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
+//        requestDispatcher.forward(request, response);
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
         int tripId = Integer.parseInt(request.getParameter("tripId"));
         Trip trip = tripService.getById(tripId);
 
@@ -100,7 +98,6 @@ public class TicketServlet extends HttpServlet {
         user.setPassword("password");
         user.setUsername("username");
 
-        
 
         Date currentDate = new Date();
         Ticket ticket = new Ticket();

@@ -5,7 +5,7 @@ VALUES (2, 'operator', 15000, 0);
 INSERT INTO positions
 VALUES (3, 'security', 10000, 1);
 INSERT INTO positions
-VALUES (5, 'tester', 25000, 0);
+VALUES (5, 'tester', 25000, 1);
 
 INSERT INTO worker
 values (4, 'Yura', 'Tyschuk', 2, 4, '2014-12-31');
@@ -54,30 +54,30 @@ VALUES (5, 'stop5', 15);
 INSERT INTO stop
 VALUES (6, 'stop6', 16);
 
-INSERT INTO stop_route
-VALUES (1, 1);
-INSERT INTO stop_route
-VALUES (1, 2);
-INSERT INTO stop_route
-VALUES (1, 3);
-INSERT INTO stop_route
-VALUES (1, 4);
-INSERT INTO stop_route
+INSERT INTO stop_trip
 VALUES (2, 1);
-INSERT INTO stop_route
+INSERT INTO stop_trip
 VALUES (2, 2);
-INSERT INTO stop_route
+INSERT INTO stop_trip
 VALUES (2, 3);
-INSERT INTO stop_route
+INSERT INTO stop_trip
 VALUES (2, 4);
-INSERT INTO stop_route
-VALUES (3, 1);
-INSERT INTO stop_route
-VALUES (3, 2);
-INSERT INTO stop_route
-VALUES (3, 3);
-INSERT INTO stop_route
-VALUES (3, 4);
+INSERT INTO stop_trip
+VALUES (4, 1);
+INSERT INTO stop_trip
+VALUES (4, 2);
+INSERT INTO stop_trip
+VALUES (4, 3);
+INSERT INTO stop_trip
+VALUES (4, 4);
+INSERT INTO stop_trip
+VALUES (5, 1);
+INSERT INTO stop_trip
+VALUES (5, 2);
+INSERT INTO stop_trip
+VALUES (5, 3);
+INSERT INTO stop_trip
+VALUES (5, 4);
 
 
 INSERT INTO train

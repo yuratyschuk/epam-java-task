@@ -66,40 +66,7 @@ public class TicketDaoImpl implements TicketDao {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                Ticket ticket = new Ticket();
-                ticket.setId(resultSet.getInt("id"));
-                ticket.setTimeWhenTicketWasBought(resultSet.getDate("time_when_bought"));
-
-                Trip trip = new Trip();
-                trip.setId(resultSet.getInt("trip_id"));
-                trip.setDepartureTime(resultSet.getDate("departure_time"));
-                trip.setArrivalTime(resultSet.getDate("arrival_time"));
-                trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
-
-                Route route = new Route();
-                route.setId(resultSet.getInt("route_id"));
-
-
-                Places arrivalPlace = new Places();
-                arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
-                arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
-
-                Places departurePlace = new Places();
-                departurePlace.setId(resultSet.getInt("departure_place_id"));
-                departurePlace.setPlaceName(resultSet.getString("departure_name"));
-                route.setArrivalPlace(arrivalPlace);
-                route.setDeparturePlace(departurePlace);
-
-                Train train = new Train();
-                train.setId(resultSet.getInt("train_id"));
-                train.setTrainName(resultSet.getString("train_name"));
-                train.setTrainNumber(resultSet.getString("train_number"));
-                train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-
-                trip.setRoute(route);
-                trip.setTrain(train);
-                ticket.setTrip(trip);
-
+                Ticket ticket = getTicketFromDataBase(resultSet);
                 ticketList.add(ticket);
             }
 
@@ -140,44 +107,12 @@ public class TicketDaoImpl implements TicketDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Ticket ticket = new Ticket();
-                    ticket.setId(resultSet.getInt("id"));
-                    ticket.setTimeWhenTicketWasBought(resultSet.getDate("time_when_bought"));
-
-                    Trip trip = new Trip();
-                    trip.setId(resultSet.getInt("trip_id"));
-                    trip.setDepartureTime(resultSet.getDate("departure_time"));
-                    trip.setArrivalTime(resultSet.getDate("arrival_time"));
-                    trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
-
-                    Route route = new Route();
-                    route.setId(resultSet.getInt("route_id"));
-
-
-                    Places arrivalPlace = new Places();
-                    arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
-                    arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
-
-                    Places departurePlace = new Places();
-                    departurePlace.setId(resultSet.getInt("departure_place_id"));
-                    departurePlace.setPlaceName(resultSet.getString("departure_name"));
-                    route.setArrivalPlace(arrivalPlace);
-                    route.setDeparturePlace(departurePlace);
-
-                    Train train = new Train();
-                    train.setId(resultSet.getInt("train_id"));
-                    train.setTrainName(resultSet.getString("train_name"));
-                    train.setTrainNumber(resultSet.getString("train_number"));
-                    train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-
-                    trip.setRoute(route);
-                    trip.setTrain(train);
-                    ticket.setTrip(trip);
-
-                    return ticket;
+                    return getTicketFromDataBase(resultSet);
                 } else {
                     throw new TicketException("Ticket with id " + id + " doesn't exists");
                 }
+
+
             }
         } catch (SQLException e) {
 
@@ -265,33 +200,7 @@ public class TicketDaoImpl implements TicketDao {
 
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 while(resultSet.next()) {
-                    Ticket ticket = new Ticket();
-                    ticket.setId(resultSet.getInt("id"));
-                    ticket.setTimeWhenTicketWasBought(resultSet.getDate("time_when_bought"));
-
-                    Trip trip = new Trip();
-                    trip.setId(resultSet.getInt("trip_id"));
-                    trip.setDepartureTime(resultSet.getDate("departure_time"));
-                    trip.setArrivalTime(resultSet.getDate("arrival_time"));
-                    trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
-
-                    Route route = new Route();
-                    route.setId(resultSet.getInt("route_id"));
-
-
-                    Places arrivalPlace = new Places();
-                    arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
-                    arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
-
-                    Places departurePlace = new Places();
-                    departurePlace.setId(resultSet.getInt("departure_place_id"));
-                    departurePlace.setPlaceName(resultSet.getString("departure_name"));
-                    route.setArrivalPlace(arrivalPlace);
-                    route.setDeparturePlace(departurePlace);
-
-                    trip.setRoute(route);
-                    ticket.setTrip(trip);
-
+                    Ticket ticket = getTicketFromDataBase(resultSet);
                     ticketList.add(ticket);
                 }
 
@@ -307,5 +216,43 @@ public class TicketDaoImpl implements TicketDao {
             logger.error("Sql state: {}", e.getSQLState());
         }
         return Collections.emptyList();
+    }
+
+    private Ticket getTicketFromDataBase(ResultSet resultSet) throws SQLException {
+        Ticket ticket = new Ticket();
+        ticket.setId(resultSet.getInt("id"));
+        ticket.setTimeWhenTicketWasBought(resultSet.getDate("time_when_bought"));
+
+        Trip trip = new Trip();
+        trip.setId(resultSet.getInt("trip_id"));
+        trip.setDepartureTime(resultSet.getDate("departure_time"));
+        trip.setArrivalTime(resultSet.getDate("arrival_time"));
+        trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
+
+        Route route = new Route();
+        route.setId(resultSet.getInt("route_id"));
+
+
+        Places arrivalPlace = new Places();
+        arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
+        arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
+
+        Places departurePlace = new Places();
+        departurePlace.setId(resultSet.getInt("departure_place_id"));
+        departurePlace.setPlaceName(resultSet.getString("departure_name"));
+        route.setArrivalPlace(arrivalPlace);
+        route.setDeparturePlace(departurePlace);
+
+        Train train = new Train();
+        train.setId(resultSet.getInt("train_id"));
+        train.setTrainName(resultSet.getString("train_name"));
+        train.setTrainNumber(resultSet.getString("train_number"));
+        train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
+
+        trip.setRoute(route);
+        trip.setTrain(train);
+        ticket.setTrip(trip);
+
+        return ticket;
     }
 }

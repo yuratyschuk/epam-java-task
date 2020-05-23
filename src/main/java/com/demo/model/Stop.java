@@ -11,11 +11,6 @@ public class Stop {
     public Stop() {
     }
 
-    public Stop(Integer id, String name, int duration) {
-        this.id = id;
-        this.name = name;
-        this.duration = duration;
-    }
 
     public Integer getId() {
         return id;

@@ -24,31 +24,32 @@
             <tr>
                 <td><label>First name:</label></td>
                 <td><input type="text" name="firstName"
-                           value="${worker.firstName}" /></td>
+                           value="${worker.firstName}" required/></td>
             </tr>
 
             <tr>
                 <td><label>Last name:</label></td>
                 <td><input type="text" name="lastName"
-                           value="${worker.lastName}" /></td>
+                           value="${worker.lastName}" required/></td>
             </tr>
 
             <tr>
                 <td><label>Working experience:</label></td>
-                <td><input type="text" name="workingExperience"
-                           value="${worker.workingExperience}" /></td>
+                <td><input type="number" name="workingExperience"
+                           value="${worker.workingExperience}" required/></td>
             </tr>
 
             <tr>
                 <td><label>Hire Date: </label></td>
-                <td><input type="date" name="hireDate" value="${worker.hireDate}"></td>
+                <td><input type="date" name="hireDate" value="${worker.hireDate}" required></td>
             </tr>
 
             <tr>
                 <td>
                     <label>
-                        <select name="position">
+                        <select name="position" required>
                             <c:forEach var="positions" items="${positionList}">
+                                <option selected disabled hidden>Choose position</option>
                                 <option value="${positions.id}">
                                         ${positions.jobName}
                                 </option>

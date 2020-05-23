@@ -7,7 +7,15 @@
 <body>
 
 <a href="position?action=positionAdd">Add new Position</a>
-<a href="position?action=positionListActive">Active positions</a>
+<c:choose>
+    <c:when test="${param.action.equals('positionListActive')}">
+        <a href="position?action=positionList">All positions</a>
+    </c:when>
+    <c:when test="${param.action.equals('positionList')}">
+        <a href="position?action=positionListActive">Active positions</a>
+    </c:when>
+</c:choose>
+
 <table class="table">
     <tr>
         <th>Job</th>

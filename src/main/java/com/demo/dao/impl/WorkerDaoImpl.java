@@ -112,21 +112,7 @@ public class WorkerDaoImpl implements WorkerDao {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                Worker worker = new Worker();
-
-                worker.setId(Integer.parseInt(resultSet.getString(
-                        "id")));
-                worker.setFirstName(resultSet.getString("first_name"));
-                worker.setLastName(resultSet.getString("last_name"));
-                worker.setWorkingExperience(resultSet.getInt("working_experience"));
-                worker.setHireDate(resultSet.getDate("hire_date"));
-
-                Position position = new Position();
-                position.setId(Integer.parseInt(resultSet.getString("position_id")));
-                position.setJobName(resultSet.getString("job_name"));
-                position.setSalary(resultSet.getBigDecimal("salary"));
-
-                worker.setPosition(position);
+                Worker worker = getWorkerFromDataBase(resultSet);
                 workerList.add(worker);
             }
 
@@ -160,21 +146,7 @@ public class WorkerDaoImpl implements WorkerDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {  // because cursor is before first row
-                    Worker worker = new Worker();
-
-                    worker.setId(Integer.parseInt(resultSet.getString("id")));
-                    worker.setFirstName(resultSet.getString("first_name"));
-                    worker.setLastName(resultSet.getString("last_name"));
-                    worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
-
-                    Position position = new Position();
-                    position.setJobName(resultSet.getString("job_name"));
-                    position.setJobName(resultSet.getString("salary"));
-                    worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                    worker.setPosition(position);
-
-                    resultSet.close();
-                    return worker;
+                    return getWorkerFromDataBase(resultSet);
                 } else {
                     logger.error("Worker with id " + id + " not found");
                     throw new WorkerException("Worker with id " + id + " not found");
@@ -189,6 +161,8 @@ public class WorkerDaoImpl implements WorkerDao {
         return null;
     }
 
+
+
     @Override
     public Worker getByLastName(String lastName) {
         String getByNameSql = "SELECT * FROM worker WHERE worker.last_name=?";
@@ -199,21 +173,7 @@ public class WorkerDaoImpl implements WorkerDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {  // because cursor is before first row
-                    Worker worker = new Worker();
-
-                    worker.setId(Integer.parseInt(resultSet.getString("id")));
-                    worker.setFirstName(resultSet.getString("first_name"));
-                    worker.setLastName(resultSet.getString("last_name"));
-                    worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
-
-                    Position position = new Position();
-                    position.setJobName(resultSet.getString("job_name"));
-                    position.setJobName(resultSet.getString("salary"));
-                    worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                    worker.setPosition(position);
-
-                    resultSet.close();
-                    return worker;
+                    return getWorkerFromDataBase(resultSet);
                 } else {
                     logger.error("Worker with last name: " + lastName + " not found");
                     throw new WorkerException("Worker with last name " + lastName + " not found");
@@ -259,6 +219,24 @@ public class WorkerDaoImpl implements WorkerDao {
             logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
+    }
+
+    private Worker getWorkerFromDataBase(ResultSet resultSet) throws SQLException {
+        Worker worker = new Worker();
+
+        worker.setId(Integer.parseInt(resultSet.getString("id")));
+        worker.setFirstName(resultSet.getString("first_name"));
+        worker.setLastName(resultSet.getString("last_name"));
+        worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
+
+        Position position = new Position();
+        position.setJobName(resultSet.getString("job_name"));
+        position.setJobName(resultSet.getString("salary"));
+        worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+        worker.setPosition(position);
+
+        resultSet.close();
+        return worker;
     }
 
 }

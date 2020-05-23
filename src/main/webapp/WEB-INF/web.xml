@@ -63,4 +63,8 @@
         <servlet-name>PositionServlet</servlet-name>
         <url-pattern>/position  </url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <location>/jsp/error.jsp</location>
+    </error-page>
 </web-app>

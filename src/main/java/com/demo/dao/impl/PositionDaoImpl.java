@@ -168,7 +168,6 @@ public class PositionDaoImpl implements PositionDao {
                         worker.setLastName(resultSet.getString("last_name"));
                         worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
                         worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                        position.setWorkerList(Collections.singletonList(worker));
                     }
                 }
 
@@ -207,7 +206,6 @@ public class PositionDaoImpl implements PositionDao {
                     worker.setLastName(resultSet.getString("last_name"));
                     worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
                     worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                    position.setWorkerList(Collections.singletonList(worker));
 
                 }
                 if (position.getId() == null) {

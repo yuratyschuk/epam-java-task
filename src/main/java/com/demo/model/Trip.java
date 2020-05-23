@@ -28,15 +28,6 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(Integer id, Date departureTime, Date arrivalTime, Route route, BigDecimal ticketPrice, Train train, int numberOfCarriages) {
-        this.id = id;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.route = route;
-        this.ticketPrice = ticketPrice;
-        this.train = train;
-        this.numberOfCarriages = numberOfCarriages;
-    }
 
     public Integer getId() {
         return id;

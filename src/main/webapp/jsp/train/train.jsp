@@ -22,27 +22,29 @@
             <tr>
                 <td><label>Train number:</label></td>
                 <td><input type="text" name="trainNumber"
-                           value="${train.trainNumber}"/></td>
+                           value="${train.trainNumber}" required/></td>
             </tr>
 
             <tr>
                 <td><label>Train name:</label></td>
                 <td><input type="text" name="trainName"
-                           value="${train.trainName}"/></td>
+                           value="${train.trainName}" required/></td>
             </tr>
 
             <tr>
                 <td><label>Max number of carriages:</label></td>
-                <td><input type="text" name="maxNumberOfCarriages"
-                           value="${train.maxNumberOfCarriages}"/></td>
+                <td><input type="number" name="maxNumberOfCarriages"
+                           value="${train.maxNumberOfCarriages}" required
+                /></td>
             </tr>
 
 
             <tr>
                 <td>
                     <label>
-                        <select name="trainType">
-                            <c:forEach var="trainType" items="${trainTypeList}">
+                        <select name="trainType" required>
+                            <option selected disabled hidden>Choose type</option>
+                            <c:forEach var="trainType" items="${trainTypeEnum}">
                                 <option value="${trainType}">
                                         ${trainType}
                                 </option>

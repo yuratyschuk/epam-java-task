@@ -10,8 +10,8 @@ public class RouteService {
     RouteDaoImpl routeDao = new RouteDaoImpl();
 
     public Route save(Route route) {
-            routeDao.save(route);
-            return route;
+
+        return routeDao.save(route);
     }
 
     public boolean update(Route route) {
@@ -24,10 +24,6 @@ public class RouteService {
 
     public Route getByDeparturePlaceIdAndArrivalPlaceId(Integer departurePlaceId, Integer arrivalPlaceId) {
         return routeDao.getByArrivalPlaceIdAndDeparturePlaceId(departurePlaceId, arrivalPlaceId);
-    }
-
-    public Route getByDeparturePlaceNameAndArrivalPlaceName(String departureName, String arrivalName) {
-        return routeDao.getByArrivalPlaceNameAndDeparturePlaceName(departureName, arrivalName);
     }
 
     public Route getById(Integer id) {

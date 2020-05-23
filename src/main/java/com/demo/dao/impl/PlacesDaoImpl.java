@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PlacesDaoImpl implements PlacesDao {
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public boolean update(Places places) {

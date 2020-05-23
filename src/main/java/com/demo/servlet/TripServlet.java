@@ -1,5 +1,6 @@
 package com.demo.servlet;
 
+import com.demo.dao.impl.StopRouteDaoImpl;
 import com.demo.model.*;
 import com.demo.model.utils.TrainType;
 import com.demo.service.PlaceService;
@@ -41,6 +42,7 @@ public class TripServlet extends HttpServlet {
 
     private final String TRIP_LIST = "jsp/trip/tripList.jsp";
 
+    private final StopRouteDaoImpl stopRouteDao;
 
     private String forward;
 
@@ -53,6 +55,7 @@ public class TripServlet extends HttpServlet {
         placeService = new PlaceService();
         routeService = new RouteService();
         trainService = new TrainService();
+        stopRouteDao = new StopRouteDaoImpl();
     }
 
     @Override
@@ -69,6 +72,7 @@ public class TripServlet extends HttpServlet {
             forward = DETAILS_PAGE;
             int tripId = Integer.parseInt(request.getParameter("tripId"));
             Trip trip = tripService.getById(tripId);
+            logger.info(trip.getStopSet());
             request.setAttribute("trip", trip);
 
         } else if (action.equalsIgnoreCase("tripAdd")) {
@@ -91,7 +95,7 @@ public class TripServlet extends HttpServlet {
 
             response.sendRedirect(tripRedirect);
             return;
-        } else {
+        } else if(action.equalsIgnoreCase("tripList")){
             forward = TRIP_LIST;
             request.setAttribute("tripList", tripService.getAll());
         }
@@ -146,18 +150,11 @@ public class TripServlet extends HttpServlet {
                 int numberOfPlaces = Integer.parseInt(request.getParameter("numberOfPlaces"));
                 trip.setTicketPrice(price);
                 trip.setNumberOfPlaces(numberOfPlaces);
-
             }
-            String[] stopIdString = request.getParameterValues("stopPlaceId");
-            for(String s : stopIdString) {
-                logger.info(s);
-            }
-
 
             int departureId = Integer.parseInt(request.getParameter("departurePlaceId"));
             int arrivalId = Integer.parseInt(request.getParameter("arrivalPlaceId"));
             Route route = routeService.getByDeparturePlaceIdAndArrivalPlaceId(departureId, arrivalId);
-            logger.info(route);
 
             if (route == null) {
                 route = new Route();
@@ -181,12 +178,19 @@ public class TripServlet extends HttpServlet {
             train.setId(trainId);
             trip.setTrain(train);
             trip.setNumberOfCarriages(numberOfCarriages);
-
+            int tripIdInt;
             if (tripId == null || tripId.isEmpty()) {
-                tripService.save(trip);
+              trip =   tripService.save(trip);
+              tripIdInt = trip.getId();
             } else {
-                trip.setId(Integer.parseInt(tripId));
+                tripIdInt = Integer.parseInt(tripId);
+                trip.setId(tripIdInt);
                 tripService.update(trip);
+            }
+            String[] stopIdString = request.getParameterValues("stopPlaceId");
+            for(String s : stopIdString) {
+                int stopId = Integer.parseInt(s);
+                stopRouteDao.save(tripIdInt, stopId);
             }
         } catch (ParseException e) {
             logger.error(e.getMessage());

@@ -18,13 +18,6 @@ public class Train {
     public Train() {
     }
 
-    public Train(Integer id, String trainName, String trainNumber, int maxNumberOfCarriages, TrainType trainType) {
-        this.id = id;
-        this.trainName = trainName;
-        this.trainNumber = trainNumber;
-        this.maxNumberOfCarriages = maxNumberOfCarriages;
-        this.trainType = trainType;
-    }
 
     public Integer getId() {
         return id;

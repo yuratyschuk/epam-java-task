@@ -17,11 +17,7 @@ public class TripService {
     StopService stopService = new StopService();
 
     public boolean update(Trip trip) {
-        if (trip.getTrain().getTrainType() != TrainType.CARGO) {
-            return tripDao.update(trip);
-        } else {
-            throw new TripException("Trip type isn't PASSENGER");
-        }
+        return tripDao.update(trip);
     }
 
     public boolean delete(Trip trip) {
@@ -38,7 +34,7 @@ public class TripService {
         Set<Stop> stopSet = new HashSet<>();
 
         for (Trip trip : tripList) {
-            stopSet.addAll(stopService.getStopByRouteId(trip.getRoute().getId()));
+            stopSet.addAll(stopService.getStopByRouteId(trip.getId()));
             trip.setStopSet(stopSet);
         }
 
@@ -47,7 +43,7 @@ public class TripService {
 
     public Trip getById(int id) {
         Trip trip = tripDao.getById(id);
-        Set<Stop> stops = stopService.getStopByRouteId(trip.getRoute().getId());
+        Set<Stop> stops = stopService.getStopByRouteId(trip.getId());
 
         trip.setStopSet(stops);
         return trip;
@@ -59,10 +55,7 @@ public class TripService {
     }
 
     public Trip save(Trip trip) {
-        if (trip.getTrain().getTrainType() != TrainType.CARGO) {
-            return tripDao.save(trip);
-        } else {
-            throw new TripException("Can't save trip because it isn't PASSENGER");
-        }
+        return tripDao.save(trip);
+
     }
 }

@@ -7,28 +7,28 @@
 <body>
 <form action="user" method="post">
 
-    <input type="hidden" name="userId" value="${user.id}">
+    <input type="hidden" name="userId" value="${user.id}" >
 
     <label>
         First name:
-        <input type="text" name="firstName" value="${user.firstName}">
+        <input type="text" name="firstName" value="${user.firstName}" required>
     </label>
     <label>
         Last name:
-        <input type="text" name="lastName" value="${user.lastName}">
+        <input type="text" name="lastName" value="${user.lastName}" required>
     </label>
     <label>
         Username:
-        <input type="text" name="username" value="${user.username}">
+        <input type="text" name="username" value="${user.username}" required>
     </label>
     <label>
         Email:
-        <input type="email" name="email" value="${user.email}">
+        <input type="email" name="email" value="${user.email}" required>
     </label>
 
     <label>
         Password:
-        <input type="password" name="password">
+        <input type="password" name="password" required>
     </label>
 
     <input type="hidden" name="action" value="register">

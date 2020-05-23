@@ -17,8 +17,6 @@ public class PositionServlet extends HttpServlet {
 
     private String action;
 
-    private String forward;
-
     private final PositionService positionService;
 
     private final String LIST_POSITIONS = "jsp/position/positionList.jsp";
@@ -32,10 +30,11 @@ public class PositionServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         action = request.getParameter("action");
 
+        String forward;
         if (action.equalsIgnoreCase("positionList")) {
             forward = LIST_POSITIONS;
 
@@ -55,7 +54,6 @@ public class PositionServlet extends HttpServlet {
             positionService.deleteById(positionId);
             response.sendRedirect(positionRedirect);
 
-            return;
         } else if (action.equalsIgnoreCase("positionUpdate")) {
             forward = ADD_POSITION;
             int positionId = Integer.parseInt(request.getParameter("positionId"));
@@ -64,12 +62,12 @@ public class PositionServlet extends HttpServlet {
 
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
-        requestDispatcher.forward(request, response);
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
+//        requestDispatcher.forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         action = request.getParameter("action");
 
         String jobName = request.getParameter("jobName");

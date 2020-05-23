@@ -14,38 +14,10 @@ public class Position {
 
     private boolean active;
 
-    private List<Worker> workerList;
-
     public Position() {
-        this.workerList = new ArrayList<>();
+
     }
 
-    public Position(String jobName, BigDecimal salary, List<Worker> workerList) {
-
-        this.jobName = jobName;
-        this.salary = salary;
-        this.workerList = workerList;
-    }
-
-    public Position(Integer id, String jobName, BigDecimal salary) {
-        this.id = id;
-        this.jobName = jobName;
-        this.salary = salary;
-        this.workerList = new ArrayList<>();
-    }
-
-    public Position(String jobName, BigDecimal salary) {
-        this.jobName = jobName;
-        this.salary = salary;
-    }
-
-    public List<Worker> getWorkerList() {
-        return workerList;
-    }
-
-    public void setWorkerList(List<Worker> workerList) {
-        this.workerList.addAll(workerList);
-    }
 
     public Integer getId() {
         return id;
@@ -86,7 +58,6 @@ public class Position {
                 ", jobName='" + jobName + '\'' +
                 ", salary=" + salary +
                 ", active=" + active +
-                ", workerList=" + workerList +
                 '}';
     }
 }

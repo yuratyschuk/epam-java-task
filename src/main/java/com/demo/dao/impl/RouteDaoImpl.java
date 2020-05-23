@@ -58,18 +58,7 @@ public class RouteDaoImpl implements RouteDao {
 
 
             while (resultSet.next()) {
-                Route route = new Route();
-                route.setId(resultSet.getInt("id"));
-
-                Places arrivalPlace = new Places();
-                arrivalPlace.setId(resultSet.getInt("departure_place_id"));
-                arrivalPlace.setPlaceName(resultSet.getString("departure_name"));
-                Places departurePlace = new Places();
-                departurePlace.setId(resultSet.getInt("arrival_place_id"));
-                departurePlace.setPlaceName(resultSet.getString("arrival_name"));
-
-                route.setArrivalPlace(arrivalPlace);
-                route.setDeparturePlace(departurePlace);
+                Route route = getFromDatabase(resultSet);
                 routeList.add(route);
             }
 
@@ -133,20 +122,7 @@ public class RouteDaoImpl implements RouteDao {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 if (resultSet.next()) {
-                    Route route = new Route();
-                    route.setId(resultSet.getInt("id"));
-
-                    Places arrivalPlace = new Places();
-                    arrivalPlace.setId(resultSet.getInt("departure_place_id"));
-                    arrivalPlace.setPlaceName(resultSet.getString("departure_name"));
-                    Places departurePlace = new Places();
-                    departurePlace.setId(resultSet.getInt("arrival_place_id"));
-                    departurePlace.setPlaceName(resultSet.getString("arrival_name"));
-
-                    route.setArrivalPlace(arrivalPlace);
-                    route.setDeparturePlace(departurePlace);
-
-                    return route;
+                    return getFromDatabase(resultSet);
                 } else {
                     logger.error("Route with id " + id + " doesn't exists");
                     throw new RouteException("Route with id " + id + " doesn't exists");
@@ -274,5 +250,22 @@ public class RouteDaoImpl implements RouteDao {
             logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
+    }
+
+    private Route getFromDatabase(ResultSet resultSet) throws SQLException {
+        Route route = new Route();
+        route.setId(resultSet.getInt("id"));
+
+        Places arrivalPlace = new Places();
+        arrivalPlace.setId(resultSet.getInt("departure_place_id"));
+        arrivalPlace.setPlaceName(resultSet.getString("departure_name"));
+        Places departurePlace = new Places();
+        departurePlace.setId(resultSet.getInt("arrival_place_id"));
+        departurePlace.setPlaceName(resultSet.getString("arrival_name"));
+
+        route.setArrivalPlace(arrivalPlace);
+        route.setDeparturePlace(departurePlace);
+
+        return route;
     }
 }

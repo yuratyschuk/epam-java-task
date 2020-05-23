@@ -61,13 +61,7 @@ public class TrainDaoImpl implements TrainDao {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                Train train = new Train();
-                train.setId(resultSet.getInt("id"));
-                train.setTrainName(resultSet.getString("train_name"));
-                train.setTrainNumber(resultSet.getString("train_number"));
-                train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-                TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
-                train.setTrainType(trainType);
+                Train train = getTrainFromDataBase(resultSet);
                 trainList.add(train);
             }
 
@@ -95,15 +89,7 @@ public class TrainDaoImpl implements TrainDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Train train = new Train();
-                    train.setId(resultSet.getInt("id"));
-                    train.setTrainName(resultSet.getString("train_name"));
-                    train.setTrainNumber(resultSet.getString("train_number"));
-                    train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-                    TrainType trainType = TrainType.valueOf("type");
-                    train.setTrainType(trainType);
-
-                    return train;
+                    return getTrainFromDataBase(resultSet);
                 } else {
                     logger.error("Train with name " + trainName + " not found");
                     throw new TrainException("Train with name " + trainName + " not found");
@@ -130,15 +116,7 @@ public class TrainDaoImpl implements TrainDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Train train = new Train();
-                    train.setId(resultSet.getInt("id"));
-                    train.setTrainName(resultSet.getString("train_name"));
-                    train.setTrainNumber(resultSet.getString("train_number"));
-                    train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
-                    TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
-                    train.setTrainType(trainType);
-
-                    return train;
+                    return getTrainFromDataBase(resultSet);
                 } else {
                     logger.error("Train with id " + id + " not found");
                     throw new TrainException("Train with id " + id + " not found");
@@ -252,8 +230,8 @@ public class TrainDaoImpl implements TrainDao {
                     trainList.add(train);
                 }
 
-                if(trainList.isEmpty()) {
-                    throw  new TrainException("Train with type:  "  + trainType + " not found");
+                if (trainList.isEmpty()) {
+                    throw new TrainException("Train with type:  " + trainType + " not found");
                 }
 
                 return trainList;
@@ -265,5 +243,16 @@ public class TrainDaoImpl implements TrainDao {
             logger.error("Sql state: {}", e.getSQLState());
         }
         return Collections.emptyList();
+    }
+
+    private Train getTrainFromDataBase(ResultSet resultSet) throws SQLException {
+        Train train = new Train();
+        train.setId(resultSet.getInt("id"));
+        train.setTrainName(resultSet.getString("train_name"));
+        train.setTrainNumber(resultSet.getString("train_number"));
+        train.setMaxNumberOfCarriages(resultSet.getInt("max_number_of_carriages"));
+        TrainType trainType = TrainType.valueOf(resultSet.getString("type"));
+        train.setTrainType(trainType);
+        return train;
     }
 }

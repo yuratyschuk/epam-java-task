@@ -216,9 +216,9 @@ public class StopDaoImpl implements StopDao {
     @Override
     public Set<Stop> getStopByRouteId(int routeId) {
         String getStopByRouteIdSql = "SELECT stop.id, stop.name, stop.duration " +
-                "FROM stop_route  " +
-                "INNER JOIN stop ON stop.id = stop_route.stop_id " +
-                "WHERE stop_route.route_id=?";
+                "FROM stop_trip  " +
+                "INNER JOIN stop ON stop.id = stop_trip.stop_id " +
+                "WHERE stop_trip.trip_id=?";
 
         Set<Stop> stopSet = new HashSet<>();
 

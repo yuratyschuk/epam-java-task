@@ -46,12 +46,12 @@ public class TrainServlet extends HttpServlet {
             int trainId = Integer.parseInt(request.getParameter("trainId"));
             Train train = trainService.getById(trainId);
             request.setAttribute("train", train);
-            request.setAttribute("trainTypeList", TrainType.values());
+            request.setAttribute("trainTypeEnum", TrainType.values());
 
 
         } else if (action.equalsIgnoreCase("insert")) {
             forward = UPDATE_OR_ADD_TRAIN;
-            request.setAttribute("trainType", TrainType.values());
+            request.setAttribute("trainTypeEnum", TrainType.values());
         } else {
             forward = LIST_TRAIN;
             request.setAttribute("trainList", trainService.getAll());
@@ -76,7 +76,7 @@ public class TrainServlet extends HttpServlet {
         train.setTrainType(trainType);
 
         String trainId = request.getParameter("trainId");
-        if(trainId == null || trainId.isEmpty()) {
+        if (trainId == null || trainId.isEmpty()) {
             trainService.save(train);
         } else {
             train.setId(Integer.parseInt(trainId));
@@ -88,3 +88,4 @@ public class TrainServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 }
+

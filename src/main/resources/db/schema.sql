@@ -72,14 +72,14 @@ CREATE TABLE IF NOT EXISTS trip
 
 );
 
-CREATE TABLE IF NOT EXISTS stop_route
+CREATE TABLE IF NOT EXISTS stop_trip
 (
-    stop_id  INT UNSIGNED NOT NULL,
-    route_id INT UNSIGNED NOT NULL,
+    trip_id  INT UNSIGNED NOT NULL,
+    stop_id INT UNSIGNED NOT NULL,
 
     FOREIGN KEY (stop_id) REFERENCES stop (id)
         ON DELETE CASCADE,
-    FOREIGN KEY (route_id) REFERENCES route (id)
+    FOREIGN KEY (trip_Id) REFERENCES trip (id)
         ON DELETE CASCADE
 );
 

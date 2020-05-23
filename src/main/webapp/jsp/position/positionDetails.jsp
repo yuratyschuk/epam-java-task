@@ -11,12 +11,12 @@
 
     <label>
         Job name:
-        <input type="text" name="jobName" value="${position.jobName}">
+        <input type="text" name="jobName" value="${position.jobName}" required>
     </label>
 
     <label>
         Salary
-        <input type="text" name="salary" value="${position.salary}">
+        <input type="number" name="salary" value="${position.salary}" required>
     </label>
 
     <label>

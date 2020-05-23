@@ -11,13 +11,12 @@
 
     <a class="nav-link" href="${pageContext.servletContext.contextPath}/train?action=listTrain">Train list</a>
 
-    <a class="nav-link" href="${pageContext.servletContext.contextPath}/trip?action=tripList">Trip List</a>
+    <a class="nav-link" href="${pageContext.servletContext.contextPath}/position?action=positionList">Positions</a>
+
+    <a class="nav-link" href="${pageContext.servletContext.contextPath}/ticket?action=ticketList">Ticket List</a>
 
     <a class="nav-link" href="${pageContext.servletContext.contextPath}/user?action=register">Registration</a>
 
     <a class="nav-link" href="${pageContext.servletContext.contextPath}/user?action=login">Login</a>
 
-    <a class="nav-link" href="${pageContext.servletContext.contextPath}/position?action=positionList">Positions</a>
-
-    <a class="nav-link" href="${pageContext.servletContext.contextPath}/ticket?action=ticketList">Ticket List</a>
 </nav>

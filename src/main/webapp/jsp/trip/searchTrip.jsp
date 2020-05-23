@@ -11,6 +11,7 @@
 <a href="trip?action=tripList">Trip List</a>
 <form action="trip" method="post">
     <select name="from">
+        <option selected disabled hidden>Choose departure place</option>
         <c:forEach var="from" items="${placesList}">
             <option value="${from.id}">
                     ${from.placeName}
@@ -19,6 +20,7 @@
     </select>
 
     <select name="to">
+        <option selected disabled hidden>Choose arrival place</option>
         <c:forEach var="to" items="${placesList}">
             <option value="${to.id}">
                     ${to.placeName}
