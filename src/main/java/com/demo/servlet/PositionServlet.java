@@ -25,6 +25,8 @@ public class PositionServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
+    private String forward;
+
     public PositionServlet() {
         positionService = new PositionService();
     }
@@ -34,7 +36,6 @@ public class PositionServlet extends HttpServlet {
             throws ServletException, IOException {
         action = request.getParameter("action");
 
-        String forward;
         if (action.equalsIgnoreCase("positionList")) {
             forward = LIST_POSITIONS;
 
@@ -62,8 +63,8 @@ public class PositionServlet extends HttpServlet {
 
         }
 
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
-//        requestDispatcher.forward(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
+        requestDispatcher.forward(request, response);
     }
 
     @Override

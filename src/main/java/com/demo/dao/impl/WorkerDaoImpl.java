@@ -121,7 +121,6 @@ public class WorkerDaoImpl implements WorkerDao {
                 throw new WorkerException("Worker data table is empty");
             }
 
-            resultSet.close();
             return workerList;
         } catch (SQLException e) {
 
@@ -235,7 +234,6 @@ public class WorkerDaoImpl implements WorkerDao {
         worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
         worker.setPosition(position);
 
-        resultSet.close();
         return worker;
     }
 

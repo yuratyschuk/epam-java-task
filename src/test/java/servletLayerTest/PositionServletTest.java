@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +23,15 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
+
 public class PositionServletTest {
 
     @Mock
     HttpServletRequest request = mock(HttpServletRequest.class);
     @Mock
     HttpServletResponse response = mock(HttpServletResponse.class);
+
+    RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
 
 
     @Rule
@@ -43,12 +47,13 @@ public class PositionServletTest {
 
 
         when(request.getParameter("action")).thenReturn("positionList");
-
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         new PositionServlet().doGet(request, response);
 
         verify(request, atLeast(1)).getParameter("action");
-
+        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
+        verify(requestDispatcher, atLeastOnce()).forward(request, response);
     }
 
     @Test
@@ -56,41 +61,55 @@ public class PositionServletTest {
             throws ServletException, IOException {
 
         when(request.getParameter("action")).thenReturn("positionListActive");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         new PositionServlet().doGet(request, response);
 
         verify(request, atLeast(1)).getParameter("action");
+        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
+        verify(requestDispatcher, atLeastOnce()).forward(request, response);
     }
 
     @Test
     public void testDoGetMethodIfActionPositionAdd() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("positionAdd");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         new PositionServlet().doGet(request, response);
 
         verify(request, atLeast(1)).getParameter("action");
     }
 
-//    @Test
-//    public void testDoGetMethodIfActionPositionDelete() throws ServletException, IOException {
-//        PositionService positionService = spy(PositionService.class);
-//        PositionDao positionDao = mock(PositionDao.class);
-//        when(request.getParameter("action")).thenReturn("positionDelete");
-//        when(request.getParameter("positionId")).thenReturn("2");
-//        when(positionDao.deleteById(anyInt())).thenReturn(true);
-//        positionServlet.doGet(request, response);
-//
-//        verify(request, atLeast(1)).getParameter("action");
-//        verify(request, atLeast(1)).getParameter("positionId");
-//    }
+    @Test
+    public void testDoGetMethodIfActionPositionDelete() throws ServletException, IOException {
+        PositionService positionService = spy(PositionService.class);
+        PositionDao positionDao = mock(PositionDao.class);
+        when(request.getParameter("action")).thenReturn("positionDelete");
+        when(request.getParameter("positionId")).thenReturn("4");
+        when(positionDao.deleteById(anyInt())).thenReturn(true);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        positionServlet.doGet(request, response);
+
+        verify(request, atLeast(1)).getParameter("action");
+        verify(request, atLeast(1)).getParameter("positionId");
+        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
+        verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/position?action=positionList");
+        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+    }
 
     @Test
     public void testDoGetMethodIfActionPositionUpdate() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("positionUpdate");
         when(request.getParameter("positionId")).thenReturn("1");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         new PositionServlet().doGet(request, response);
 
         verify(request, atLeast(1)).getParameter("action");
         verify(request, atLeast(1)).getParameter("positionId");
+        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
+        verify(requestDispatcher, atLeastOnce()).forward(request, response);
     }
 
     @Test

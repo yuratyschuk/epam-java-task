@@ -198,3 +198,69 @@
 2020-05-23 13:32:25 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
 2020-05-23 13:32:26 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
 2020-05-23 13:32:26 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-23 13:40:17 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 1
+2020-05-23 13:40:46 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-23 13:53:27 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with id 4 not found
+2020-05-23 14:04:47 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-23 14:06:13 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-23 14:06:13 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-23 14:06:13 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-24 01:49:23 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 1 doesn't exists
+2020-05-24 01:50:20 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 2 doesn't exists
+2020-05-24 01:50:49 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 2 doesn't exists
+2020-05-24 01:56:55 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}, Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}]
+2020-05-24 13:47:25 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column 'train_id' not found.
+2020-05-24 13:47:25 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 0
+2020-05-24 13:47:25 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: S0022
+2020-05-24 13:50:57 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`ticket`, CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+2020-05-24 13:50:57 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1451
+2020-05-24 13:50:57 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-25 13:30:19 [main] INFO  com.demo.servlet.UserServlet - register
+2020-05-25 13:30:19 [main] INFO  com.demo.servlet.UserServlet - Here register
+2020-05-25 13:30:23 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test@gmail.com' for key 'users.email'
+2020-05-25 13:30:23 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-25 13:30:23 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-25 13:36:04 [main] INFO  com.demo.servlet.UserServlet - login
+2020-05-25 13:36:04 [main] INFO  com.demo.servlet.UserServlet - Here login
+2020-05-25 13:47:01 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 2
+2020-05-25 13:49:14 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 1 not found
+2020-05-25 13:53:17 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: You can't operate on a closed ResultSet!!!
+2020-05-25 13:53:17 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-05-25 13:53:17 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-05-25 13:54:02 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: You can't operate on a closed ResultSet!!!
+2020-05-25 13:54:02 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-05-25 13:54:02 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-05-25 13:54:40 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: You can't operate on a closed ResultSet!!!
+2020-05-25 13:54:40 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-05-25 13:54:40 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Duplicate entry 'test' for key 'positions.job_name'
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 1062
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23000
+2020-05-25 13:58:36 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 1 doesn't exists
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 1 doesn't exists
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 1 doesn't exists
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Message: Duplicate entry 'test' for key 'train.train_name'
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Error code: 1062
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Sql state: 23000
+2020-05-25 13:58:36 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 4 doesn't exists
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 4 doesn't exists
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete data because it doesn't exists. Id 4
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column 'train_id' not found.
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 0
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: S0022
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`ticket`, CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1451
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test@gmail.com' for key 'users.email'
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-25 13:58:36 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-25 13:58:36 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-26 00:35:39 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 1 doesn't exists
+2020-05-26 00:36:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 2 doesn't exists
+2020-05-26 00:37:02 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test@gmail.com' for key 'users.email'
+2020-05-26 00:37:02 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-26 00:37:02 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-26 00:37:20 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved

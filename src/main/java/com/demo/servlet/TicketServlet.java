@@ -75,8 +75,8 @@ public class TicketServlet extends HttpServlet {
             forward = TRIP_LIST;
             request.setAttribute("ticketList", ticketService.getAll());
         }
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
-//        requestDispatcher.forward(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
+        requestDispatcher.forward(request, response);
 
     }
 

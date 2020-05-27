@@ -40,7 +40,7 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
 
@@ -77,12 +77,11 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        logger.info(action);
+
         if (action.equalsIgnoreCase("register")) {
-            logger.info("Here register");
 
             User user = new User();
 
@@ -97,7 +96,6 @@ public class UserServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
             requestDispatcher.forward(request, response);
         } else if (action.equalsIgnoreCase("login")) {
-            logger.info("Here login");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 

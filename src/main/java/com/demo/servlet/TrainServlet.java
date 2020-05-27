@@ -23,19 +23,18 @@ public class TrainServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private String forward;
-
     public TrainServlet() {
         this.trainService = new TrainService();
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
+        String forward;
         if (action.equalsIgnoreCase("delete")) {
-            String redirectString = request.getContextPath() + "/train?action=trainList";
-
+            String redirectString = "/train?action=trainList";
+            logger.warn(request.getContextPath());
             int trainId = Integer.parseInt(request.getParameter("trainId"));
             trainService.deleteById(trainId);
             request.setAttribute("trainList", trainService.getAll());
@@ -62,7 +61,7 @@ public class TrainServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String trainName = request.getParameter("trainName");
         String trainNumber = request.getParameter("trainNumber");
