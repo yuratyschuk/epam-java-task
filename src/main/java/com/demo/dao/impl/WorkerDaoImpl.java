@@ -29,7 +29,7 @@ public class WorkerDaoImpl implements WorkerDao {
             preparedStatement.setString(2, worker.getLastName());
             preparedStatement.setInt(3, worker.getPosition().getId());
             preparedStatement.setInt(4, worker.getWorkingExperience());
-            preparedStatement.setDate(5, worker.getHireDate());
+            preparedStatement.setObject(5, worker.getHireDate());
             preparedStatement.setInt(6, worker.getId());
 
 
@@ -53,11 +53,11 @@ public class WorkerDaoImpl implements WorkerDao {
 
     @Override
     public boolean delete(Worker worker) {
-        String deleteByUsernameSql = "DELETE FROM worker WHERE worker.last_name=?";
+        String deleteByUsernameSql = "DELETE FROM worker WHERE worker.id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(deleteByUsernameSql)) {
 
-            preparedStatement.setString(1, worker.getLastName());
+            preparedStatement.setInt(1, worker.getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -104,8 +104,9 @@ public class WorkerDaoImpl implements WorkerDao {
     @Override
     public List<Worker> getAll() {
         List<Worker> workerList = new ArrayList<>();
-        String getAllSql = "SELECT worker.*, positions.job_name, positions.salary " +
-                "FROM worker JOIN positions ON positions.id = worker.position_id";
+        String getAllSql = "SELECT worker.*, positions.id AS positionId, " +
+                "positions.job_name, positions.salary, positions.active FROM worker " +
+                "JOIN positions ON positions.id = worker.position_id";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getAllSql);
@@ -135,7 +136,8 @@ public class WorkerDaoImpl implements WorkerDao {
 
     @Override
     public Worker getById(Integer id) {
-        String findByIdSql = "SELECT worker.*, positions.job_name, positions.salary FROM worker " +
+        String findByIdSql = "SELECT worker.*, positions.id AS positionId, " +
+                "positions.job_name, positions.salary, positions.active FROM worker " +
                 "JOIN positions ON positions.id = worker.position_id WHERE worker.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -164,7 +166,9 @@ public class WorkerDaoImpl implements WorkerDao {
 
     @Override
     public Worker getByLastName(String lastName) {
-        String getByNameSql = "SELECT * FROM worker WHERE worker.last_name=?";
+        String getByNameSql = "SELECT worker.*, positions.id AS positionId, " +
+                "positions.job_name, positions.salary, positions.active FROM worker " +
+                "JOIN positions ON positions.id = worker.position_id WHERE worker.last_name=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getByNameSql)) {
 
@@ -194,14 +198,15 @@ public class WorkerDaoImpl implements WorkerDao {
                 " VALUES(?, ?, ?, ?, ?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
 
             preparedStatement.setString(1, worker.getFirstName());
             preparedStatement.setString(2, worker.getLastName());
             preparedStatement.setInt(3, worker.getWorkingExperience());
             preparedStatement.setInt(4, worker.getPosition().getId());
-            preparedStatement.setDate(5, worker.getHireDate());
+            preparedStatement.setObject(5, worker.getHireDate());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -209,8 +214,15 @@ public class WorkerDaoImpl implements WorkerDao {
                 throw new WorkerException("Error while creating worker!");
             }
 
+            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    worker.setId(resultSet.getInt(1));
+
+                    return worker;
+                }
+            }
+
             logger.info("Info added to data base");
-            return worker;
         } catch (SQLException e) {
 
             logger.error("Message: {}", e.getMessage());
@@ -229,8 +241,10 @@ public class WorkerDaoImpl implements WorkerDao {
         worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
 
         Position position = new Position();
+        position.setId(resultSet.getInt("positionId"));
         position.setJobName(resultSet.getString("job_name"));
-        position.setJobName(resultSet.getString("salary"));
+        position.setSalary(resultSet.getBigDecimal("salary"));
+        position.setActive(resultSet.getBoolean("active"));
         worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
         worker.setPosition(position);
 

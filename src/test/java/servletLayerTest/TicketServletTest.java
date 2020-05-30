@@ -25,7 +25,7 @@ public class TicketServletTest {
     public void testDoGetActionBuyTicket() throws ServletException, IOException {
 
         Mockito.when(request.getParameter("action")).thenReturn("buyTicket");
-        Mockito.when(request.getParameter("tripId")).thenReturn("1");
+        Mockito.when(request.getParameter("tripId")).thenReturn("2");
         Mockito.doNothing().when(request).setAttribute(Mockito.eq("trip"), Mockito.isA(Trip.class));
         Mockito.when(request.getRequestDispatcher(Mockito.anyString())).thenReturn(requestDispatcher);
 
@@ -43,17 +43,12 @@ public class TicketServletTest {
     public void testDoGetActionTicketDelete() throws ServletException, IOException {
         Mockito.when(request.getParameter("action")).thenReturn("ticketDelete");
         Mockito.when(request.getParameter("ticketId")).thenReturn("1");
-        Mockito.doNothing().when(response).sendRedirect(Mockito.anyString());
-        Mockito.when(request.getRequestDispatcher(Mockito.anyString())).thenReturn(requestDispatcher);
 
         new TicketServlet().doGet(request, response);
 
         Mockito.verify(request, Mockito.atLeast(1)).getParameter("action");
         Mockito.verify(request, Mockito.atLeast(1)).getParameter("ticketId");
         Mockito.verify(response, Mockito.atLeast(1)).sendRedirect(Mockito.anyString());
-
-        Mockito.verify(request, Mockito.atLeastOnce()).getRequestDispatcher(Mockito.anyString());
-        Mockito.verify(requestDispatcher, Mockito.atLeastOnce()).forward(request, response);
     }
 
     @Test

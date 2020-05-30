@@ -2,7 +2,7 @@ package com.demo.model;
 
 import com.demo.model.utils.Person;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Worker extends Person {
 

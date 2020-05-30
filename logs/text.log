@@ -264,3 +264,1048 @@
 2020-05-26 00:37:02 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
 2020-05-26 00:37:02 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
 2020-05-26 00:37:20 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-27 17:07:03 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Duplicate entry 'test' for key 'positions.job_name'
+2020-05-27 17:07:03 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 1062
+2020-05-27 17:07:03 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23000
+2020-05-27 17:07:03 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 1 doesn't exists
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test25@gmail.com' for key 'users.email'
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 1 doesn't exists
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Message: Duplicate entry 'test' for key 'train.train_name'
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Error code: 1062
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Sql state: 23000
+2020-05-27 17:07:04 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 4 doesn't exists
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 4 doesn't exists
+2020-05-27 17:07:04 [main] ERROR com.demo.servlet.TripServlet - Unparseable date: "31313"
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete data because it doesn't exists. Id 4
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column 'train_id' not found.
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 0
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: S0022
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`ticket`, CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1451
+2020-05-27 17:07:04 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-27 17:07:05 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test@gmail.com' for key 'users.email'
+2020-05-27 17:07:05 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-27 17:07:05 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-27 17:07:05 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 3
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Duplicate entry 'test' for key 'positions.job_name'
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 1062
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23000
+2020-05-28 21:54:37 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 1 doesn't exists
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test25@gmail.com' for key 'users.email'
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-28 21:54:37 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 1 doesn't exists
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Message: Duplicate entry 'test' for key 'train.train_name'
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Error code: 1062
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Sql state: 23000
+2020-05-28 21:54:38 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 4 doesn't exists
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 4 doesn't exists
+2020-05-28 21:54:38 [main] ERROR com.demo.servlet.TripServlet - Unparseable date: "31313"
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete data because it doesn't exists. Id 4
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column 'train_id' not found.
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 0
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: S0022
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Cannot delete or update a parent row: a foreign key constraint fails (`epam_task_database`.`ticket`, CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1451
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Duplicate entry 'test@gmail.com' for key 'users.email'
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 1062
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23000
+2020-05-28 21:54:38 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 3
+2020-05-28 22:02:19 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-28 22:04:47 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 4
+2020-05-28 22:05:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 4
+2020-05-28 22:09:33 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 4
+2020-05-28 22:10:09 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 4
+2020-05-28 22:29:34 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 4
+2020-05-28 22:34:16 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 4
+2020-05-28 23:49:47 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-28 23:49:47 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-28 23:49:47 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-28 23:51:04 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-28 23:51:04 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-28 23:51:04 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-28 23:54:33 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-28 23:54:33 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-28 23:54:33 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-28 23:55:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-28 23:55:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-28 23:55:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-28 23:56:27 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-28 23:56:27 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-28 23:56:27 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-28 23:59:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-28 23:59:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-28 23:59:39 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-29 00:01:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-29 00:01:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-29 00:01:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-29 00:04:25 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-29 00:04:25 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-29 00:04:25 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-29 23:42:02 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-29 23:42:02 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-29 23:42:02 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:13:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:13:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:13:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:17:14 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:17:14 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:17:14 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:18:07 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:18:07 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:18:07 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:20:01 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:20:01 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:20:01 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:20:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:20:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:20:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:23:00 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:23:00 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:23:00 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:26:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:26:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:26:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:26:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:26:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:26:11 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:26:49 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:26:49 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:26:49 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:28:01 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:28:01 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:28:01 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:31:00 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 15:31:00 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 0
+2020-05-30 15:31:00 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: null
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 15:32:05 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Table "WORKER" not found; SQL statement:
+SELECT worker.first_name, worker.last_name, worker.hire_date, worker.working_experience, positions.id, positions.job_name, positions.salary FROM positions LEFT JOIN worker ON  positions.id = worker.position_id WHERE positions.id=? [42102-194]
+2020-05-30 15:32:05 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 42102
+2020-05-30 15:32:05 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 42S02
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 15:32:05 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 15:32:05 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 15:32:05 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=1, name='stop1', duration=11}, Stop{id=4, name='stop4', duration=14}, Stop{id=3, name='stop3', duration=13}]
+2020-05-30 15:32:05 [main] ERROR com.demo.servlet.TripServlet - Unparseable date: "31313"
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Table "WORKER" not found; SQL statement:
+SELECT worker.*, positions.job_name, positions.salary FROM worker JOIN positions ON positions.id = worker.position_id [42102-194]
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 42102
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: 42S02
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Table "WORKER" not found; SQL statement:
+SELECT worker.*, positions.job_name, positions.salary FROM worker JOIN positions ON positions.id = worker.position_id WHERE worker.id=? [42102-194]
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 42102
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: 42S02
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Table "WORKER" not found; SQL statement:
+DELETE FROM worker WHERE worker.id=? [42102-194]
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 42102
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: 42S02
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Table "WORKER" not found; SQL statement:
+SELECT worker.*, positions.job_name, positions.salary FROM worker JOIN positions ON positions.id = worker.position_id [42102-194]
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 42102
+2020-05-30 15:32:06 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: 42S02
+2020-05-30 15:41:51 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 15:41:51 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 15:41:52 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 15:41:52 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 15:41:52 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 15:41:52 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 15:41:52 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 15:41:52 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 15:41:52 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=3, name='stop3', duration=13}, Stop{id=1, name='stop1', duration=11}, Stop{id=2, name='stop2', duration=12}, Stop{id=4, name='stop4', duration=14}]
+2020-05-30 15:41:52 [main] ERROR com.demo.servlet.TripServlet - Unparseable date: "Sat May 30 15:41:52 EEST 2020"
+2020-05-30 15:41:52 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 15:41:52 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 15:41:52 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 15:41:52 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 15:41:52 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 15:41:52 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 15:41:52 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 15:45:24 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 15:45:24 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 15:45:24 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 15:45:24 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 15:45:24 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 15:45:25 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 15:45:25 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 15:45:25 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 15:45:25 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 15:45:25 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 15:45:25 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 3
+2020-05-30 15:51:19 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 15:51:43 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 15:51:43 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 15:51:43 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 15:51:44 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 15:51:44 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 15:51:44 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 15:51:44 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 15:51:44 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 15:51:44 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 15:51:44 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 15:51:44 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 15:51:44 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 15:51:44 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 15:51:44 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 15:51:44 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 15:51:44 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 15:51:44 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 15:53:29 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 15:53:29 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 15:53:29 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 15:53:29 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 15:53:29 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 15:53:30 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 15:53:30 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 15:53:30 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 15:53:30 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}, Stop{id=2, name='stop2', duration=12}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 15:53:30 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 15:53:30 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 15:53:30 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 15:53:30 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 15:53:30 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 15:53:30 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 15:53:30 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 15:53:30 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 15:55:53 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 15:55:53 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 15:55:53 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 15:56:46 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 15:56:46 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 15:56:46 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 15:56:46 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 15:56:46 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 15:56:46 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 15:56:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 15:56:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 15:56:47 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 15:56:47 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 15:56:47 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 15:56:47 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 15:56:47 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 15:56:47 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 15:58:07 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 15:58:07 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 15:58:07 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 16:01:26 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:01:26 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:02:37 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:02:37 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 16:03:00 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 16:03:00 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 16:03:00 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 16:03:01 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 16:03:01 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:03:01 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 16:06:56 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 16:06:56 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 16:06:56 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 16:06:56 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 16:06:56 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 16:06:57 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 16:06:57 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 16:06:57 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 16:06:57 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=1, name='stop1', duration=11}, Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.StopRouteDaoImpl - Column "STOP_TRIP" not found; SQL statement:
+INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?) [42122-194]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages, number_of_places) VALUES(?, ?, ?, ?, ?, ?, ?) [23506-194]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 16:06:57 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 16:06:57 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:06:57 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 16:32:02 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 16:32:02 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 16:32:02 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 16:32:03 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 16:32:03 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 16:32:03 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 16:32:03 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 16:32:03 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 16:32:03 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}, Stop{id=3, name='stop3', duration=13}]
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+INSERT INTO trip(departure_time, arrival_time, route_id, ticket_price, train_id, number_of_carriages, number_of_places) VALUES(?, ?, ?, ?, ?, ?, ?) [23506-194]
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 16:32:03 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 16:32:03 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:32:03 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 16:33:41 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 16:33:41 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 16:33:42 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 16:33:42 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 16:33:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:33:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 16:43:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:43:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:43:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:43:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:43:12 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker data table is empty
+2020-05-30 16:44:29 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:44:29 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:44:29 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:44:29 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 16:44:29 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker data table is empty
+2020-05-30 16:44:31 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 16:44:31 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 16:44:31 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 16:44:32 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 16:44:32 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 16:44:32 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 16:44:32 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 16:44:32 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 16:44:32 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=1, name='stop1', duration=11}, Stop{id=4, name='stop4', duration=14}, Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}]
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker data table is empty
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 4 not found
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 3
+2020-05-30 16:44:32 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 4
+2020-05-30 22:28:42 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 22:28:42 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-05-30 22:28:42 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-05-30 22:31:10 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-05-30 22:31:10 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-05-30 22:31:10 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-05-30 22:32:34 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Info added to data base
+2020-05-30 22:46:13 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 22:47:54 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 22:49:09 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:05:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Info added to data base
+2020-05-30 23:05:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:05:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Info added to data base
+2020-05-30 23:05:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:05:42 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Info added to data base
+2020-05-30 23:05:42 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: UpdatedLastName
+2020-05-30 23:06:59 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Info added to data base
+2020-05-30 23:08:22 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Info added to data base
+2020-05-30 23:13:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:13:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:13:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:13:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:13:45 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:15:51 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:15:52 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:15:52 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:15:52 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:15:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 23:15:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 23:15:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 23:15:55 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 23:15:55 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 23:15:55 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 23:15:55 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 23:15:55 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 23:15:55 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=2, name='stop2', duration=12}, Stop{id=3, name='stop3', duration=13}, Stop{id=1, name='stop1', duration=11}, Stop{id=4, name='stop4', duration=14}]
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 23:15:55 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 23:15:55 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:15:55 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:20:08 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:20:08 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:20:08 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:20:08 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:22:43 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:22:43 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:24:30 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:25:28 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:25:28 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:26:02 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:26:14 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:26:14 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:26:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:27:15 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:27:15 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:28:02 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:28:02 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:28:02 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:29:41 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:29:41 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:29:41 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:29:41 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:29:41 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:29:41 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:34:44 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:34:44 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:34:45 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:34:45 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:35:26 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:35:26 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:35:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:35:39 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 5
+2020-05-30 23:35:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:35:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:35:39 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 7
+2020-05-30 23:35:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:35:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:35:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:36:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:36:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:36:12 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:40:18 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
+2020-05-30 23:41:39 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:44:40 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Data conversion error converting "LastName"; SQL statement:
+DELETE FROM worker WHERE worker.id=? [22018-194]
+2020-05-30 23:44:40 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 22018
+2020-05-30 23:44:40 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: 22018
+2020-05-30 23:45:11 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:51:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:51:20 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with last name: Last name Exception not found
+2020-05-30 23:51:20 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 2500
+2020-05-30 23:51:20 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
+2020-05-30 23:51:20 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 2500 not found
+2020-05-30 23:51:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-30 23:51:20 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-30 23:51:20 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:51:23 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-30 23:51:23 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-30 23:51:23 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-30 23:51:23 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-30 23:51:24 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-30 23:51:24 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-30 23:51:24 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-30 23:51:24 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-30 23:51:24 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=4, name='stop4', duration=14}, Stop{id=3, name='stop3', duration=13}, Stop{id=2, name='stop2', duration=12}, Stop{id=1, name='stop1', duration=11}]
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-30 23:51:24 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-30 23:51:24 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-30 23:51:24 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-30 23:55:45 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: NULL not allowed for column "FIRST_NAME"; SQL statement:
+UPDATE worker SET worker.first_name=?, worker.last_name=?,worker.position_id=?, worker.working_experience=?,worker.hire_date=? WHERE worker.id=? [23502-194]
+2020-05-30 23:55:45 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 23502
+2020-05-30 23:55:45 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: 23502
+2020-05-31 00:07:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:08:12 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:09:46 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:09:46 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-31 00:15:07 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:16:34 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:17:22 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:18:47 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:22:58 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:23:30 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:25:42 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:27:00 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:27:50 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:29:24 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:29:24 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:29:24 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:29:24 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:30:35 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:30:35 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:31:03 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:31:58 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:32:10 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:32:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:32:50 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:32:50 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name test job doesn't exists
+2020-05-31 00:33:18 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:34:44 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:38:43 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:38:43 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with last name: Last name Exception not found
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 2500
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 2500 not found
+2020-05-31 00:38:43 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data deleted
+2020-05-31 00:38:43 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-05-31 00:38:44 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-31 00:38:48 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:38:48 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:38:48 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-31 00:38:48 [main] INFO  com.demo.dao.impl.TicketDaoImpl - Data successfully saved
+2020-05-31 00:38:48 [main] INFO  com.demo.dao.impl.TicketDaoImpl - data deleted
+2020-05-31 00:38:49 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data saved successfully
+2020-05-31 00:38:49 [main] WARN  com.demo.servlet.TrainServlet - null
+2020-05-31 00:38:49 [main] INFO  com.demo.dao.impl.TrainDaoImpl - Data successfully deleted
+2020-05-31 00:38:49 [main] INFO  com.demo.servlet.TripServlet - [Stop{id=3, name='stop3', duration=13}, Stop{id=2, name='stop2', duration=12}, Stop{id=4, name='stop4', duration=14}, Stop{id=1, name='stop1', duration=11}]
+2020-05-31 00:38:49 [main] ERROR com.demo.dao.impl.TripDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_276C: PUBLIC.TRIP FOREIGN KEY(TRAIN_ID) REFERENCES PUBLIC.TRAIN(ID) (2)"; SQL statement:
+UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=? [23506-194]
+2020-05-31 00:38:49 [main] ERROR com.demo.dao.impl.TripDaoImpl - Error code: 23506
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.TripDaoImpl - Sql state: 23506
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Message: Column "ROUTE" not found; SQL statement:
+INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?) [42122-194]
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Error code: 42122
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Sql state: 42S22
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.UserDaoImpl - Message: Referential integrity constraint violation: "CONSTRAINT_937: PUBLIC.TICKET FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USERS(ID) (1)"; SQL statement:
+DELETE FROM users WHERE users.id=? [23503-194]
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.UserDaoImpl - Error code: 23503
+2020-05-31 00:38:50 [main] ERROR com.demo.dao.impl.UserDaoImpl - Sql state: 23503
+2020-05-31 00:38:50 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - Data successfully deleted
+2020-05-31 00:38:50 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
+2020-05-31 00:39:13 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:39:13 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-31 00:39:29 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:39:45 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:39:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:42:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 5)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:43:42 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:12 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:44:12 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:44:12 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:44:12 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:44:12 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:44:34 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:44:34 [main] INFO  com.demo.dao.impl.PositionDaoImpl - update successful
+2020-05-31 00:44:34 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "updated test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:44:34 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:44:34 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:44:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:44:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:44:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:44:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:44:54 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position info can't be update because doesn't exists. Id: 2500
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:54 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:44:55 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:45:18 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:45:18 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-05-31 00:45:18 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Data conversion error converting "test job"; SQL statement:
+DELETE FROM positions WHERE id=? [22018-194]
+2020-05-31 00:45:18 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 22018
+2020-05-31 00:45:18 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 22018
+2020-05-31 00:46:19 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:46:19 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-05-31 00:46:19 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-05-31 00:46:19 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data deleted
+2020-05-31 00:46:19 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position info can't be update because doesn't exists. Id: 2500
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:46:19 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:46:47 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:46:47 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-05-31 00:46:47 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data deleted
+2020-05-31 00:47:34 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:47:34 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-05-31 00:47:34 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-05-31 00:48:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:48:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-05-31 00:48:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-05-31 00:48:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data deleted
+2020-05-31 00:48:20 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position info can't be update because doesn't exists. Id: 2500
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 7)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:48:20 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:49:45 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Data successfully deleted
+2020-05-31 00:49:45 [main] INFO  com.demo.dao.impl.PositionDaoImpl - Info added to data base
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Message: Unique index or primary key violation: "CONSTRAINT_INDEX_B ON PUBLIC.POSITIONS(JOB_NAME) VALUES ('test job', 6)"; SQL statement:
+INSERT INTO positions(job_name, salary, active) VALUES (?, ?, ?) [23505-194]
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Error code: 23505
+2020-05-31 00:49:45 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Sql state: 23505

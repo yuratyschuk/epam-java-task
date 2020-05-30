@@ -7,5 +7,4 @@ public interface RouteDao extends DAO<Route> {
 
     Route getByArrivalPlaceIdAndDeparturePlaceId(Integer departurePlaceId, Integer arrivalPlaceId);
 
-    Route getByArrivalPlaceNameAndDeparturePlaceName(String departureName, String arrivalName);
 }

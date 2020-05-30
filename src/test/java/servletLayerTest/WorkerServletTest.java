@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Date;
 
 import static org.mockito.Mockito.*;
 public class WorkerServletTest {
@@ -86,9 +87,9 @@ public class WorkerServletTest {
         when(request.getParameter("firstName")).thenReturn("test");
         when(request.getParameter("lastName")).thenReturn("test");
         when(request.getParameter("workingExperience")).thenReturn("2");
-        when(request.getParameter("hireDate")).thenReturn("");
+        when(request.getParameter("hireDate")).thenReturn("2020-11-20");
         when(request.getParameter("position")).thenReturn("2");
-        when(request.getParameter("workerId")).thenReturn("3");
+        when(request.getParameter("workerId")).thenReturn("4");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         new WorkerServlet().doPost(request, response);

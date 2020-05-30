@@ -188,9 +188,11 @@ public class TripServlet extends HttpServlet {
                 tripService.update(trip);
             }
             String[] stopIdString = request.getParameterValues("stopPlaceId");
-            for(String s : stopIdString) {
-                int stopId = Integer.parseInt(s);
-                stopRouteDao.save(tripIdInt, stopId);
+            if(stopIdString.length != 0) {
+                for (String s : stopIdString) {
+                    int stopId = Integer.parseInt(s);
+//                    stopRouteDao.save(tripIdInt, stopId);
+                }
             }
         } catch (ParseException e) {
             logger.error(e.getMessage());

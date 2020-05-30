@@ -205,53 +205,6 @@ public class RouteDaoImpl implements RouteDao {
         return false;
     }
 
-    @Override
-    public Route getByArrivalPlaceNameAndDeparturePlaceName(String departureName, String arrivalName) {
-        String getByArrivalPlaceNameAndDeparturePlaceNameSql = "SELECT route.id, departure_place.id AS departure_id, " +
-                "arrival_place.id AS arrival_id " +
-                "FROM route \n" +
-                "JOIN places departure_place ON route.departure_place_id = departure_place.id\n" +
-                "JOIN places arrival_place ON route.arrival_place_id = arrival_place.id\n" +
-                "WHERE departure_place.name=? AND arrival_place.name=?";
-        try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement =
-                     connection.prepareStatement(getByArrivalPlaceNameAndDeparturePlaceNameSql)) {
-
-            preparedStatement.setString(1, departureName);
-            preparedStatement.setString(2, arrivalName);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    int routeId = resultSet.getInt("id");
-                    int departurePlaceId = resultSet.getInt("departure_id");
-                    int arrivalPlaceId = resultSet.getInt("arrival_id");
-
-                    Route route = new Route();
-                    route.setId(routeId);
-
-                    Places departurePlace = new Places();
-                    departurePlace.setId(departurePlaceId);
-                    Places arrivalPlace = new Places();
-                    arrivalPlace.setId(arrivalPlaceId);
-
-                    route.setDeparturePlace(departurePlace);
-                    route.setArrivalPlace(arrivalPlace);
-
-                    return route;
-                } else {
-                    return null;
-                }
-            }
-
-        } catch (SQLException e) {
-
-            logger.error("Message: {}", e.getMessage());
-            logger.error("Error code: {}", e.getErrorCode());
-            logger.error("Sql state: {}", e.getSQLState());
-        }
-        return null;
-    }
-
     private Route getFromDatabase(ResultSet resultSet) throws SQLException {
         Route route = new Route();
         route.setId(resultSet.getInt("id"));

@@ -34,6 +34,7 @@ public class PositionServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("positionList")) {
@@ -54,7 +55,7 @@ public class PositionServlet extends HttpServlet {
 
             positionService.deleteById(positionId);
             response.sendRedirect(positionRedirect);
-
+            return;
         } else if (action.equalsIgnoreCase("positionUpdate")) {
             forward = ADD_POSITION;
             int positionId = Integer.parseInt(request.getParameter("positionId"));

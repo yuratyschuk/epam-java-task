@@ -29,7 +29,6 @@ public class TrainServletTest {
     public void testDoGetActionDelete() throws IOException, ServletException {
         when(request.getParameter("action")).thenReturn("delete");
         when(request.getParameter("trainId")).thenReturn("2");
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         new TrainServlet().doGet(request, response);
 
@@ -37,8 +36,6 @@ public class TrainServletTest {
         verify(request, atLeast(1)).getParameter("trainId");
         verify(request, atLeastOnce()).setAttribute(eq("trainList"), anyList());
         verify(response, atLeastOnce()).sendRedirect(anyString());
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher,atLeastOnce()).forward(request, response);
     }
 
     @Test

@@ -118,10 +118,10 @@ public class UserServletTest {
 
     @Test
     public void testDoPostActionLogin() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("login");
 
-        when(request.getParameter("password")).thenReturn(user.getPassword());
-        when(request.getParameter("username")).thenReturn(user.getUsername());
+        when(request.getParameter("action")).thenReturn("login");
+        when(request.getParameter("password")).thenReturn("testFirstName1");
+        when(request.getParameter("username")).thenReturn("testLastName1");
         when(request.getSession()).thenReturn(session);
         new UserServlet().doPost(request, response);
 

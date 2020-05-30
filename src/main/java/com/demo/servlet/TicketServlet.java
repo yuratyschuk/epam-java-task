@@ -65,7 +65,7 @@ public class TicketServlet extends HttpServlet {
             ticketService.deleteById(ticketId);
 
             response.sendRedirect(redirect);
-
+            return;
         } else if(action.equalsIgnoreCase("ticketUpdate")) {
             forward = BUY_TICKET;
             int ticketId = Integer.parseInt(request.getParameter("ticketId"));
