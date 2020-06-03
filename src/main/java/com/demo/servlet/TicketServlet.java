@@ -1,5 +1,9 @@
 package com.demo.servlet;
 
+import com.demo.dao.impl.StopDaoImpl;
+import com.demo.dao.impl.TicketDaoImpl;
+import com.demo.dao.impl.TripDaoImpl;
+import com.demo.dao.impl.UserDaoImpl;
 import com.demo.model.Ticket;
 import com.demo.model.Trip;
 import com.demo.model.User;
@@ -31,18 +35,18 @@ public class TicketServlet extends HttpServlet {
 
     private final static Logger logger = LogManager.getLogger();
 
-    private final String BUY_TICKET = "jsp/ticket/buyTicket.jsp";
+    private static final String BUY_TICKET = "jsp/ticket/buyTicket.jsp";
 
-    private final String TRIP_LIST = "jsp/ticket/ticketList.jsp";
+    private static final String TRIP_LIST = "jsp/ticket/ticketList.jsp";
 
     private String forward;
 
     private String action;
 
     public TicketServlet() {
-        tripService = new TripService();
-        ticketService = new TicketService();
-        userService = new UserService();
+        tripService = new TripService(new TripDaoImpl(), new StopDaoImpl());
+        ticketService = new TicketService(new TicketDaoImpl());
+        userService = new UserService(new UserDaoImpl());
     }
 
     @Override

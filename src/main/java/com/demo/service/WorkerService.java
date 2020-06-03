@@ -1,12 +1,17 @@
 package com.demo.service;
 
-import com.demo.dao.impl.WorkerDaoImpl;
+import com.demo.dao.interfaces.WorkerDao;
 import com.demo.model.Worker;
 
 import java.util.List;
 
 public class WorkerService {
-    private WorkerDaoImpl workerDao = new WorkerDaoImpl();
+
+    private final WorkerDao workerDao;
+
+    public WorkerService(WorkerDao workerDao) {
+        this.workerDao = workerDao;
+    }
 
     public Worker getById(Integer id) {
         return workerDao.getById(id);

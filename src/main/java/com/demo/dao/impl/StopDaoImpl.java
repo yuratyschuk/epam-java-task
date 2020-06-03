@@ -7,10 +7,7 @@ import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class StopDaoImpl implements StopDao {
@@ -80,7 +77,8 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public Stop getByName(String stopName) {
-        String findByStopNameSql = "SELECT stop.id, stop.duration FROM stop WHERE stop.name=?";
+        String findByStopNameSql = "SELECT stop.id, stop.duration" +
+                " FROM stop WHERE stop.name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(findByStopNameSql)) {
@@ -92,7 +90,7 @@ public class StopDaoImpl implements StopDao {
                 if (resultSet.next()) {
                     Stop stop = new Stop();
                     stop.setId(resultSet.getInt("id"));
-                    stop.setName(resultSet.getString("name"));
+                    stop.setName(stopName);
                     stop.setDuration(resultSet.getInt("duration"));
                     return stop;
                 } else {
@@ -189,10 +187,11 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public Stop save(Stop stop) {
-        String saveSql = "INSERT INTO stop(stop.name, stop.duration) VALUES(?,?)";
+        String saveSql = "INSERT INTO stop(name, duration) VALUES(?,?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, stop.getName());
             preparedStatement.setInt(2, stop.getDuration());
@@ -202,7 +201,14 @@ public class StopDaoImpl implements StopDao {
                 throw new StopException("Error while saving stop");
             }
 
-            return stop;
+            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if(resultSet.next()) {
+                    stop.setId(resultSet.getInt(1));
+
+                    return stop;
+                }
+            }
+
         } catch (SQLException e) {
 
             logger.error("Message: {}", e.getMessage());
@@ -215,7 +221,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public Set<Stop> getStopByRouteId(int routeId) {
-        String getStopByRouteIdSql = "SELECT stop.id, stop.name, stop.duration " +
+        String getStopByRouteIdSql = "SELECT  stop.name, stop.duration " +
                 "FROM stop_trip  " +
                 "INNER JOIN stop ON stop.id = stop_trip.stop_id " +
                 "WHERE stop_trip.trip_id=?";
@@ -231,7 +237,7 @@ public class StopDaoImpl implements StopDao {
 
                 while(resultSet.next()) {
                     Stop stop = new Stop();
-                    stop.setId(resultSet.getInt("id"));
+                    stop.setId(routeId);
                     stop.setName(resultSet.getString("name"));
                     stop.setDuration(resultSet.getInt("duration"));
 

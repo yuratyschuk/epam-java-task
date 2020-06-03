@@ -1,5 +1,6 @@
 package com.demo.servlet;
 
+import com.demo.dao.impl.TrainDaoImpl;
 import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
 import com.demo.service.TrainService;
@@ -19,12 +20,12 @@ public class TrainServlet extends HttpServlet {
 
     private final String LIST_TRAIN = "jsp/train/trainList.jsp";
 
-    private final String UPDATE_OR_ADD_TRAIN = "jsp/train/train.jsp";
+    private static final String UPDATE_OR_ADD_TRAIN = "jsp/train/train.jsp";
 
     private static final Logger logger = LogManager.getLogger();
 
     public TrainServlet() {
-        this.trainService = new TrainService();
+        this.trainService = new TrainService(new TrainDaoImpl());
     }
 
     @Override

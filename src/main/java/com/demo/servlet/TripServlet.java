@@ -1,7 +1,10 @@
 package com.demo.servlet;
 
-import com.demo.dao.impl.StopRouteDaoImpl;
-import com.demo.model.*;
+import com.demo.dao.impl.*;
+import com.demo.model.Places;
+import com.demo.model.Route;
+import com.demo.model.Train;
+import com.demo.model.Trip;
 import com.demo.model.utils.TrainType;
 import com.demo.service.PlaceService;
 import com.demo.service.RouteService;
@@ -20,7 +23,8 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 public class TripServlet extends HttpServlet {
 
@@ -32,17 +36,16 @@ public class TripServlet extends HttpServlet {
 
     private final TrainService trainService;
 
-    private final String SEARCH_PAGE = "jsp/trip/searchTrip.jsp";
+    private  static final String SEARCH_PAGE = "jsp/trip/searchTrip.jsp";
 
-    private final String DETAILS_PAGE = "jsp/trip/tripDetails.jsp";
+    private static final String DETAILS_PAGE = "jsp/trip/tripDetails.jsp";
 
-    private final String ADD_TRIP = "jsp/trip/trip.jsp";
+    private static final String ADD_TRIP = "jsp/trip/trip.jsp";
 
-    private final String SEARCH_RESULTS = "jsp/trip/searchResults.jsp";
+    private static final String SEARCH_RESULTS = "jsp/trip/searchResults.jsp";
 
-    private final String TRIP_LIST = "jsp/trip/tripList.jsp";
+    private static final String TRIP_LIST = "jsp/trip/tripList.jsp";
 
-    private final StopRouteDaoImpl stopRouteDao;
 
     private String forward;
 
@@ -51,11 +54,10 @@ public class TripServlet extends HttpServlet {
     private final static Logger logger = LogManager.getLogger();
 
     public TripServlet() {
-        tripService = new TripService();
-        placeService = new PlaceService();
-        routeService = new RouteService();
-        trainService = new TrainService();
-        stopRouteDao = new StopRouteDaoImpl();
+        tripService = new TripService(new TripDaoImpl(), new StopDaoImpl());
+        placeService = new PlaceService(new PlacesDaoImpl());
+        routeService = new RouteService(new RouteDaoImpl());
+        trainService = new TrainService(new TrainDaoImpl());
     }
 
     @Override

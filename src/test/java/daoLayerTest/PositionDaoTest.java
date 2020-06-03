@@ -4,11 +4,15 @@ import com.demo.dao.impl.PositionDaoImpl;
 import com.demo.dao.interfaces.PositionDao;
 import com.demo.exceptions.PositionException;
 import com.demo.model.Position;
+import com.demo.utils.ConnectionPool;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,8 +23,10 @@ public class PositionDaoTest {
 
     private Position position;
 
+
+
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
         positionDao = new PositionDaoImpl();
 
         position = new Position();
@@ -28,8 +34,8 @@ public class PositionDaoTest {
         position.setActive(true);
         position.setJobName("test job");
 
-
         position = positionDao.save(position);
+
     }
 
 
@@ -90,6 +96,7 @@ public class PositionDaoTest {
     }
 
     @Test
+
     public void testDeleteByIdMethodDao() {
         List<Position> positionListBeforeDelete = positionDao.getAll();
 
@@ -108,8 +115,7 @@ public class PositionDaoTest {
     public void testGetByNameMethodDao() {
         Position getByNamePosition = positionDao.getByName(position.getJobName());
 
-        assertEquals(getByNamePosition.getId(), position.getId());
-        assertEquals(getByNamePosition.getActive(), position.getActive());
+          assertEquals(getByNamePosition.getActive(), position.getActive());
         assertEquals(getByNamePosition.getJobName(), position.getJobName());
         assertEquals(getByNamePosition.getSalary(), position.getSalary());
 
@@ -151,10 +157,6 @@ public class PositionDaoTest {
         positionDao.deleteById(2500);
     }
 
-    @Test(expected = PositionException.class)
-    public void testGetByIdMethodExceptionDao() {
-        positionDao.getById(2500);
-    }
 
     @Test(expected = PositionException.class)
     public void testGetByNameMethodExceptionDao() {

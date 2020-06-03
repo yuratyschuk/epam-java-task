@@ -1,11 +1,15 @@
 package com.demo.service;
 
-import com.demo.dao.impl.UserDaoImpl;
+import com.demo.dao.interfaces.UserDao;
 import com.demo.model.User;
 
 public class UserService {
 
-    UserDaoImpl userDao = new UserDaoImpl();
+    private final UserDao userDao;
+
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public User save(User client) {
         return userDao.save(client);

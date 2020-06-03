@@ -25,13 +25,13 @@ public class TripDaoImpl implements TripDao {
     @Override
     public boolean update(Trip trip) {
         String updateSql = "UPDATE trip SET trip.departure_time=?, trip.arrival_time=?, trip.route_id=?, " +
-                "trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=? WHERE trip.id=?";
+                "trip.ticket_price=?, trip.train_id=?, trip.number_of_carriages=?, trip.number_of_places=? WHERE trip.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
             setPreparedStatement(trip, preparedStatement);
-            preparedStatement.setInt(7, trip.getId());
+            preparedStatement.setInt(8, trip.getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -226,7 +226,6 @@ public class TripDaoImpl implements TripDao {
                      Statement.RETURN_GENERATED_KEYS)) {
 
             setPreparedStatement(trip, preparedStatement);
-            preparedStatement.setInt(7, trip.getNumberOfPlaces());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
@@ -261,6 +260,7 @@ public class TripDaoImpl implements TripDao {
         preparedStatement.setBigDecimal(4, trip.getTicketPrice());
         preparedStatement.setInt(5, trip.getTrain().getId());
         preparedStatement.setInt(6, trip.getNumberOfCarriages());
+        preparedStatement.setInt(7, trip.getNumberOfPlaces());
     }
 
     private Trip getTripFromDataBase(ResultSet resultSet) throws SQLException {
@@ -270,6 +270,7 @@ public class TripDaoImpl implements TripDao {
         trip.setArrivalTime(resultSet.getDate("arrival_time"));
         trip.setTicketPrice(resultSet.getBigDecimal("ticket_price"));
         trip.setNumberOfCarriages(resultSet.getInt("number_of_carriages"));
+        trip.setNumberOfPlaces(resultSet.getInt("number_of_places"));
 
         Route route = new Route();
         route.setId(resultSet.getInt("route_id"));

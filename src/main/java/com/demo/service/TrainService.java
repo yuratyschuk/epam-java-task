@@ -1,6 +1,6 @@
 package com.demo.service;
 
-import com.demo.dao.impl.TrainDaoImpl;
+import com.demo.dao.interfaces.TrainDao;
 import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
 
@@ -8,7 +8,11 @@ import java.util.List;
 
 public class TrainService {
 
-    TrainDaoImpl trainDao = new TrainDaoImpl();
+    private final TrainDao trainDao;
+
+    public TrainService(TrainDao trainDao) {
+        this.trainDao = trainDao;
+    }
 
     public boolean update(Train train) {
         return trainDao.update(train);

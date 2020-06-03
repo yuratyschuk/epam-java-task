@@ -1,5 +1,7 @@
 package com.demo.servlet;
 
+import com.demo.dao.impl.TicketDaoImpl;
+import com.demo.dao.impl.UserDaoImpl;
 import com.demo.model.Ticket;
 import com.demo.model.User;
 import com.demo.service.TicketService;
@@ -22,11 +24,11 @@ public class UserServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private final String USER_PAGE = "jsp/user/page.jsp";
+    private static final String USER_PAGE = "jsp/user/page.jsp";
 
-    private final String LOGIN_PAGE = "jsp/user/login.jsp";
+    private static final String LOGIN_PAGE = "jsp/user/login.jsp";
 
-    private final String REGISTER_PAGE = "jsp/user/register.jsp";
+    private static final String REGISTER_PAGE = "jsp/user/register.jsp";
 
     private HttpSession session;
 
@@ -35,8 +37,8 @@ public class UserServlet extends HttpServlet {
     private final TicketService ticketService;
 
     public UserServlet() {
-        userService = new UserService();
-        ticketService = new TicketService();
+        userService = new UserService(new UserDaoImpl());
+        ticketService = new TicketService(new TicketDaoImpl());
     }
 
     @Override

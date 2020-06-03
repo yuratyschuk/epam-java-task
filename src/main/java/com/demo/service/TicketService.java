@@ -1,13 +1,17 @@
 package com.demo.service;
 
-import com.demo.dao.impl.TicketDaoImpl;
+import com.demo.dao.interfaces.TicketDao;
 import com.demo.model.Ticket;
 
 import java.util.List;
 
 public class TicketService {
 
-    TicketDaoImpl ticketDao = new TicketDaoImpl();
+    private final TicketDao ticketDao;
+
+    public TicketService(TicketDao ticketDao) {
+        this.ticketDao = ticketDao;
+    }
 
     public boolean update(Ticket ticket) {
         return ticketDao.update(ticket);

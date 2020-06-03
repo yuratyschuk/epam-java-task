@@ -1,13 +1,17 @@
 package com.demo.service;
 
-import com.demo.dao.impl.RouteDaoImpl;
+import com.demo.dao.interfaces.RouteDao;
 import com.demo.model.Route;
 
 import java.util.List;
 
 public class RouteService {
 
-    RouteDaoImpl routeDao = new RouteDaoImpl();
+    private final RouteDao routeDao;
+
+    public RouteService(RouteDao routeDao) {
+        this.routeDao = routeDao;
+    }
 
     public Route save(Route route) {
 

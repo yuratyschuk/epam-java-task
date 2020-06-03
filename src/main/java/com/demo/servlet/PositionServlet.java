@@ -1,5 +1,7 @@
 package com.demo.servlet;
 
+import com.demo.dao.impl.PositionDaoImpl;
+import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 import com.demo.service.PositionService;
 import org.apache.logging.log4j.LogManager;
@@ -19,16 +21,16 @@ public class PositionServlet extends HttpServlet {
 
     private final PositionService positionService;
 
-    private final String LIST_POSITIONS = "jsp/position/positionList.jsp";
+    private static final String LIST_POSITIONS = "jsp/position/positionList.jsp";
 
-    private final String ADD_POSITION = "jsp/position/positionDetails.jsp";
+    private static final String ADD_POSITION = "jsp/position/positionDetails.jsp";
 
     private static final Logger logger = LogManager.getLogger();
 
     private String forward;
 
     public PositionServlet() {
-        positionService = new PositionService();
+        positionService = new PositionService(new PositionDaoImpl());
     }
 
     @Override

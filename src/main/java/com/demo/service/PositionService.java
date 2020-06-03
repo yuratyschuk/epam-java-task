@@ -1,13 +1,17 @@
 package com.demo.service;
 
-import com.demo.dao.impl.PositionDaoImpl;
+import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PositionService {
-    private PositionDaoImpl positionDao = new PositionDaoImpl();
+
+    private final PositionDao positionDao;
+
+    public PositionService(PositionDao positionDao) {
+        this.positionDao = positionDao;
+    }
 
     public Position getById(Integer id) {
         return positionDao.getById(id);

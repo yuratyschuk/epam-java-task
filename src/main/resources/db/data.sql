@@ -44,9 +44,9 @@ VALUES (4, 2, 4);
 INSERT INTO train
 VALUES (2, 'train name2', 'train number2', 'PASSENGER', 10);
 INSERT INTO train
-VALUES (3, 'train name3', 'train number3', 'PASSENGER', 30);
+VALUES (3, 'train name3', 'train number3', 'CARGO', 30);
 INSERT INTO train
-VALUES (4, 'train name4', 'train number4', 'PASSENGER', 25);
+VALUES (4, 'train name4', 'train number4', 'MULTI', 25);
 INSERT INTO train
 VALUES (5, 'train name5', 'train number5', 'PASSENGER', 15);
 INSERT INTO train

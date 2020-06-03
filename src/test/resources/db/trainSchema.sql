@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS positions
 (
     id       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    job_name VARCHAR(40)  NOT NULL UNIQUE,
+    job_name VARCHAR(40)  NOT NULL,
     salary   DECIMAL      NOT NULL,
     active   TINYINT      NOT NULL
 );
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS route
 CREATE TABLE IF NOT EXISTS train
 (
     id                      INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    train_name              VARCHAR(40)  NOT NULL UNIQUE,
-    train_number            VARCHAR(20)  NOT NULL UNIQUE,
+    train_name              VARCHAR(40)  NOT NULL ,
+    train_number            VARCHAR(20)  NOT NULL ,
     type                    VARCHAR(15)  NOT NULL,
     max_number_of_carriages INT UNSIGNED NOT NULL
 );
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS users
     firstName VARCHAR(40)  NOT NULL,
     lastName  VARCHAR(40)  NOT NULL,
     username  VARCHAR(40)  NOT NULL,
-    email     VARCHAR(40)  NOT NULL UNIQUE,
+    email     VARCHAR(40)  NOT NULL ,
     password  VARCHAR(40)  NOT NULL
 
 );

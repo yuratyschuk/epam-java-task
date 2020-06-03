@@ -5,14 +5,9 @@ import com.demo.dao.interfaces.WorkerDao;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-
-import java.security.spec.ECField;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -142,10 +137,7 @@ public class WorkerDaoTest {
         workerDao.deleteById(worker.getId());
     }
 
-    @Test(expected = WorkerException.class)
-    public void testGetAllMethodExceptionDao() {
 
-    }
 
     @Test(expected = WorkerException.class)
     public void testGetByIdMethodExceptionDao() {

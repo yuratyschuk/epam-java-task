@@ -7,10 +7,7 @@ import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -157,7 +154,8 @@ public class TicketDaoImpl implements TicketDao {
     public Ticket save(Ticket ticket) {
         String saveSql = "INSERT INTO ticket(trip_id, time_when_bought, user_id) VALUES(?,?, ?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setInt(1, ticket.getTrip().getId());
             preparedStatement.setObject(2, ticket.getTimeWhenTicketWasBought());
@@ -169,8 +167,16 @@ public class TicketDaoImpl implements TicketDao {
                 throw new TicketException("Error while creating ticket");
             }
 
+            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    ticket.setId(resultSet.getInt(1));
+
+                    return ticket;
+                }
+            }
+
             logger.info("Data successfully saved");
-            return ticket;
+
         } catch (SQLException e) {
 
             logger.error("Message: {}", e.getMessage());

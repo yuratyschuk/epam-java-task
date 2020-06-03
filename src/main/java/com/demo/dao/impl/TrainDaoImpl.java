@@ -8,10 +8,7 @@ import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -186,7 +183,8 @@ public class TrainDaoImpl implements TrainDao {
     public Train save(Train train) {
         String saveSql = "INSERT INTO train(train_name, train_number, max_number_of_carriages, type) VALUES(?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, train.getTrainName());
             preparedStatement.setString(2, train.getTrainNumber());
@@ -199,8 +197,16 @@ public class TrainDaoImpl implements TrainDao {
                 throw new TrainException("Error while saving new train");
             }
 
+            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if(resultSet.next()) {
+                    train.setId(resultSet.getInt(1));
+
+                    return train;
+                }
+            }
+
             logger.info("Data saved successfully");
-            return train;
+
         } catch (SQLException e) {
 
             logger.error("Message: {}", e.getMessage());

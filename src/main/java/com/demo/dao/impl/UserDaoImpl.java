@@ -93,7 +93,7 @@ public class UserDaoImpl implements UserDao {
                 if (resultSet.next()) {
                     User client = new User();
                     client.setId(resultSet.getInt("id"));
-
+                    client.setEmail(email);
                     return client;
                 }
 

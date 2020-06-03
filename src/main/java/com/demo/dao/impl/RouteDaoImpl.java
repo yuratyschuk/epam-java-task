@@ -26,6 +26,10 @@ public class RouteDaoImpl implements RouteDao {
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
 
+            preparedStatement.setInt(1, route.getArrivalPlace().getId());
+            preparedStatement.setInt(2, route.getDeparturePlace().getId());
+            preparedStatement.setInt(3, route.getId());
+
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 throw new RouteException("Error while updating Route");
@@ -93,6 +97,13 @@ public class RouteDaoImpl implements RouteDao {
                 if (resultSet.next()) {
                     Route route = new Route();
                     route.setId(resultSet.getInt("id"));
+                    Places departurePlace = new Places();
+                    departurePlace.setId(departurePlaceId);
+                    Places arrivalPlace = new Places();
+                    arrivalPlace.setId(arrivalPlaceId);
+                    route.setArrivalPlace(arrivalPlace);
+                    route.setDeparturePlace(departurePlace);
+
                     return route;
                 }
 
@@ -166,7 +177,7 @@ public class RouteDaoImpl implements RouteDao {
 
     @Override
     public Route save(Route route) {
-        String saveSql = "INSERT INTO route(route.departure_place_id, route.arrival_place_id) VALUES(?,?)";
+        String saveSql = "INSERT INTO route(departure_place_id, arrival_place_id) VALUES(?,?)";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -190,7 +201,6 @@ public class RouteDaoImpl implements RouteDao {
 
             }
             logger.info("Route saved successfully");
-            return route;
         } catch (SQLException e) {
 
             logger.error("Message: {}", e.getMessage());
@@ -210,11 +220,11 @@ public class RouteDaoImpl implements RouteDao {
         route.setId(resultSet.getInt("id"));
 
         Places arrivalPlace = new Places();
-        arrivalPlace.setId(resultSet.getInt("departure_place_id"));
-        arrivalPlace.setPlaceName(resultSet.getString("departure_name"));
+        arrivalPlace.setId(resultSet.getInt("arrival_place_id"));
+        arrivalPlace.setPlaceName(resultSet.getString("arrival_name"));
         Places departurePlace = new Places();
-        departurePlace.setId(resultSet.getInt("arrival_place_id"));
-        departurePlace.setPlaceName(resultSet.getString("arrival_name"));
+        departurePlace.setId(resultSet.getInt("departure_place_id"));
+        departurePlace.setPlaceName(resultSet.getString("departure_name"));
 
         route.setArrivalPlace(arrivalPlace);
         route.setDeparturePlace(departurePlace);

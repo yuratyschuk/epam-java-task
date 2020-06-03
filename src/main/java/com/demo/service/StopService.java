@@ -1,6 +1,6 @@
 package com.demo.service;
 
-import com.demo.dao.impl.StopDaoImpl;
+import com.demo.dao.interfaces.StopDao;
 import com.demo.model.Stop;
 
 import java.util.List;
@@ -8,7 +8,11 @@ import java.util.Set;
 
 public class StopService {
 
-    StopDaoImpl stopDao = new StopDaoImpl();
+    private final StopDao stopDao;
+
+    StopService(StopDao stopDao) {
+        this.stopDao = stopDao;
+    }
 
     public Stop save(Stop stop) {
         return stopDao.save(stop);

@@ -1,5 +1,7 @@
 package com.demo.servlet;
 
+import com.demo.dao.impl.PositionDaoImpl;
+import com.demo.dao.impl.WorkerDaoImpl;
 import com.demo.model.Position;
 import com.demo.model.Worker;
 import com.demo.service.PositionService;
@@ -19,16 +21,16 @@ import java.util.List;
 public class WorkerServlet extends HttpServlet {
 
     private final WorkerService workerService;
-    private final String LIST_WORKERS = "jsp/worker/listWorkers.jsp";
-    private final String INSERT_UPDATE_WORKER = "jsp/worker/updateWorker.jsp";
+    private static final String LIST_WORKERS = "jsp/worker/listWorkers.jsp";
+    private static final String INSERT_UPDATE_WORKER = "jsp/worker/updateWorker.jsp";
     private String forward;
 
     private static final Logger logger = LogManager.getLogger();
     private final PositionService positionService;
 
     public WorkerServlet() {
-        positionService = new PositionService();
-        workerService = new WorkerService();
+        positionService = new PositionService(new PositionDaoImpl());
+        workerService = new WorkerService(new WorkerDaoImpl());
     }
 
     @Override
