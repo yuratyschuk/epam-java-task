@@ -10,7 +10,7 @@
 <body>
 
 
-<a href="worker?action=insert">Add new Worker</a>
+<a href="worker?action=workerAdd">Add new Worker</a>
 <table class="table">
     <tr>
         <th>Worker name</th>
@@ -25,11 +25,11 @@
             <td>${worker.workingExperience}</td>
             <td>${worker.hireDate}</td>
             <td>
-                <a href="worker?action=edit&workerId=${worker.id}">Update</a>
+                <a href="worker?action=workerUpdate&workerId=${worker.id}">Update</a>
             </td>
             <td>
 
-                <a href="worker?action=delete&workerId=${worker.id}">Delete</a>
+                <a href="worker?action=workerDelete&workerId=${worker.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>

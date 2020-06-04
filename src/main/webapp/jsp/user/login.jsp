@@ -15,7 +15,7 @@
     </label>
         <input type="password" name="password" required>
 
-    <input type="hidden" name="action" value="login">
+    <input type="hidden" name="action" value="userLogin">
     <button type="submit" >Submit</button>
 </form>
 </body>

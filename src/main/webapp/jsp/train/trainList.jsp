@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-<a href="train?action=insert">Add new Train</a>
+<a href="train?action=trainAdd">Add new Train</a>
 <table class="table-bordered">
     <tr>
         <th>Train name</th>
@@ -22,8 +22,8 @@
             <td>${train.trainNumber}</td>
             <td>${train.trainType}</td>
             <td>${train.maxNumberOfCarriages}</td>
-            <td><a href="train?action=delete&trainId=${train.id}">Delete</a></td>
-            <td><a href="train?action=edit&trainId=${train.id}">Update</a></td>
+            <td><a href="train?action=trainDelete&trainId=${train.id}">Delete</a></td>
+            <td><a href="train?action=trainUpdate&trainId=${train.id}">Update</a></td>
         </tr>
     </c:forEach>
 </table>

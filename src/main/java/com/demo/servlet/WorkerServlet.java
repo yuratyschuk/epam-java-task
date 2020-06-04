@@ -29,7 +29,7 @@ public class WorkerServlet extends HttpServlet {
     private final PositionService positionService;
 
     public WorkerServlet() {
-        positionService = new PositionService(new PositionDaoImpl());
+        positionService = PositionService.getInstance();
         workerService = new WorkerService(new WorkerDaoImpl());
     }
 
@@ -38,7 +38,7 @@ public class WorkerServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("delete")) {
+        if (action.equalsIgnoreCase("workerDelete")) {
             String workerListRedirect = request.getContextPath() + "/worker?action=listWorkers";
 
             int workerId = Integer.parseInt(request.getParameter("workerId"));
@@ -46,7 +46,7 @@ public class WorkerServlet extends HttpServlet {
             request.setAttribute("workerList", workerService.getAll());
             response.sendRedirect(workerListRedirect);
             return;
-        } else if (action.equalsIgnoreCase("edit")) {
+        } else if (action.equalsIgnoreCase("workerUpdate")) {
             forward = INSERT_UPDATE_WORKER;
 
             int workerId = Integer.parseInt(request.getParameter("workerId"));
@@ -56,7 +56,7 @@ public class WorkerServlet extends HttpServlet {
             List<Position> positionList = positionService.getAll();
             request.setAttribute("positionList", positionList);
 
-        } else if (action.equalsIgnoreCase("insert")) {
+        } else if (action.equalsIgnoreCase("workerAdd")) {
             List<Position> positionList = positionService.getAll();
             request.setAttribute("positionList", positionList);
             forward = INSERT_UPDATE_WORKER;
@@ -71,6 +71,17 @@ public class WorkerServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        createOrEditWorker(request);
+
+        RequestDispatcher view = request.getRequestDispatcher(LIST_WORKERS);
+        request.setAttribute("workerList", workerService.getAll());
+        view.forward(request, response);
+    }
+
+    private void createOrEditWorker(HttpServletRequest request) {
+        String action = request.getParameter("action");
+
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         int workingExperience = Integer.parseInt(request.getParameter("workingExperience"));
@@ -87,15 +98,15 @@ public class WorkerServlet extends HttpServlet {
         position.setId(positionId);
         worker.setPosition(position);
 
-        String workerId = request.getParameter("workerId");
-        if (workerId == null || workerId.isEmpty()) {
+        if (action.equalsIgnoreCase("workerAdd")) {
             workerService.save(worker);
-        } else {
-            worker.setId(Integer.parseInt(workerId));
+
+        } else if (action.equalsIgnoreCase("workerUpdate")) {
+            int workerId = Integer.parseInt(request.getParameter("workerId"));
+
+            worker.setId(workerId);
             workerService.update(worker);
         }
-        RequestDispatcher view = request.getRequestDispatcher(LIST_WORKERS);
-        request.setAttribute("workerList", workerService.getAll());
-        view.forward(request, response);
+
     }
 }

@@ -31,7 +31,7 @@
         <input type="password" name="password" required>
     </label>
 
-    <input type="hidden" name="action" value="register">
+    <input type="hidden" name="action" value="userRegister">
 
     <button type="submit">Register</button>
 </form>

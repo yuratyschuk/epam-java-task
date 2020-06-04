@@ -23,7 +23,7 @@
             <td type="date">${trip.arrivalTime}</td>
             <td>${trip.numberOfCarriages}</td>
             <td>
-                <a href="trip?action=details&tripId=${trip.id}">See details</a>
+                <a href="trip?action=tripDetails&tripId=${trip.id}">See details</a>
             </td>
         </tr>
     </c:forEach>

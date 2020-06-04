@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import com.demo.dao.impl.PositionDaoImpl;
 import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 
@@ -7,9 +8,24 @@ import java.util.List;
 
 public class PositionService {
 
+    private static volatile PositionService instance;
+
+    public static PositionService getInstance() {
+        PositionService localInstance = instance;
+        if (localInstance == null) {
+            synchronized (PositionService.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new PositionService(new PositionDaoImpl());
+                }
+            }
+        }
+        return localInstance;
+    }
+
     private final PositionDao positionDao;
 
-    public PositionService(PositionDao positionDao) {
+    private PositionService(PositionDao positionDao) {
         this.positionDao = positionDao;
     }
 

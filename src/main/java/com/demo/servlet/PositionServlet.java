@@ -30,7 +30,7 @@ public class PositionServlet extends HttpServlet {
     private String forward;
 
     public PositionServlet() {
-        positionService = new PositionService(new PositionDaoImpl());
+        positionService = PositionService.getInstance();
     }
 
     @Override
@@ -72,6 +72,14 @@ public class PositionServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        createOrUpdatePosition(request);
+
+        String positionRedirect = request.getContextPath() + "/position?action=positionList";
+        response.sendRedirect(positionRedirect);
+    }
+
+    private void createOrUpdatePosition(HttpServletRequest request) {
         action = request.getParameter("action");
 
         String jobName = request.getParameter("jobName");
@@ -83,16 +91,15 @@ public class PositionServlet extends HttpServlet {
         position.setSalary(salary);
         position.setActive(active);
 
-        if (action.equalsIgnoreCase("add")) {
+        if (action.equalsIgnoreCase("positionAdd")) {
             positionService.save(position);
 
-        } else if (action.equalsIgnoreCase("edit")) {
+        } else if (action.equalsIgnoreCase("positionUpdate")) {
             int positionId = Integer.parseInt(request.getParameter("positionId"));
 
             position.setId(positionId);
             positionService.update(position);
+
         }
-        String positionRedirect = request.getContextPath() + "/position?action=positionList";
-        response.sendRedirect(positionRedirect);
     }
 }

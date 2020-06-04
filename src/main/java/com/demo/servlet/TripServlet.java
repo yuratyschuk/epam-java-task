@@ -1,6 +1,7 @@
 package com.demo.servlet;
 
 import com.demo.dao.impl.*;
+import com.demo.dao.interfaces.PlacesDao;
 import com.demo.model.Places;
 import com.demo.model.Route;
 import com.demo.model.Train;
@@ -36,7 +37,7 @@ public class TripServlet extends HttpServlet {
 
     private final TrainService trainService;
 
-    private  static final String SEARCH_PAGE = "jsp/trip/searchTrip.jsp";
+    private static final String SEARCH_PAGE = "jsp/trip/searchTrip.jsp";
 
     private static final String DETAILS_PAGE = "jsp/trip/tripDetails.jsp";
 
@@ -55,7 +56,7 @@ public class TripServlet extends HttpServlet {
 
     public TripServlet() {
         tripService = new TripService(new TripDaoImpl(), new StopDaoImpl());
-        placeService = new PlaceService(new PlacesDaoImpl());
+        placeService = PlaceService.getInstance();
         routeService = new RouteService(new RouteDaoImpl());
         trainService = new TrainService(new TrainDaoImpl());
     }
@@ -64,13 +65,13 @@ public class TripServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("search")) {
+        if (action.equalsIgnoreCase("tripSearch")) {
             forward = SEARCH_PAGE;
             List<Places> placesList = placeService.getAll();
 
             request.setAttribute("placesList", placesList);
 
-        } else if (action.equalsIgnoreCase("details")) {
+        } else if (action.equalsIgnoreCase("tripDetails")) {
             forward = DETAILS_PAGE;
             int tripId = Integer.parseInt(request.getParameter("tripId"));
             Trip trip = tripService.getById(tripId);
@@ -97,7 +98,7 @@ public class TripServlet extends HttpServlet {
 
             response.sendRedirect(tripRedirect);
             return;
-        } else if(action.equalsIgnoreCase("tripList")){
+        } else if (action.equalsIgnoreCase("tripList")) {
             forward = TRIP_LIST;
             request.setAttribute("tripList", tripService.getAll());
         }
@@ -114,13 +115,9 @@ public class TripServlet extends HttpServlet {
         if (action.equalsIgnoreCase("searchTrip")) {
             forward = SEARCH_RESULTS;
 
-            int departurePlace = Integer.parseInt(request.getParameter("from"));
-            int arrivalPlace = Integer.parseInt(request.getParameter("to"));
-            Route route = routeService.getByDeparturePlaceIdAndArrivalPlaceId(departurePlace, arrivalPlace);
-
-            List<Trip> tripList = tripService.getByRouteId(route.getId());
-            request.setAttribute("tripList", tripList);
-        } else if (action.equalsIgnoreCase("add") || action.equalsIgnoreCase("edit")) {
+            searchTrip(request);
+        } else if (action.equalsIgnoreCase("tripAdd") ||
+                action.equalsIgnoreCase("tripUpdate")) {
 
             String tripRedirect = request.getContextPath() + "/trip?action=tripList";
             createOrEditTripPost(request, response);
@@ -131,6 +128,17 @@ public class TripServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(SEARCH_RESULTS);
         requestDispatcher.forward(request, response);
+    }
+
+    private void searchTrip(HttpServletRequest request) {
+
+        int departurePlace = Integer.parseInt(request.getParameter("from"));
+        int arrivalPlace = Integer.parseInt(request.getParameter("to"));
+        Route route = routeService.getByDeparturePlaceIdAndArrivalPlaceId(departurePlace, arrivalPlace);
+
+        List<Trip> tripList = tripService.getByRouteId(route.getId());
+        request.setAttribute("tripList", tripList);
+
     }
 
     private void createOrEditTripPost(HttpServletRequest request, HttpServletResponse response) {
@@ -147,7 +155,7 @@ public class TripServlet extends HttpServlet {
             int trainId = Integer.parseInt(request.getParameter("trainId"));
             String trainType = request.getParameter("trainType");
 
-            if(TrainType.MULTI.toString().equals(trainType) || TrainType.PASSENGER.toString().equals(trainType)) {
+            if (TrainType.MULTI.toString().equals(trainType) || TrainType.PASSENGER.toString().equals(trainType)) {
                 BigDecimal price = BigDecimal.valueOf(Long.parseLong(request.getParameter("price")));
                 int numberOfPlaces = Integer.parseInt(request.getParameter("numberOfPlaces"));
                 trip.setTicketPrice(price);
@@ -182,15 +190,15 @@ public class TripServlet extends HttpServlet {
             trip.setNumberOfCarriages(numberOfCarriages);
             int tripIdInt;
             if (tripId == null || tripId.isEmpty()) {
-              trip =   tripService.save(trip);
-              tripIdInt = trip.getId();
+                trip = tripService.save(trip);
+                tripIdInt = trip.getId();
             } else {
                 tripIdInt = Integer.parseInt(tripId);
                 trip.setId(tripIdInt);
                 tripService.update(trip);
             }
             String[] stopIdString = request.getParameterValues("stopPlaceId");
-            if(stopIdString.length != 0) {
+            if (stopIdString.length != 0) {
                 for (String s : stopIdString) {
                     int stopId = Integer.parseInt(s);
 //                    stopRouteDao.save(tripIdInt, stopId);

@@ -33,7 +33,7 @@ public class TrainServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         String forward;
-        if (action.equalsIgnoreCase("delete")) {
+        if (action.equalsIgnoreCase("trainDelete")) {
             String redirectString = "/train?action=trainList";
             logger.warn(request.getContextPath());
             int trainId = Integer.parseInt(request.getParameter("trainId"));
@@ -41,7 +41,7 @@ public class TrainServlet extends HttpServlet {
             request.setAttribute("trainList", trainService.getAll());
             response.sendRedirect(redirectString);
             return;
-        } else if (action.equalsIgnoreCase("edit")) {
+        } else if (action.equalsIgnoreCase("trainUpdate")) {
             forward = UPDATE_OR_ADD_TRAIN;
             int trainId = Integer.parseInt(request.getParameter("trainId"));
             Train train = trainService.getById(trainId);
@@ -49,7 +49,7 @@ public class TrainServlet extends HttpServlet {
             request.setAttribute("trainTypeEnum", TrainType.values());
 
 
-        } else if (action.equalsIgnoreCase("insert")) {
+        } else if (action.equalsIgnoreCase("trainAdd")) {
             forward = UPDATE_OR_ADD_TRAIN;
             request.setAttribute("trainTypeEnum", TrainType.values());
         } else {
@@ -63,6 +63,16 @@ public class TrainServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        createOrEditTrain(request);
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(LIST_TRAIN);
+        request.setAttribute("trainList", trainService.getAll());
+        requestDispatcher.forward(request, response);
+    }
+
+    private void createOrEditTrain(HttpServletRequest request) {
+        String action = request.getParameter("action");
+
 
         String trainName = request.getParameter("trainName");
         String trainNumber = request.getParameter("trainNumber");
@@ -75,17 +85,16 @@ public class TrainServlet extends HttpServlet {
         train.setMaxNumberOfCarriages(maxNumberOfCarriages);
         train.setTrainType(trainType);
 
-        String trainId = request.getParameter("trainId");
-        if (trainId == null || trainId.isEmpty()) {
+        if (action.equalsIgnoreCase("trainAdd")) {
             trainService.save(train);
-        } else {
-            train.setId(Integer.parseInt(trainId));
+
+        } else if (action.equalsIgnoreCase("trainUpdate")) {
+            int trainId = Integer.parseInt(request.getParameter("trainId"));
+
+            train.setId(trainId);
             trainService.update(train);
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(LIST_TRAIN);
-        request.setAttribute("trainList", trainService.getAll());
-        requestDispatcher.forward(request, response);
     }
 }
 

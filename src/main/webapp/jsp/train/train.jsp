@@ -60,10 +60,20 @@
 
             </tbody>
         </table>
+
+        <c:choose>
+            <c:when test="${train.id == null}">
+                <input type="hidden" name="action" value="trainAdd">
+            </c:when>
+            <c:when test="${train.id != null}">
+                <input type="hidden" name="action" value="trainUpdate">
+            </c:when>
+        </c:choose>
+
     </form>
 
     <p>
-        <a href="train?action=listTrain">Back to List</a>
+        <a href="train?action=trainList">Back to List</a>
     </p>
 </div>
 </body>

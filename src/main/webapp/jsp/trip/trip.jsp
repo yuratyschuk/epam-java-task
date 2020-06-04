@@ -118,10 +118,10 @@
 
         <c:choose>
         <c:when test="${trip.id == null}">
-        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="action" value="tripAdd">
         </c:when>
         <c:otherwise>
-        <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="action" value="tripUpdate">
         </c:otherwise>
         </c:choose>
 

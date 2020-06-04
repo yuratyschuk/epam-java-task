@@ -65,6 +65,16 @@
 
             </tbody>
         </table>
+
+        <c:choose>
+            <c:when test="${worker.id == null}">
+                <input type="hidden" name="action" value="workerAdd">
+            </c:when>
+            <c:when test="${worker.id != null}">
+                <input type="hidden" name="action" value="workerUpdate">
+            </c:when>
+        </c:choose>
+
     </form>
 
 

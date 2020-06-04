@@ -37,10 +37,10 @@
 
     <c:choose>
         <c:when test="${position.id == null}">
-            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="action" value="positionAdd">
         </c:when>
         <c:when test="${position.id != null}">
-            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="action" value="positionUpdate">
         </c:when>
     </c:choose>
     <button type="submit">Save</button>

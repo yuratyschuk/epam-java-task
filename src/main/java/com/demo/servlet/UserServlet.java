@@ -46,7 +46,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("page")) {
+        if (action.equalsIgnoreCase("userPage")) {
             forward = USER_PAGE;
             session = request.getSession();
             User user = (User) session.getAttribute("user");
@@ -55,18 +55,18 @@ public class UserServlet extends HttpServlet {
 
             request.setAttribute("ticketList", ticketList);
             request.setAttribute("user", user);
-        } else if (action.equalsIgnoreCase("login")) {
+        } else if (action.equalsIgnoreCase("userLogin")) {
             forward = LOGIN_PAGE;
-        } else if (action.equalsIgnoreCase("register")) {
+        } else if (action.equalsIgnoreCase("userRegister")) {
             forward = REGISTER_PAGE;
-        } else if(action.equalsIgnoreCase("userDelete")) {
+        } else if (action.equalsIgnoreCase("userDelete")) {
             forward = "index.jsp";
             session = request.getSession();
             User user = (User) session.getAttribute("user");
 
             userService.delete(user);
 
-        } else if(action.equalsIgnoreCase("userUpdate")) {
+        } else if (action.equalsIgnoreCase("userUpdate")) {
             forward = REGISTER_PAGE;
             session = request.getSession();
             User user = (User) session.getAttribute("user");
@@ -83,31 +83,40 @@ public class UserServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("register")) {
-
-            User user = new User();
-
-            user.setFirstName(request.getParameter("firstName"));
-            user.setLastName(request.getParameter("lastName"));
-            user.setEmail(request.getParameter("email"));
-            user.setPassword(request.getParameter("password"));
-            user.setUsername(request.getParameter("username"));
-
-            userService.save(user);
+        if (action.equalsIgnoreCase("userRegister")) {
+            registerUser(request);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
             requestDispatcher.forward(request, response);
-        } else if (action.equalsIgnoreCase("login")) {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+        } else if (action.equalsIgnoreCase("userLogin")) {
+            loginUser(request);
 
-            User user = userService.checkLogin(username, password);
-
-            session = request.getSession();
-            session.setAttribute("user", user);
             String userPageRedirect = request.getContextPath() + "/user?action=page";
             response.sendRedirect(userPageRedirect);
-
         }
+    }
+
+    private void registerUser(HttpServletRequest request) {
+        User user = new User();
+
+        user.setFirstName(request.getParameter("firstName"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("password"));
+        user.setUsername(request.getParameter("username"));
+
+        userService.save(user);
+
+    }
+
+    private void loginUser(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        User user = userService.checkLogin(username, password);
+
+        session = request.getSession();
+        session.setAttribute("user", user);
+
     }
 }

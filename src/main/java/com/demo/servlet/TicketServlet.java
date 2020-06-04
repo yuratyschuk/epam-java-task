@@ -86,6 +86,11 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
+        createTicket(request);
+
+    }
+
+    private void createTicket(HttpServletRequest request) {
         int tripId = Integer.parseInt(request.getParameter("tripId"));
         Trip trip = tripService.getById(tripId);
 
@@ -112,6 +117,7 @@ public class TicketServlet extends HttpServlet {
         ticket.setUser(user);
 
         ticketService.save(ticket);
+
     }
 }
 
