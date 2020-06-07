@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.security.spec.ECField;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -58,6 +59,14 @@ public class StopDaoTest {
         assertEquals(stop.getId(), getStop.getId());
         assertEquals(stop.getDuration(), getStop.getDuration());
         assertEquals(stop.getName(), getStop.getName());
+    }
+
+
+    @Test
+    public void testGetByRouteIdMethodDao() {
+        Set<Stop> stopSet = stopDao.getStopByRouteId(2);
+
+        assertEquals(stopSet.size(), 4);
     }
 
     @Test

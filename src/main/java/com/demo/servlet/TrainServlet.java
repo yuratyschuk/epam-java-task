@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class TrainServlet extends HttpServlet {
 
-    private final TrainService trainService;
+    private TrainService trainService;
 
     private final String LIST_TRAIN = "jsp/train/trainList.jsp";
 
@@ -24,8 +25,13 @@ public class TrainServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
-    public TrainServlet() {
-        this.trainService = new TrainService(new TrainDaoImpl());
+    private List<Train> trainList;
+
+    @Override
+    public void init() throws ServletException {
+        trainService = new TrainService(new TrainDaoImpl());
+
+        trainList = trainService.getAll();
     }
 
     @Override
@@ -35,10 +41,13 @@ public class TrainServlet extends HttpServlet {
         String forward;
         if (action.equalsIgnoreCase("trainDelete")) {
             String redirectString = "/train?action=trainList";
-            logger.warn(request.getContextPath());
+
             int trainId = Integer.parseInt(request.getParameter("trainId"));
             trainService.deleteById(trainId);
-            request.setAttribute("trainList", trainService.getAll());
+
+//            trainList.removeIf(x -> x.getId().equals(trainId));
+
+            request.setAttribute("trainList", trainList);
             response.sendRedirect(redirectString);
             return;
         } else if (action.equalsIgnoreCase("trainUpdate")) {
@@ -54,7 +63,7 @@ public class TrainServlet extends HttpServlet {
             request.setAttribute("trainTypeEnum", TrainType.values());
         } else {
             forward = LIST_TRAIN;
-            request.setAttribute("trainList", trainService.getAll());
+            request.setAttribute("trainList", trainList);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
@@ -66,7 +75,7 @@ public class TrainServlet extends HttpServlet {
         createOrEditTrain(request);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(LIST_TRAIN);
-        request.setAttribute("trainList", trainService.getAll());
+        request.setAttribute("trainList", trainList);
         requestDispatcher.forward(request, response);
     }
 

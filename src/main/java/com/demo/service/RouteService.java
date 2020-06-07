@@ -20,8 +20,8 @@ public class RouteService {
 
     public boolean update(Route route) {
         if (!route.getDeparturePlace().getPlaceName().equals(route.getArrivalPlace().getPlaceName())) {
-            routeDao.update(route);
-            return true;
+            return  routeDao.update(route);
+
         }
         return false;
     }

@@ -1,71 +1,81 @@
 package servletLayerTest;
 
-import com.demo.model.Position;
 import com.demo.model.Worker;
+import com.demo.service.WorkerService;
 import com.demo.servlet.WorkerServlet;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import java.util.Date;
 
 import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
 public class WorkerServletTest {
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
+    @Mock
+    HttpServletRequest request;
 
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    @Mock
+    HttpServletResponse response;
 
-    RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
+    @Mock
+    RequestDispatcher requestDispatcher;
 
+    @Mock
+    WorkerService workerService;
+
+
+    @InjectMocks
+    WorkerServlet workerServlet;
 
     @Test
     public void doGetActionDelete() throws IOException, ServletException {
-        when(request.getParameter("action")).thenReturn("delete");
+        when(request.getParameter("action")).thenReturn("workerDelete");
         when(request.getParameter("workerId")).thenReturn("3");
+        when(workerService.deleteById(anyInt())).thenReturn(true);
 
-        new WorkerServlet().doGet(request, response);
+        workerServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getParameter("workerId");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Worker.class));
-        verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/worker?action=listWorkers");
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("workerId");
+        verify(response, times(1)).sendRedirect(request.getContextPath() + "/worker?action=listWorkers");
     }
 
     @Test
-    public void doGetActionEdit() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("edit");
+    public void doGetActionUpdate() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("workerUpdate");
         when(request.getParameter("workerId")).thenReturn("4");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(workerService.getById(anyInt())).thenReturn(new Worker());
 
+        workerServlet.doGet(request, response);
 
-        new WorkerServlet().doGet(request, response);
-
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getParameter("workerId");
-        verify(request, atLeastOnce()).setAttribute(anyString(), any(Worker.class));
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Position.class));
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("workerId");
+        verify(request, times(1)).setAttribute(anyString(), any(Worker.class));
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 
     @Test
-    public void testDoGetActionInsert() throws ServletException, IOException {
+    public void testDoGetActionAdd() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("insert");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new WorkerServlet().doGet(request, response);
+        workerServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Position.class));
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 
@@ -74,35 +84,58 @@ public class WorkerServletTest {
         when(request.getParameter("action")).thenReturn("else");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new WorkerServlet().doGet(request, response);
+        workerServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 
     @Test
-    public void testDoPost() throws ServletException, IOException {
+    public void testDoPostSave() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("workerAdd");
         when(request.getParameter("firstName")).thenReturn("test");
         when(request.getParameter("lastName")).thenReturn("test");
         when(request.getParameter("workingExperience")).thenReturn("2");
         when(request.getParameter("hireDate")).thenReturn("2020-11-20");
         when(request.getParameter("position")).thenReturn("2");
-        when(request.getParameter("workerId")).thenReturn("4");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(workerService.save(any(Worker.class))).thenReturn(new Worker());
 
-        new WorkerServlet().doPost(request, response);
+        workerServlet.doPost(request, response);
 
-        verify(request, atLeastOnce()).getParameter("firstName");
-        verify(request, atLeastOnce()).getParameter("lastName");
-        verify(request, atLeastOnce()).getParameter("workingExperience");
-        verify(request, atLeastOnce()).getParameter("hireDate");
-        verify(request, atLeastOnce()).getParameter("position");
-        verify(request, atLeastOnce()).getParameter("workerId");
-        verify(request,atLeastOnce()).setAttribute(anyString(), anyListOf(Worker.class));
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("workingExperience");
+        verify(request, times(1)).getParameter("hireDate");
+        verify(request, times(1)).getParameter("position");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+    }
+
+    @Test
+    public void testDoPostUpdate() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("workerUpdate");
+        when(request.getParameter("workerId")).thenReturn("2");
+        when(request.getParameter("firstName")).thenReturn("test");
+        when(request.getParameter("lastName")).thenReturn("test");
+        when(request.getParameter("workingExperience")).thenReturn("2");
+        when(request.getParameter("hireDate")).thenReturn("2020-11-20");
+        when(request.getParameter("position")).thenReturn("2");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(workerService.update(any(Worker.class))).thenReturn(true);
+
+        workerServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("workingExperience");
+        verify(request, times(1)).getParameter("hireDate");
+        verify(request, times(1)).getParameter("position");
+        verify(request, times(1)).getParameter("workerId");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
 }

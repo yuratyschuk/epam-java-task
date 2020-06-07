@@ -5,27 +5,15 @@ import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PositionService {
 
-    private static volatile PositionService instance;
-
-    public static PositionService getInstance() {
-        PositionService localInstance = instance;
-        if (localInstance == null) {
-            synchronized (PositionService.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new PositionService(new PositionDaoImpl());
-                }
-            }
-        }
-        return localInstance;
-    }
 
     private final PositionDao positionDao;
 
-    private PositionService(PositionDao positionDao) {
+    public PositionService(PositionDao positionDao) {
         this.positionDao = positionDao;
     }
 
@@ -57,8 +45,11 @@ public class PositionService {
         return positionDao.update(position);
     }
 
-    public List<Position> getPositionListByActive(boolean active) {
-        return positionDao.getPositionListByActive(active);
+
+    public List<Position> getPositionListByActive(List<Position> positionList, boolean active) {
+        return positionList.stream()
+                .filter(x -> x.getActive() == active)
+                .collect(Collectors.toList());
     }
 
 }

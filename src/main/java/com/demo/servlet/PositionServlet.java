@@ -1,7 +1,6 @@
 package com.demo.servlet;
 
 import com.demo.dao.impl.PositionDaoImpl;
-import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 import com.demo.service.PositionService;
 import org.apache.logging.log4j.LogManager;
@@ -14,12 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class PositionServlet extends HttpServlet {
 
     private String action;
 
-    private final PositionService positionService;
+    private PositionService positionService;
 
     private static final String LIST_POSITIONS = "jsp/position/positionList.jsp";
 
@@ -29,8 +29,16 @@ public class PositionServlet extends HttpServlet {
 
     private String forward;
 
+    private List<Position> positionList;
+
     public PositionServlet() {
-        positionService = PositionService.getInstance();
+    }
+
+    @Override
+    public void init() throws ServletException {
+        positionService = new PositionService(new PositionDaoImpl());
+        positionList = positionService.getAll();
+
     }
 
     @Override
@@ -42,11 +50,12 @@ public class PositionServlet extends HttpServlet {
         if (action.equalsIgnoreCase("positionList")) {
             forward = LIST_POSITIONS;
 
-            request.setAttribute("positionList", positionService.getAll());
+            request.setAttribute("positionList", positionList);
         } else if (action.equalsIgnoreCase("positionListActive")) {
             forward = LIST_POSITIONS;
+            List<Position> positionListActive = positionService.getPositionListByActive(positionList, true);
+            request.setAttribute("positionList", positionListActive);
 
-            request.setAttribute("positionList", positionService.getPositionListByActive(true));
 
         } else if (action.equalsIgnoreCase("positionAdd")) {
             forward = ADD_POSITION;

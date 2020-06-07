@@ -36,7 +36,6 @@ public class TripService {
         List<Trip> tripList = tripDao.getAll();
 
         Set<Stop> stopSet = new HashSet<>();
-
         for (Trip trip : tripList) {
             stopSet.addAll(stopDao.getStopByRouteId(trip.getId()));
             trip.setStopSet(stopSet);

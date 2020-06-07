@@ -1,8 +1,9 @@
 package servletLayerTest;
 
-import com.demo.dao.impl.PositionDaoImpl;
+import com.demo.model.Position;
 import com.demo.service.PositionService;
 import com.demo.servlet.PositionServlet;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,27 +17,34 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PositionServletTest {
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
-
-    HttpServletResponse response = mock(HttpServletResponse.class);
-
-    RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
+    @Mock
+    HttpServletRequest request;
 
     @Mock
-    PositionDaoImpl positionDao;
+    HttpServletResponse response;
+
+    @Mock
+    RequestDispatcher requestDispatcher;
 
     @InjectMocks
+    PositionServlet positionServlet;
+
+    @Mock
     PositionService positionService;
 
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
 
 
 
@@ -48,11 +56,11 @@ public class PositionServletTest {
         when(request.getParameter("action")).thenReturn("positionList");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new PositionServlet().doGet(request, response);
+        positionServlet.doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("action");
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 
@@ -63,11 +71,11 @@ public class PositionServletTest {
         when(request.getParameter("action")).thenReturn("positionListActive");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new PositionServlet().doGet(request, response);
+        positionServlet.doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("action");
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
@@ -75,9 +83,9 @@ public class PositionServletTest {
         when(request.getParameter("action")).thenReturn("positionAdd");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new PositionServlet().doGet(request, response);
+        positionServlet.doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("action");
+        verify(request, times(1)).getParameter("action");
     }
 
     @Test
@@ -85,14 +93,13 @@ public class PositionServletTest {
 
         when(request.getParameter("action")).thenReturn("positionDelete");
         when(request.getParameter("positionId")).thenReturn("4");
-        when(positionDao.deleteById(4)).thenReturn(true);
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(positionService.deleteById(anyInt())).thenReturn(true);
+      
+        positionServlet.doGet(request, response);
 
-        new PositionServlet().doGet(request, response);
-
-        verify(request, atLeast(1)).getParameter("action");
-        verify(request, atLeast(1)).getParameter("positionId");
-        verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/position?action=positionList");
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("positionId");
+        verify(response, times(1)).sendRedirect(request.getContextPath() + "/position?action=positionList");
     }
 
     @Test
@@ -100,44 +107,49 @@ public class PositionServletTest {
         when(request.getParameter("action")).thenReturn("positionUpdate");
         when(request.getParameter("positionId")).thenReturn("1");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(positionService.getById(anyInt())).thenReturn(any(Position.class));
 
-        new PositionServlet().doGet(request, response);
+        positionServlet.doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("action");
-        verify(request, atLeast(1)).getParameter("positionId");
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("positionId");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
     public void doPostAdd() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("add");
+        when(request.getParameter("action")).thenReturn("positionAdd");
         when(request.getParameter("jobName")).thenReturn("test");
         when(request.getParameter("salary")).thenReturn("2000");
         when(request.getParameter("active")).thenReturn("false");
+        when(positionService.save(any(Position.class))).thenReturn(new Position());
 
-        new PositionServlet().doPost(request, response);
+        positionServlet.doPost(request, response);
 
-        verify(request, atLeast(1)).getParameter("action");
-        verify(request, atLeast(1)).getParameter("jobName");
-        verify(request, atLeast(1)).getParameter("salary");
-        verify(request, atLeast(1)).getParameter("active");
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("jobName");
+        verify(request, times(1)).getParameter("salary");
+        verify(request, times(1)).getParameter("active");
+        verify(positionService, times(1)).save(any(Position.class));
     }
 
     @Test
     public void doPostUpdate() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("edit");
+        when(request.getParameter("action")).thenReturn("positionUpdate");
         when(request.getParameter("jobName")).thenReturn("testUpdate");
         when(request.getParameter("salary")).thenReturn("2000");
         when(request.getParameter("active")).thenReturn("false");
         when(request.getParameter("positionId")).thenReturn("3");
+        when(positionService.update(any(Position.class))).thenReturn(true);
 
-        new PositionServlet().doPost(request, response);
+        positionServlet.doPost(request, response);
 
-        verify(request, atLeast(1)).getParameter("action");
-        verify(request, atLeast(1)).getParameter("jobName");
-        verify(request, atLeast(1)).getParameter("salary");
-        verify(request, atLeast(1)).getParameter("active");
-        verify(request, atLeast(1)).getParameter("positionId");
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("jobName");
+        verify(request, times(1)).getParameter("salary");
+        verify(request, times(1)).getParameter("active");
+        verify(request, times(1)).getParameter("positionId");
+        verify(positionService, times(1)).update(any(Position.class));
     }
 }

@@ -1,12 +1,19 @@
 package servletLayerTest;
 
 import com.demo.model.Places;
+import com.demo.model.Route;
 import com.demo.model.Train;
 import com.demo.model.Trip;
 import com.demo.model.utils.TrainType;
+import com.demo.service.RouteService;
+import com.demo.service.TripService;
 import com.demo.servlet.TripServlet;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,56 +22,80 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.DataInput;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
 public class TripServletTest {
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
+    @Mock
+    HttpServletRequest request;
 
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    @Mock
+    HttpServletResponse response;
 
-    RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
+    @Mock
+    RequestDispatcher requestDispatcher;
+
+    @Mock
+    TripService tripService;
+
+    @Mock
+    RouteService routeService;
+
+    @InjectMocks
+    TripServlet tripServlet;
 
     String[] testString = new String[2];
 
+    Route route;
+
+    List<Trip> tripList;
 
     @Before
     public void setup() {
-        testString[0] = "1";
-        testString[1] = "2";
+        route = new Route();
+        route.setId(1);
+
+        Trip trip = new Trip();
+        trip.setId(1);
+        tripList = new ArrayList<>();
+
+        tripList.add(trip);
+
     }
-
-
 
 
     @Test
     public void testDoGetActionSearch() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("search");
+        when(request.getParameter("action")).thenReturn("tripSearch");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new TripServlet().doGet(request, response);
+        tripServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Trip.class));
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
     public void testDoGetActionDetails() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("details");
+        when(request.getParameter("action")).thenReturn("tripDetails");
         when(request.getParameter("tripId")).thenReturn("4");
+        when(tripService.getById(anyInt())).thenReturn(new Trip());
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new TripServlet().doGet(request, response);
+        tripServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getParameter("tripId");
-        verify(request, atLeastOnce()).setAttribute(eq("trip"), any(Trip.class));
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).setAttribute(eq("trip"), any(Trip.class));
 
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
@@ -72,14 +103,11 @@ public class TripServletTest {
         when(request.getParameter("action")).thenReturn("tripAdd");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new TripServlet().doGet(request, response);
+        tripServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Trip.class));
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Places.class));
-
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
@@ -87,29 +115,28 @@ public class TripServletTest {
         when(request.getParameter("action")).thenReturn("tripUpdate");
         when(request.getParameter("tripId")).thenReturn("4");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(tripService.getById(anyInt())).thenReturn(new Trip());
 
-        new TripServlet().doGet(request, response);
+        tripServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getParameter("tripId");
-        verify(request, atLeastOnce()).setAttribute(anyString(), any(Trip.class));
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Places.class));
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Train.class));
-
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).setAttribute(anyString(), any(Trip.class));
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
     public void testDoGetActionTripDelete() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("tripDelete");
         when(request.getParameter("tripId")).thenReturn("4");
+        when(tripService.deleteById(anyInt())).thenReturn(true);
 
-        new TripServlet().doGet(request, response);
+        tripServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getParameter("tripId");
-        verify( response, atLeastOnce()).sendRedirect(anyString());
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("tripId");
+        verify(response, times(1)).sendRedirect(anyString());
 
     }
 
@@ -118,13 +145,11 @@ public class TripServletTest {
         when(request.getParameter("action")).thenReturn("tripList");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new TripServlet().doGet(request, response);
+        tripServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Trip.class));
-
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
@@ -133,22 +158,51 @@ public class TripServletTest {
         when(request.getParameter("from")).thenReturn("1");
         when(request.getParameter("to")).thenReturn("2");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(routeService.getByDeparturePlaceIdAndArrivalPlaceId(anyInt(), anyInt())).thenReturn(route);
+        when(tripService.getByRouteId(anyInt())).thenReturn(anyList());
 
-        new TripServlet().doPost(request, response);
+        tripServlet.doPost(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request,  atLeastOnce()).getParameter("from");
-        verify(request, atLeastOnce()).getParameter("to");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Trip.class));
-
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("from");
+        verify(request, times(1)).getParameter("to");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
-    public void testDoPostUpdateRouteNotNull() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("add");
+    public void testDoPostUpdateRouteNotNullTrainTypeCargo() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("tripAdd");
         when(request.getParameter("tripId")).thenReturn("4");
+        when(request.getParameter("departureTime")).thenReturn("2020-11-20");
+        when(request.getParameter("arrivalTime")).thenReturn("2020-11-20");
+        when(request.getParameter("numberOfCarriages")).thenReturn("2");
+        when(request.getParameter("trainId")).thenReturn("2");
+        when(request.getParameter("trainType")).thenReturn(TrainType.CARGO.toString());
+        when(request.getParameter("departurePlaceId")).thenReturn("1");
+        when(request.getParameter("arrivalPlaceId")).thenReturn("2");
+        when(routeService.getByDeparturePlaceIdAndArrivalPlaceId(anyInt(), anyInt())).thenReturn(route);
+        when(tripService.save(any(Trip.class))).thenReturn(new Trip());
+
+        tripServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).getParameter("arrivalTime");
+        verify(request, times(1)).getParameter("departureTime");
+        verify(request, times(1)).getParameter("numberOfCarriages");
+        verify(request, times(1)).getParameter("trainId");
+        verify(request, times(1)).getParameter("trainType");
+        verify(request, times(1)).getParameter("departurePlaceId");
+        verify(request, times(1)).getParameter("arrivalPlaceId");
+        verify(response, times(1)).sendRedirect(anyString());
+    }
+
+
+    @Test
+    public void testDoPostAddRouteNullAndTrainTypePassenger() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("tripUpdate");
+        when(request.getParameter("tripId")).thenReturn("2");
         when(request.getParameter("departureTime")).thenReturn("2020-11-20");
         when(request.getParameter("arrivalTime")).thenReturn("2020-11-20");
         when(request.getParameter("numberOfCarriages")).thenReturn("2");
@@ -157,56 +211,22 @@ public class TripServletTest {
         when(request.getParameter("price")).thenReturn("200");
         when(request.getParameter("numberOfPlaces")).thenReturn("20");
         when(request.getParameter("departurePlaceId")).thenReturn("1");
-        when(request.getParameter("arrivalPlaceId")).thenReturn("2");
-        when(request.getParameterValues(eq("stopPlaceId"))).thenReturn(testString);
+        when(request.getParameter("arrivalPlaceId")).thenReturn("4");
+        when(routeService.getByDeparturePlaceIdAndArrivalPlaceId(anyInt(), anyInt())).thenReturn(null);
 
-        new TripServlet().doPost(request, response);
+        tripServlet.doPost(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getParameter("tripId");
-        verify(request, atLeastOnce()).getParameter("arrivalTime");
-        verify(request, atLeastOnce()).getParameter("departureTime");
-        verify(request, atLeastOnce()).getParameter("numberOfCarriages");
-        verify(request, atLeastOnce()).getParameter("trainId");
-        verify(request, atLeastOnce()).getParameter("trainType");
-        verify(request, atLeastOnce()).getParameter("price");
-        verify(request, atLeastOnce()).getParameter("numberOfPlaces");
-        verify(request, atLeastOnce()).getParameter("departurePlaceId");
-        verify(request, atLeastOnce()).getParameter("arrivalPlaceId");
-        verify(request, atLeastOnce()).getParameterValues("stopPlaceId");
-        verify(response, atLeastOnce()).sendRedirect(anyString());
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).getParameter("arrivalTime");
+        verify(request, times(1)).getParameter("departureTime");
+        verify(request, times(1)).getParameter("numberOfCarriages");
+        verify(request, times(1)).getParameter("trainId");
+        verify(request, times(1)).getParameter("trainType");
+        verify(request, times(1)).getParameter("price");
+        verify(request, times(1)).getParameter("numberOfPlaces");
+        verify(request, times(1)).getParameter("departurePlaceId");
+        verify(request, times(1)).getParameter("arrivalPlaceId");
+        verify(response, times(1)).sendRedirect(anyString());
     }
-
-
-//    @Test
-//    public void testDoPostAddRouteNull() throws ServletException, IOException {
-//        when(request.getParameter("action")).thenReturn("add");
-//        when(request.getParameter("tripId")).thenReturn("");
-//        when(request.getParameter("departureTime")).thenReturn("2020-11-20");
-//        when(request.getParameter("arrivalTime")).thenReturn("2020-11-20");
-//        when(request.getParameter("numberOfCarriages")).thenReturn("2");
-//        when(request.getParameter("trainId")).thenReturn("2");
-//        when(request.getParameter("trainType")).thenReturn(TrainType.PASSENGER.toString());
-//        when(request.getParameter("price")).thenReturn("200");
-//        when(request.getParameter("numberOfPlaces")).thenReturn("20");
-//        when(request.getParameter("departurePlaceId")).thenReturn("1");
-//        when(request.getParameter("arrivalPlaceId")).thenReturn("4");
-//        when(request.getParameterValues(eq("stopPlaceId"))).thenReturn(testString);
-//
-//        new TripServlet().doPost(request, response);
-//
-//        verify(request, atLeastOnce()).getParameter("action");
-//        verify(request, atLeastOnce()).getParameter("tripId");
-//        verify(request, atLeastOnce()).getParameter("arrivalTime");
-//        verify(request, atLeastOnce()).getParameter("departureTime");
-//        verify(request, atLeastOnce()).getParameter("numberOfCarriages");
-//        verify(request, atLeastOnce()).getParameter("trainId");
-//        verify(request, atLeastOnce()).getParameter("trainType");
-//        verify(request, atLeastOnce()).getParameter("price");
-//        verify(request, atLeastOnce()).getParameter("numberOfPlaces");
-//        verify(request, atLeastOnce()).getParameter("departurePlaceId");
-//        verify(request, atLeastOnce()).getParameter("arrivalPlaceId");
-//        verify(request, atLeastOnce()).getParameterValues("stopPlaceId");
-//        verify(response, atLeastOnce()).sendRedirect(anyString());
-//    }
 }

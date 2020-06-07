@@ -1,6 +1,6 @@
 package serviceLayerTest;
 
-import com.demo.dao.impl.PlacesDaoImpl;
+import com.demo.dao.interfaces.PlacesDao;
 import com.demo.model.Places;
 import com.demo.service.PlaceService;
 import org.junit.Before;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 public class PlaceServiceTest {
 
     @Mock
-    PlacesDaoImpl placesDao;
+    PlacesDao placesDao;
 
     @InjectMocks
     PlaceService placeService;

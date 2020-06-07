@@ -1,6 +1,7 @@
 package serviceLayerTest;
 
 import com.demo.dao.impl.TrainDaoImpl;
+import com.demo.dao.interfaces.TrainDao;
 import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
 import com.demo.service.TrainService;
@@ -26,7 +27,7 @@ public class TrainServiceTest {
 
 
     @Mock
-    TrainDaoImpl trainDao;
+    TrainDao trainDao;
 
     @InjectMocks
     TrainService trainService;

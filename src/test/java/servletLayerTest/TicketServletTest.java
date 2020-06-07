@@ -1,11 +1,19 @@
 package servletLayerTest;
 
+import com.demo.model.Position;
 import com.demo.model.Ticket;
 import com.demo.model.Trip;
+import com.demo.model.User;
+import com.demo.service.TicketService;
+import com.demo.service.TripService;
+import com.demo.service.UserService;
 import com.demo.servlet.TicketServlet;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,90 +21,110 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
 public class TicketServletTest {
 
-    HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+    @Mock
+    HttpServletRequest request;
 
-    HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+    @Mock
+    HttpServletResponse response;
 
-    RequestDispatcher requestDispatcher = Mockito.mock(RequestDispatcher.class);
+    @Mock
+    RequestDispatcher requestDispatcher;
+
+    @Mock
+    TicketService ticketService;
+
+    @Mock
+    TripService tripService;
+
+    @Mock
+    UserService userService;
+
+
+    @InjectMocks
+    TicketServlet ticketServlet;
+
+
 
     @Test
     public void testDoGetActionBuyTicket() throws ServletException, IOException {
 
-        Mockito.when(request.getParameter("action")).thenReturn("buyTicket");
-        Mockito.when(request.getParameter("tripId")).thenReturn("2");
-        Mockito.doNothing().when(request).setAttribute(Mockito.eq("trip"), Mockito.isA(Trip.class));
-        Mockito.when(request.getRequestDispatcher(Mockito.anyString())).thenReturn(requestDispatcher);
+        when(request.getParameter("action")).thenReturn("buyTicket");
+        when(request.getParameter("tripId")).thenReturn("2");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(tripService.getById(anyInt())).thenReturn(new Trip());
 
-        new TicketServlet().doGet(request, response);
+        ticketServlet.doGet(request, response);
 
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("action");
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("tripId");
-        Mockito.verify(request, Mockito.atLeast(1)).setAttribute(Mockito.eq("trip"),
-                Mockito.any(Trip.class));
-        Mockito.verify(request, Mockito.atLeastOnce()).getRequestDispatcher(Mockito.anyString());
-        Mockito.verify(requestDispatcher, Mockito.atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).setAttribute(eq("trip"),
+                any(Trip.class));
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
     public void testDoGetActionTicketDelete() throws ServletException, IOException {
-        Mockito.when(request.getParameter("action")).thenReturn("ticketDelete");
-        Mockito.when(request.getParameter("ticketId")).thenReturn("1");
+        when(request.getParameter("action")).thenReturn("ticketDelete");
+        when(request.getParameter("ticketId")).thenReturn("1");
+        when(ticketService.deleteById(anyInt())).thenReturn(true);
 
-        new TicketServlet().doGet(request, response);
+        ticketServlet.doGet(request, response);
 
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("action");
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("ticketId");
-        Mockito.verify(response, Mockito.atLeast(1)).sendRedirect(Mockito.anyString());
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("ticketId");
+        verify(response, times(1)).sendRedirect(anyString());
     }
 
     @Test
     public void testDoGetTicketUpdate() throws ServletException, IOException {
-        Mockito.when(request.getParameter("action")).thenReturn("ticketUpdate");
-        Mockito.when(request.getParameter("ticketId")).thenReturn("7");
-        Mockito.doNothing().when(request).setAttribute(Mockito.eq("ticket"), Mockito.isA(Ticket.class));
-        Mockito.when(request.getRequestDispatcher(Mockito.anyString())).thenReturn(requestDispatcher);
+        when(request.getParameter("action")).thenReturn("ticketUpdate");
+        when(request.getParameter("ticketId")).thenReturn("7");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(ticketService.getById(anyInt())).thenReturn(new Ticket());
 
-        new TicketServlet().doGet(request, response);
+        ticketServlet.doGet(request, response);
 
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("action");
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("ticketId");
-        Mockito.verify(request, Mockito.atLeast(1)).setAttribute(Mockito.eq("ticket"),
-                Mockito.any(Ticket.class));
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("ticketId");
+        verify(request, times(1)).setAttribute(eq("ticket"),
+                any(Ticket.class));
 
-        Mockito.verify(request, Mockito.atLeastOnce()).getRequestDispatcher(Mockito.anyString());
-        Mockito.verify(requestDispatcher, Mockito.atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
     public void testDoGetTicketList() throws ServletException, IOException {
-        Mockito.when(request.getParameter("action")).thenReturn("ticketList");
-        Mockito.doNothing().when(request).setAttribute(Mockito.eq("ticketList"), Mockito.anyList());
-        Mockito.when(request.getRequestDispatcher(Mockito.anyString())).thenReturn(requestDispatcher);
+        when(request.getParameter("action")).thenReturn("ticketList");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        new TicketServlet().doGet(request, response);
+        ticketServlet.doGet(request, response);
 
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("action");
-        Mockito.verify(request, Mockito.atLeast(1)).setAttribute(Mockito.eq("ticketList"),
-                Mockito.anyList());
-
-        Mockito.verify(request, Mockito.atLeastOnce()).getRequestDispatcher(Mockito.anyString());
-        Mockito.verify(requestDispatcher, Mockito.atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
     public void testDoPost() {
-        Mockito.when(request.getParameter("tripId")).thenReturn("5");
-        Mockito.when(request.getParameter("firstName")).thenReturn("Test");
-        Mockito.when(request.getParameter("lastName")).thenReturn("Test");
-        Mockito.when(request.getParameter("email")).thenReturn("test25@gmail.com");
+        when(request.getParameter("tripId")).thenReturn("5");
+        when(request.getParameter("firstName")).thenReturn("Test");
+        when(request.getParameter("lastName")).thenReturn("Test");
+        when(request.getParameter("email")).thenReturn("test25@gmail.com");
+        when(tripService.getById(anyInt())).thenReturn(new Trip());
+        when(userService.save(any(User.class))).thenReturn(new User());
 
-        new TicketServlet().doPost(request, response);
+        ticketServlet.doPost(request, response);
 
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("tripId");
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("firstName");
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("lastName");
-        Mockito.verify(request, Mockito.atLeast(1)).getParameter("email");
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("email");
     }
 }

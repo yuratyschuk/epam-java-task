@@ -27,11 +27,11 @@ import java.util.List;
 
 public class TicketServlet extends HttpServlet {
 
-    private final TripService tripService;
+    private  TripService tripService;
 
-    private final TicketService ticketService;
+    private  TicketService ticketService;
 
-    private final UserService userService;
+    private UserService userService;
 
     private final static Logger logger = LogManager.getLogger();
 
@@ -41,19 +41,22 @@ public class TicketServlet extends HttpServlet {
 
     private String forward;
 
-    private String action;
+    private List<Ticket> ticketList;
 
-    public TicketServlet() {
+    @Override
+    public void init() throws ServletException {
         tripService = new TripService(new TripDaoImpl(), new StopDaoImpl());
         ticketService = new TicketService(new TicketDaoImpl());
         userService = new UserService(new UserDaoImpl());
+
+        ticketList = ticketService.getAll();
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        action = request.getParameter("action");
+        String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("buyTicket")) {
 
@@ -77,7 +80,7 @@ public class TicketServlet extends HttpServlet {
             request.setAttribute("ticket", ticketService.getById(ticketId));
         } else if(action.equalsIgnoreCase("ticketList")) {
             forward = TRIP_LIST;
-            request.setAttribute("ticketList", ticketService.getAll());
+            request.setAttribute("ticketList", ticketList);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
@@ -117,7 +120,6 @@ public class TicketServlet extends HttpServlet {
         ticket.setUser(user);
 
         ticketService.save(ticket);
-
     }
 }
 

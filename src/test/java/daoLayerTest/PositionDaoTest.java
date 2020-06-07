@@ -56,6 +56,12 @@ public class PositionDaoTest {
     }
 
     @Test
+    public void testGetAllMethodPositionDao() {
+        List<Position> positionList = positionDao.getAll();
+        assertEquals(positionList.size(), 5);
+    }
+
+    @Test
     public void testGetPositionListByActiveTrueMethodDao() {
         List<Position> positionListActive = positionDao.getPositionListByActive(true);
 

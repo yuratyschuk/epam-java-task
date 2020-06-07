@@ -1,6 +1,7 @@
 package serviceLayerTest;
 
 import com.demo.dao.impl.WorkerDaoImpl;
+import com.demo.dao.interfaces.WorkerDao;
 import com.demo.model.Worker;
 import com.demo.service.WorkerService;
 import org.junit.Before;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.*;
 public class WorkerServiceTest {
     
     @Mock
-    WorkerDaoImpl workerDao;
+    WorkerDao workerDao;
     
     @InjectMocks
     WorkerService workerService;

@@ -29,13 +29,13 @@ import java.util.List;
 
 public class TripServlet extends HttpServlet {
 
-    private final TripService tripService;
+    private TripService tripService;
 
-    private final PlaceService placeService;
+    private PlaceService placeService;
 
-    private final RouteService routeService;
+    private RouteService routeService;
 
-    private final TrainService trainService;
+    private TrainService trainService;
 
     private static final String SEARCH_PAGE = "jsp/trip/searchTrip.jsp";
 
@@ -54,11 +54,22 @@ public class TripServlet extends HttpServlet {
 
     private final static Logger logger = LogManager.getLogger();
 
-    public TripServlet() {
+    private List<Trip> tripList;
+
+    private List<Train> trainList;
+
+    private List<Places> placesList;
+
+    @Override
+    public void init() throws ServletException {
         tripService = new TripService(new TripDaoImpl(), new StopDaoImpl());
-        placeService = PlaceService.getInstance();
+        placeService = new PlaceService(new PlacesDaoImpl());
         routeService = new RouteService(new RouteDaoImpl());
         trainService = new TrainService(new TrainDaoImpl());
+
+        tripList = tripService.getAll();
+        trainList = trainService.getAll();
+        placesList = placeService.getAll();
     }
 
     @Override
@@ -67,7 +78,6 @@ public class TripServlet extends HttpServlet {
 
         if (action.equalsIgnoreCase("tripSearch")) {
             forward = SEARCH_PAGE;
-            List<Places> placesList = placeService.getAll();
 
             request.setAttribute("placesList", placesList);
 
@@ -75,22 +85,21 @@ public class TripServlet extends HttpServlet {
             forward = DETAILS_PAGE;
             int tripId = Integer.parseInt(request.getParameter("tripId"));
             Trip trip = tripService.getById(tripId);
-            logger.info(trip.getStopSet());
             request.setAttribute("trip", trip);
 
         } else if (action.equalsIgnoreCase("tripAdd")) {
             forward = ADD_TRIP;
 
-            request.setAttribute("placesList", placeService.getAll());
-            request.setAttribute("trainList", trainService.getAll());
+            request.setAttribute("placesList", placesList);
+            request.setAttribute("trainList", trainList);
 
         } else if (action.equalsIgnoreCase("tripUpdate")) {
             forward = ADD_TRIP;
             int tripId = Integer.parseInt(request.getParameter("tripId"));
 
             request.setAttribute("trip", tripService.getById(tripId));
-            request.setAttribute("placesList", placeService.getAll());
-            request.setAttribute("trainList", trainService.getAll());
+            request.setAttribute("placesList", placesList);
+            request.setAttribute("trainList", trainList);
         } else if (action.equalsIgnoreCase("tripDelete")) {
             String tripRedirect = request.getContextPath() + "/trip?action=tripList";
             int tripId = Integer.parseInt(request.getParameter("tripId"));
@@ -100,7 +109,7 @@ public class TripServlet extends HttpServlet {
             return;
         } else if (action.equalsIgnoreCase("tripList")) {
             forward = TRIP_LIST;
-            request.setAttribute("tripList", tripService.getAll());
+            request.setAttribute("tripList", tripList);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
@@ -120,7 +129,7 @@ public class TripServlet extends HttpServlet {
                 action.equalsIgnoreCase("tripUpdate")) {
 
             String tripRedirect = request.getContextPath() + "/trip?action=tripList";
-            createOrEditTripPost(request, response);
+            createOrEditTripPost(request, action);
 
             response.sendRedirect(tripRedirect);
             return;
@@ -136,19 +145,19 @@ public class TripServlet extends HttpServlet {
         int arrivalPlace = Integer.parseInt(request.getParameter("to"));
         Route route = routeService.getByDeparturePlaceIdAndArrivalPlaceId(departurePlace, arrivalPlace);
 
-        List<Trip> tripList = tripService.getByRouteId(route.getId());
-        request.setAttribute("tripList", tripList);
+        List<Trip> tripListByRouteId = tripService.getByRouteId(route.getId());
+        request.setAttribute("tripList", tripListByRouteId);
 
     }
 
-    private void createOrEditTripPost(HttpServletRequest request, HttpServletResponse response) {
+    private void createOrEditTripPost(HttpServletRequest request, String action) {
 
         String datePattern = "yyyy-MM-dd";
         DateFormat dateFormat = new SimpleDateFormat(datePattern);
 
         try {
             Trip trip = new Trip();
-            String tripId = request.getParameter("tripId");
+            int tripId = Integer.parseInt(request.getParameter("tripId"));
             Date departureTime = dateFormat.parse(request.getParameter("departureTime"));
             Date arrivalTime = dateFormat.parse(request.getParameter("arrivalTime"));
             int numberOfCarriages = Integer.parseInt(request.getParameter("numberOfCarriages"));
@@ -188,22 +197,13 @@ public class TripServlet extends HttpServlet {
             train.setId(trainId);
             trip.setTrain(train);
             trip.setNumberOfCarriages(numberOfCarriages);
-            int tripIdInt;
-            if (tripId == null || tripId.isEmpty()) {
-                trip = tripService.save(trip);
-                tripIdInt = trip.getId();
+            if (action.equalsIgnoreCase("tripAdd")) {
+                tripService.save(trip);
             } else {
-                tripIdInt = Integer.parseInt(tripId);
-                trip.setId(tripIdInt);
+                trip.setId(tripId);
                 tripService.update(trip);
             }
-            String[] stopIdString = request.getParameterValues("stopPlaceId");
-            if (stopIdString.length != 0) {
-                for (String s : stopIdString) {
-                    int stopId = Integer.parseInt(s);
-//                    stopRouteDao.save(tripIdInt, stopId);
-                }
-            }
+
         } catch (ParseException e) {
             logger.error(e.getMessage());
         }

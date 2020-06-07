@@ -78,6 +78,7 @@ public class WorkerDaoTest {
         assertEquals(getWorker.getWorkingExperience(), worker.getWorkingExperience());
     }
 
+
     @Test
     public void testDeleteMethodDao() {
         List<Worker> workersBeforeDelete = workerDao.getAll();

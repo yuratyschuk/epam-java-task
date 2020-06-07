@@ -1,6 +1,7 @@
 package serviceLayerTest;
 
 import com.demo.dao.impl.PositionDaoImpl;
+import com.demo.dao.interfaces.PositionDao;
 import com.demo.model.Position;
 import com.demo.service.PositionService;
 import javafx.geometry.Pos;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 public class PositionServiceTest {
 
     @Mock
-    PositionDaoImpl positionDao;
+    PositionDao positionDao;
 
     @InjectMocks
     PositionService positionService;
@@ -127,9 +128,9 @@ public class PositionServiceTest {
     public void testGetListByActiveCalled() {
 
         when(positionDao.getPositionListByActive(anyBoolean())).thenReturn(listPositionActive);
-        List<Position> activePositionListToTest = positionService.getPositionListByActive(true);
+        List<Position> activePositionListToTest = positionService.getPositionListByActive(listPosition, true);
 
-        verify(positionDao, times(1)).getPositionListByActive(anyBoolean());
+        assertTrue(activePositionListToTest.stream().allMatch(Position::getActive));
         assertEquals(activePositionListToTest.size(), listPositionActive.size());
     }
 

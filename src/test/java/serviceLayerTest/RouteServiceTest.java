@@ -1,6 +1,7 @@
 package serviceLayerTest;
 
 import com.demo.dao.impl.RouteDaoImpl;
+import com.demo.dao.interfaces.RouteDao;
 import com.demo.model.Places;
 import com.demo.model.Route;
 import com.demo.service.RouteService;
@@ -16,11 +17,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class RouteServiceTest {
 
     @Mock
-    RouteDaoImpl routeDao;
+    RouteDao routeDao;
 
     @InjectMocks
     RouteService routeService;
@@ -58,87 +62,88 @@ public class RouteServiceTest {
 
     @Test
     public void verifyGetAllMethodCalled() {
-        Mockito.when(routeDao.getAll()).thenReturn(routesList);
+        when(routeDao.getAll()).thenReturn(routesList);
 
         List<Route> routeListToTest = routeService.getAll();
 
-        Mockito.verify(routeDao, Mockito.times(1)).getAll();
-        Assert.assertEquals(routeListToTest.size(), routesList.size());
+        verify(routeDao, times(1)).getAll();
+        assertEquals(routeListToTest.size(), routesList.size());
     }
 
     @Test
     public void verifySaveMethodCalled() {
-        Mockito.when(routeDao.save(Mockito.any(Route.class))).thenReturn(route);
+        when(routeDao.save(any(Route.class))).thenReturn(route);
 
         Route routeToTest = routeService.save(route);
 
-        Mockito.verify(routeDao, Mockito.times(1)).save(Mockito.any(Route.class));
-        Assert.assertEquals(route.getId(), routeToTest.getId());
+        verify(routeDao, times(1)).save(any(Route.class));
+        assertEquals(route.getId(), routeToTest.getId());
     }
 
     @Test
     public void verifyUpdateMethodCalled() {
-        Mockito.when(routeDao.update(Mockito.any(Route.class))).thenReturn(true);
+        when(routeDao.update(any(Route.class))).thenReturn(true);
         boolean testIfUpdated = routeService.update(route1);
 
-        Mockito.verify(routeDao, Mockito.times(1)).update(Mockito.any(Route.class));
-        Assert.assertTrue(testIfUpdated);
+        verify(routeDao, times(1)).update(any(Route.class));
+        assertTrue(testIfUpdated);
     }
 
     @Test
     public void testUpdateMethodFailed() {
         boolean testIfUpdated = routeService.update(route);
-        Assert.assertFalse(testIfUpdated);
+        assertFalse(testIfUpdated);
     }
 
     @Test
     public void testUpdateMethodSuccess() {
+        when(routeDao.update(any(Route.class))).thenReturn(true);
         boolean testIfUpdated = routeService.update(route1);
 
-        Assert.assertTrue(testIfUpdated);
+        assertTrue(testIfUpdated);
     }
 
     @Test
     public void verifyGetByDeparturePlaceIdAndArrivalPlaceIdMethodCalled() {
-        Mockito.when(routeDao.getByArrivalPlaceIdAndDeparturePlaceId(Mockito.anyInt(), Mockito.anyInt()))
+        when(routeDao.getByArrivalPlaceIdAndDeparturePlaceId(anyInt(), anyInt()))
                 .thenReturn(route);
         Route routeToTest = routeService.getByDeparturePlaceIdAndArrivalPlaceId(1, 2);
 
-        Mockito.verify(routeDao, Mockito.times(1))
-                .getByArrivalPlaceIdAndDeparturePlaceId(Mockito.anyInt(), Mockito.anyInt());
-        Assert.assertEquals(routeToTest.getId(), route.getId());
+        verify(routeDao, times(1))
+                .getByArrivalPlaceIdAndDeparturePlaceId(anyInt(), anyInt());
+        assertEquals(routeToTest.getId(), route.getId());
     }
 
     @Test
     public void verifyGetByIdMethodCalled() {
-        Mockito.when(routeDao.getById(Mockito.anyInt())).thenReturn(route);
+        when(routeDao.getById(anyInt())).thenReturn(route);
 
         Route routeToTest = routeService.getById(1);
 
-        Mockito.verify(routeDao, Mockito.times(1)).getById(Mockito.anyInt());
-        Assert.assertEquals(routeToTest.getId(), route.getId());
+        verify(routeDao, times(1)).getById(anyInt());
+        assertEquals(routeToTest.getId(), route.getId());
     }
 
     @Test
     public void verifyDeleteByIdMethodCalled() {
-        Mockito.when(routeDao.deleteById(Mockito.anyInt())).thenReturn(true);
+        when(routeDao.deleteById(anyInt())).thenReturn(true);
 
         boolean testIfDeleted = routeService.deleteById(1);
 
 
-        Mockito.verify(routeDao, Mockito.times(1)).deleteById(Mockito.anyInt());
-        Assert.assertTrue(testIfDeleted);
+        verify(routeDao, times(1)).deleteById(anyInt());
+        assertTrue(testIfDeleted);
     }
 
     @Test
     public void verifyDeleteMethodCalled() {
-        Mockito.when(routeDao.delete(Mockito.any(Route.class))).thenReturn(true);
+        when(routeDao.delete(any(Route.class))).thenReturn(true);
 
         boolean testIfDeleted = routeService.delete(new Route());
 
-        Mockito.verify(routeDao, Mockito.times(1))
-                .delete(Mockito.any(Route.class));
-        Assert.assertTrue(testIfDeleted);
+        verify(routeDao, times(1))
+                .delete(any(Route.class));
+        assertTrue(testIfDeleted);
     }
 
 

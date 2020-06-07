@@ -16,6 +16,7 @@
         <input type="password" name="password" required>
 
     <input type="hidden" name="action" value="userLogin">
+    <span>${errorMessage}</span>
     <button type="submit" >Submit</button>
 </form>
 </body>

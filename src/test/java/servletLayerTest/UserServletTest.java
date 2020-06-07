@@ -2,11 +2,16 @@ package servletLayerTest;
 
 import com.demo.model.Ticket;
 import com.demo.model.User;
+import com.demo.service.TicketService;
 import com.demo.service.UserService;
 import com.demo.servlet.UserServlet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,19 +22,32 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UserServletTest {
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
+    @Mock
+    HttpServletRequest request;
 
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    @Mock
+    HttpServletResponse response;
 
-    HttpSession session = mock(HttpSession.class);
+    @Mock
+    HttpSession session;
 
-    RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
+    @Mock
+    RequestDispatcher requestDispatcher;
 
-    UserService userService = mock(UserService.class);
+    @Mock
+    UserService userService;
+
+    @Mock
+    TicketService ticketService;
+
+    @InjectMocks
+    UserServlet userServlet;
 
     User user;
+
     @Before
     public void setup() {
         user = new User();
@@ -44,17 +62,18 @@ public class UserServletTest {
     @Test
     public void testDoGetActionPage() throws ServletException, IOException {
 
-        when(request.getParameter("action")).thenReturn("page");
+        when(request.getParameter("action")).thenReturn("userPage");
         when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("user")).thenReturn((User) user);
+        when(session.getAttribute("user")).thenReturn(new User());
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        new UserServlet().doGet(request, response);
 
-        verify(session, atLeastOnce()).getAttribute("user");
-        verify(request, atLeastOnce()).setAttribute(anyString(), anyListOf(Ticket.class));
-        verify(request, atLeastOnce()).setAttribute(anyString(), any(User.class));
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        userServlet.doGet(request, response);
+
+        verify(session, times(1)).getAttribute("user");
+        verify(request, times(1)).setAttribute(anyString(), anyListOf(Ticket.class));
+        verify(request, times(1)).setAttribute(anyString(), any(User.class));
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
@@ -62,18 +81,18 @@ public class UserServletTest {
 
         when(request.getParameter("action")).thenReturn("userDelete");
         when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("user")).thenReturn((User) user);
-
+        when(session.getAttribute("user")).thenReturn(new User());
+        when(userService.delete(any(User.class))).thenReturn(true);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        new UserServlet().doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getSession();
-        verify(session, atLeastOnce()).getAttribute("user");
-        Assert.assertEquals(session.getAttribute("user"), user);
+        userServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).getAttribute("user");
+
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 
@@ -82,36 +101,35 @@ public class UserServletTest {
 
         when(request.getParameter("action")).thenReturn("userUpdate");
         when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("user")).thenReturn(user);
-
+        when(session.getAttribute("user")).thenReturn(new User());
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        new UserServlet().doGet(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getSession();
-        verify(session, atLeastOnce()).getAttribute("user");
-        Assert.assertEquals(session.getAttribute("user"), user);
+        userServlet.doGet(request, response);
 
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).getAttribute("user");
+
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 
     @Test
     public void testDoPostActionRegister() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("register");
-
+        when(request.getParameter("action")).thenReturn("userRegister");
         when(request.getParameter("firstName")).thenReturn(user.getFirstName());
         when(request.getParameter("lastName")).thenReturn(user.getLastName());
         when(request.getParameter("email")).thenReturn(user.getEmail());
         when(request.getParameter("password")).thenReturn(user.getPassword());
         when(request.getParameter("username")).thenReturn(user.getUsername());
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(userService.save(any(User.class))).thenReturn(new User());
 
-        new UserServlet().doPost(request, response);
+        userServlet.doPost(request, response);
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getRequestDispatcher(anyString());
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getRequestDispatcher(anyString());
 
 
     }
@@ -119,17 +137,18 @@ public class UserServletTest {
     @Test
     public void testDoPostActionLogin() throws ServletException, IOException {
 
-        when(request.getParameter("action")).thenReturn("login");
+        when(request.getParameter("action")).thenReturn("userLogin");
         when(request.getParameter("password")).thenReturn("testFirstName1");
         when(request.getParameter("username")).thenReturn("testLastName1");
         when(request.getSession()).thenReturn(session);
-        
-        new UserServlet().doPost(request, response);
+        when(userService.checkLogin(anyString(), anyString())).thenReturn(new User());
 
-        verify(request, atLeastOnce()).getParameter("action");
-        verify(request, atLeastOnce()).getSession();
-//        verify(session, atLeastOnce()).setAttribute(anyString(), any(User.class));
-        verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/user?action=page");
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).setAttribute(anyString(), any(User.class));
+        verify(response, times(1)).sendRedirect(request.getContextPath() + "/user?action=page");
 
     }
 }

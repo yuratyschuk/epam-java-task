@@ -6,6 +6,8 @@ import com.demo.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class UserDaoTest {
@@ -29,8 +31,16 @@ public class UserDaoTest {
 
     @Test
     public void testDeleteMethodDao() {
+        List<User> userListBeforeDelete = userDao.getAll();
 
+        boolean checkIfDeleted = userDao.delete(user);
+
+        List<User> userListAfterDelete = userDao.getAll();
+
+        assertTrue(checkIfDeleted);
+        assertNotEquals(userListAfterDelete.size(), userListBeforeDelete.size());
     }
+
 
     @Test
     public void testGetByEmailMethodDao() {

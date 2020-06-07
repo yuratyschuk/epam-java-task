@@ -89,6 +89,13 @@ public class TicketDaoTest {
         }
     }
 
+    @Test
+    public void testGetAllMethodTicketDao() {
+        List<Ticket> ticketList = ticketDao.getAll();
+
+        assertEquals(ticketList.size(), 8);
+    }
+
     @Test(expected = TicketException.class)
     public void testUpdateMethodExceptionDao() {
         ticket.setId(2500);

@@ -1,7 +1,9 @@
 package serviceLayerTest;
 
+import com.demo.dao.impl.StopDaoImpl;
 import com.demo.dao.impl.TripDaoImpl;
-import com.demo.exceptions.TripException;
+import com.demo.dao.interfaces.StopDao;
+import com.demo.dao.interfaces.TripDao;
 import com.demo.model.Train;
 import com.demo.model.Trip;
 import com.demo.model.utils.TrainType;
@@ -10,7 +12,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +33,10 @@ public class TripServiceTest {
 
 
     @Mock
-    TripDaoImpl tripDao;
+    TripDao tripDao;
+
+    @Mock
+    StopDao stopDao;
 
     @InjectMocks
     TripService tripService;
@@ -71,6 +76,7 @@ public class TripServiceTest {
     @Test
     public void testVerifyGetAllMethod() {
         when(tripDao.getAll()).thenReturn(tripList);
+        when(stopDao.getStopByRouteId(anyInt())).thenReturn(new HashSet<>());
         List<Trip> testTripList = tripService.getAll();
 
         verify(tripDao, times(1)).getAll();
@@ -80,6 +86,7 @@ public class TripServiceTest {
     @Test
     public void testGetByIdMethodCalled() {
         when(tripDao.getById(anyInt())).thenReturn(trip);
+        when(stopDao.getStopByRouteId(anyInt())).thenReturn(new HashSet<>());
         Trip tripToSave = tripService.getById(anyInt());
 
         verify(tripDao, times(1)).getById(anyInt());

@@ -2,6 +2,7 @@ package serviceLayerTest;
 
 import com.demo.dao.impl.PositionDaoImpl;
 import com.demo.dao.impl.StopDaoImpl;
+import com.demo.dao.interfaces.StopDao;
 import com.demo.model.Position;
 import com.demo.model.Stop;
 import com.demo.service.PositionService;
@@ -32,7 +33,7 @@ public class StopServiceTest {
 
 
     @Mock
-    StopDaoImpl stopDao;
+    StopDao stopDao;
 
     @InjectMocks
     StopService stopService;

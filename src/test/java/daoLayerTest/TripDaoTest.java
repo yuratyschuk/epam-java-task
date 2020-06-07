@@ -98,6 +98,7 @@ public class TripDaoTest {
         }
     }
 
+
     @Test
     public void testGetByIdMethodDao() {
         Trip getByIdTrip = tripDao.getById(trip.getId());

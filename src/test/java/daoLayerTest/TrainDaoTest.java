@@ -79,6 +79,7 @@ public class TrainDaoTest {
         assertEquals(getByIdTrain.getTrainType(), train.getTrainType());
     }
 
+
     @Test
     public void testDeleteMethodDao() {
         List<Train> trainListBeforeDelete = trainDao.getAll();

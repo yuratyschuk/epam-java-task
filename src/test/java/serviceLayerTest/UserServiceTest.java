@@ -1,6 +1,7 @@
 package serviceLayerTest;
 
 import com.demo.dao.impl.UserDaoImpl;
+import com.demo.dao.interfaces.UserDao;
 import com.demo.model.User;
 import com.demo.service.UserService;
 import org.junit.Before;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.*;
 public class UserServiceTest {
 
     @Mock
-    UserDaoImpl userDao;
+    UserDao userDao;
 
     @InjectMocks
     UserService userService;

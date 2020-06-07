@@ -1,6 +1,7 @@
 package serviceLayerTest;
 
 import com.demo.dao.impl.TicketDaoImpl;
+import com.demo.dao.interfaces.TicketDao;
 import com.demo.model.Ticket;
 import com.demo.model.Trip;
 import com.demo.model.User;
@@ -21,13 +22,13 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class TicketServiceTest {
 
     @Mock
-    TicketDaoImpl ticketDao;
+    TicketDao ticketDao;
 
     @InjectMocks
     TicketService ticketService;

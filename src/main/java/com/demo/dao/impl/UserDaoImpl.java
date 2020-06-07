@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -39,7 +41,35 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        return null;
+        String getAllUsersSql = "SELECT users.id, users.firstName, users.lastName, " +
+                "users.username, users.email, users.password FROM users";
+        List<User> userList = new ArrayList<>();
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getAllUsersSql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFirstName("firstName");
+                user.setLastName("lastName");
+                user.setUsername("username");
+                user.setEmail("email");
+                user.setPassword("password");
+
+                userList.add(user);
+            }
+
+
+            return userList;
+        } catch (SQLException e) {
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+
+        return Collections.emptyList();
     }
 
     @Override

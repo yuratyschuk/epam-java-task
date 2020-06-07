@@ -20,7 +20,7 @@ import java.util.List;
 
 public class UserServlet extends HttpServlet {
 
-    private final UserService userService;
+    private UserService userService;
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -34,11 +34,15 @@ public class UserServlet extends HttpServlet {
 
     private String forward;
 
-    private final TicketService ticketService;
+    private TicketService ticketService;
 
-    public UserServlet() {
+    private List<User> userList;
+
+    @Override
+    public void init() throws ServletException {
         userService = new UserService(new UserDaoImpl());
         ticketService = new TicketService(new TicketDaoImpl());
+
     }
 
     @Override
@@ -89,10 +93,9 @@ public class UserServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
             requestDispatcher.forward(request, response);
         } else if (action.equalsIgnoreCase("userLogin")) {
-            loginUser(request);
+            loginUser(request, response);
 
-            String userPageRedirect = request.getContextPath() + "/user?action=page";
-            response.sendRedirect(userPageRedirect);
+
         }
     }
 
@@ -109,14 +112,22 @@ public class UserServlet extends HttpServlet {
 
     }
 
-    private void loginUser(HttpServletRequest request) {
+    private void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         User user = userService.checkLogin(username, password);
+        if(user == null) {
 
-        session = request.getSession();
-        session.setAttribute("user", user);
+            request.setAttribute("errorMessage", "Login or password are incorrect");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
+            requestDispatcher.forward(request, response);
+        } else {
+            session = request.getSession();
+            session.setAttribute("user", user);
 
+            String userPageRedirect = request.getContextPath() + "/user?action=page";
+            response.sendRedirect(userPageRedirect);
+        }
     }
 }
