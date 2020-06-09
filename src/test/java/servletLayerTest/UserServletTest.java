@@ -124,7 +124,7 @@ public class UserServletTest {
         when(request.getParameter("password")).thenReturn(user.getPassword());
         when(request.getParameter("username")).thenReturn(user.getUsername());
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        when(userService.save(any(User.class))).thenReturn(new User());
+//        when(userService.save(any(User.class))).thenReturn(new User());
 
         userServlet.doPost(request, response);
 

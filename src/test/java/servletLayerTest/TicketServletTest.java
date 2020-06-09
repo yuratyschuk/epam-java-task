@@ -118,7 +118,7 @@ public class TicketServletTest {
         when(request.getParameter("lastName")).thenReturn("Test");
         when(request.getParameter("email")).thenReturn("test25@gmail.com");
         when(tripService.getById(anyInt())).thenReturn(new Trip());
-        when(userService.save(any(User.class))).thenReturn(new User());
+        when(userService.save(any(User.class))).thenReturn(String.valueOf(new User()));
 
         ticketServlet.doPost(request, response);
 

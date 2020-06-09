@@ -25,5 +25,7 @@
     <input type="hidden" name="action" value="userChangePasswordPost">
     <button type="submit">Change password</button>
 </form>
+
+${passwordValidation}
 </body>
 </html>

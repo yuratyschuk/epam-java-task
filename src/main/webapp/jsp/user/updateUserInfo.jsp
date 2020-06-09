@@ -32,5 +32,7 @@
 
     <button type="submit">Update info</button>
 </form>
+
+${updateValidation}
 </body>
 </html>

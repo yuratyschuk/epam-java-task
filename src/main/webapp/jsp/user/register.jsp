@@ -35,5 +35,7 @@
 
     <button type="submit">Register</button>
 </form>
+
+${registerValidation}
 </body>
 </html>

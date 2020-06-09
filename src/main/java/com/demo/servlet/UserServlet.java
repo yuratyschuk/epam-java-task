@@ -64,7 +64,7 @@ public class UserServlet extends HttpServlet {
             deleteUser(request);
         } else if (action.equalsIgnoreCase("userUpdate")) {
             updateUser(request);
-        } else if(action.equalsIgnoreCase("userChangePassword")) {
+        } else if (action.equalsIgnoreCase("userChangePassword")) {
             forward = CHANGE_PASSWORD;
         }
 
@@ -80,34 +80,42 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("userRegister")) {
-            registerUser(request);
+            registerUser(request, response);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
-            requestDispatcher.forward(request, response);
         } else if (action.equalsIgnoreCase("userLogin")) {
             loginUser(request, response);
-        } else if(action.equalsIgnoreCase("userUpdateInfo")) {
+        } else if (action.equalsIgnoreCase("userUpdateInfo")) {
             changeUserInfo(request, response);
-        } else if(action.equalsIgnoreCase("userChangePassword")) {
+        } else if (action.equalsIgnoreCase("userChangePassword")) {
             changePassword(request, response);
         }
     }
 
-    private void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         user.setPassword(request.getParameter("password"));
         String repeatedPassword = request.getParameter("repeatedPassword");
 
-        userService.changePassword(user, repeatedPassword);
+        boolean isPasswordValid = userService.changePassword(user, repeatedPassword);
 
-        String userPageRedirect = request.getContextPath() + "/user?action=userPage";
-        response.sendRedirect(userPageRedirect);
+        if (isPasswordValid) {
+            String userPageRedirect = request.getContextPath() + "/user?action=userPage";
+            response.sendRedirect(userPageRedirect);
 
+        } else {
+            request.setAttribute("passwordValidation", "Password must contain: " +
+                    "1. Capital letter;" +
+                    "2. 8 letters size;" +
+                    "3. Digits");
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(CHANGE_PASSWORD);
+            requestDispatcher.forward(request, response);
+        }
     }
 
-    private void changeUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void changeUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         session = request.getSession();
         User user = (User) session.getAttribute("user");
 
@@ -116,12 +124,18 @@ public class UserServlet extends HttpServlet {
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
 
-        userService.update(user);
+        String registerValidation = userService.update(user);
 
         session.setAttribute("user", user);
-        String userPageRedirect = request.getContextPath() + "/user?action=userPage";
-        response.sendRedirect(userPageRedirect);
 
+        if (!registerValidation.isEmpty()) {
+            request.setAttribute("updateValidation", registerValidation);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(UPDATE_INFO);
+            requestDispatcher.forward(request, response);
+        } else {
+            String userPageRedirect = request.getContextPath() + "/user?action=userPage";
+            response.sendRedirect(userPageRedirect);
+        }
 
     }
 
@@ -152,7 +166,7 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("user", user);
     }
 
-    private void registerUser(HttpServletRequest request) {
+    private void registerUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
 
         user.setFirstName(request.getParameter("firstName"));
@@ -161,8 +175,17 @@ public class UserServlet extends HttpServlet {
         user.setPassword(request.getParameter("password"));
         user.setUsername(request.getParameter("username"));
 
-        userService.save(user);
+        String registerValidation = userService.save(user);
 
+        if (!registerValidation.isEmpty()) {
+            request.setAttribute("registerValidation", registerValidation);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(REGISTER_PAGE);
+            requestDispatcher.forward(request, response);
+        } else {
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
+            requestDispatcher.forward(request, response);
+        }
     }
 
     private void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -170,7 +193,7 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = userService.checkLogin(username, password);
-        if(user == null) {
+        if (user == null) {
             request.setAttribute("errorMessage", "Login or password are incorrect");
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);

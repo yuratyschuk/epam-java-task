@@ -127,10 +127,10 @@ public class TicketServlet extends HttpServlet {
         ticket.setTimeWhenTicketWasBought(currentDate);
         ticket.setTrip(trip);
 
-        user = userService.save(user);
-        ticket.setUser(user);
+//        user = userService.save(user);
+//        ticket.setUser(user);
 
-        ticketService.save(ticket);
+//        ticketService.save(ticket);
     }
 }
 
