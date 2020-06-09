@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.TicketDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.exceptions.TicketException;
 import com.demo.model.*;
 import com.demo.utils.ConnectionPool;
@@ -68,9 +69,6 @@ public class TicketDaoImpl implements TicketDao {
                 ticketList.add(ticket);
             }
 
-            if (ticketList.isEmpty()) {
-                throw new TicketException("Ticket table is empty");
-            }
 
             return ticketList;
         } catch (SQLException e) {
@@ -107,7 +105,8 @@ public class TicketDaoImpl implements TicketDao {
                 if (resultSet.next()) {
                     return getTicketFromDataBase(resultSet);
                 } else {
-                    throw new TicketException("Ticket with id " + id + " doesn't exists");
+                    logger.error("Ticket with id: " + id + " doesn't exists");
+                    throw new DataNotFoundException("Ticket with id " + id + " doesn't exists");
                 }
 
 
@@ -190,15 +189,15 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public List<Ticket> getTicketListByUserId(Integer userId) {
         String getTicketListByUserIdSql = "SELECT ticket.id, ticket.trip_id, ticket.time_when_bought, trip.departure_time, " +
-        "trip.arrival_time, trip.ticket_price, trip.route_id, " +
+                "trip.arrival_time, trip.ticket_price, trip.train_id, trip.route_id, " +
                 "route.departure_place_id, route.arrival_place_id, arrival_place.name AS arrival_name, " +
-                "departure_place.name AS departure_name " +
-                "FROM ticket " +
+                "departure_place.name AS departure_name, train.train_name, train.train_number, " +
+                "train.max_number_of_carriages FROM ticket " +
                 "JOIN trip ON ticket.trip_id = trip.id " +
                 "JOIN route ON trip.route_id = route.id " +
                 "JOIN places departure_place ON route.departure_place_id = departure_place.id " +
                 "JOIN places arrival_place ON route.arrival_place_id = arrival_place.id " +
-                "WHERE ticket.user_id=?";
+                "JOIN train ON trip.train_id = train.id WHERE ticket.user_id    =?";
         List<Ticket> ticketList = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -212,7 +211,8 @@ public class TicketDaoImpl implements TicketDao {
                 }
 
                 if(ticketList.isEmpty()) {
-                    throw new TicketException("Tickets for user not found");
+                    logger.error("Tickets for user not found");
+                    throw new DataNotFoundException("Tickets for user not found");
                 }
 
                 return ticketList;

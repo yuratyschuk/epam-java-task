@@ -41,5 +41,7 @@ ${user.email}
     </tr>
     </c:forEach>
 </table>
+
+<c:if test="${empty ticketList}">You don't buy any tickets yet</c:if>
 </body>
 </html>

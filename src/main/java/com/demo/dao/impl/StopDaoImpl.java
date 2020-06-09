@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.StopDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.exceptions.StopException;
 import com.demo.model.Stop;
 import com.demo.utils.ConnectionPool;
@@ -61,7 +62,7 @@ public class StopDaoImpl implements StopDao {
             }
 
             if (stopList.isEmpty()) {
-                throw new StopException("Stop table is empty");
+                throw new DataNotFoundException("Stop table is empty");
             }
 
             return stopList;
@@ -94,7 +95,8 @@ public class StopDaoImpl implements StopDao {
                     stop.setDuration(resultSet.getInt("duration"));
                     return stop;
                 } else {
-                    throw new StopException("Stop with name " + stopName + " doesn't exists");
+                    logger.error("Stop with name " + stopName + " doesn't exists");
+                    throw new DataNotFoundException("Stop with name " + stopName + " doesn't exists");
                 }
             }
         } catch (SQLException e) {
@@ -124,7 +126,8 @@ public class StopDaoImpl implements StopDao {
                     stop.setDuration(resultSet.getInt("duration"));
                     return stop;
                 } else {
-                    throw new StopException("Stop with id " + id + " doesn't exists");
+                    logger.error("Stop with id " + id + " doesn't exists");
+                    throw new DataNotFoundException("Stop with id " + id + " doesn't exists");
                 }
             }
         } catch (SQLException e) {

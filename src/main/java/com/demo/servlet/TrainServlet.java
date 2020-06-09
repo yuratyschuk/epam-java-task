@@ -54,14 +54,13 @@ public class TrainServlet extends HttpServlet {
     }
 
     private String showTrainListPage(HttpServletRequest request) {
-        String forward;
         forward = LIST_TRAIN;
         request.setAttribute("trainList", trainService.getAll());
+
         return forward;
     }
 
     private String showTrainAddPage(HttpServletRequest request) {
-        String forward;
         forward = UPDATE_OR_ADD_TRAIN;
         request.setAttribute("trainTypeEnum", TrainType.values());
         return forward;

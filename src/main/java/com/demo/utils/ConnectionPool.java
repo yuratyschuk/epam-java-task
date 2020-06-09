@@ -27,7 +27,7 @@ public class ConnectionPool {
 
             dataSource = new ComboPooledDataSource();
             dataSource.setDriverClass(properties.getProperty(DB_DRIVER_CLASS));
-
+            
             dataSource.setJdbcUrl(properties.getProperty(DB_URL));
             dataSource.setUser(properties.getProperty(DB_USERNAME));
             dataSource.setPassword(properties.getProperty(DB_PASSWORD));

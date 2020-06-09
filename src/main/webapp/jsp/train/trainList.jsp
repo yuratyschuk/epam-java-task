@@ -27,5 +27,7 @@
         </tr>
     </c:forEach>
 </table>
+
+<c:if test="${empty trainList}">Train table is empty</c:if>
 </body>
 </html>

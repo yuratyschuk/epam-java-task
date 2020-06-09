@@ -46,10 +46,7 @@ public class PositionService {
     }
 
 
-    public List<Position> getPositionListByActive(List<Position> positionList, boolean active) {
-        return positionList.stream()
-                .filter(x -> x.getActive() == active)
-                .collect(Collectors.toList());
+    public List<Position> getPositionListActive(boolean active) {
+        return positionDao.getPositionListByActive(active);
     }
-
 }

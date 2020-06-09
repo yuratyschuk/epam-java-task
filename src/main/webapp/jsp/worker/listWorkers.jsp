@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 </head>
-
 <body>
 
 
@@ -34,5 +33,6 @@
         </tr>
     </c:forEach>
 </table>
+<h1><c:if test="${empty workerList}">Worker table is empty</c:if></h1>
 </body>
 </html>

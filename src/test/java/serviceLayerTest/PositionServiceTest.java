@@ -128,7 +128,7 @@ public class PositionServiceTest {
     public void testGetListByActiveCalled() {
 
         when(positionDao.getPositionListByActive(anyBoolean())).thenReturn(listPositionActive);
-        List<Position> activePositionListToTest = positionService.getPositionListByActive(listPosition, true);
+        List<Position> activePositionListToTest = positionService.getPositionListActive(true);
 
         assertTrue(activePositionListToTest.stream().allMatch(Position::getActive));
         assertEquals(activePositionListToTest.size(), listPositionActive.size());

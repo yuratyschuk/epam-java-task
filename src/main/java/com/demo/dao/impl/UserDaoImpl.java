@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.UserDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.User;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -60,6 +61,11 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword("password");
 
                 userList.add(user);
+            }
+
+            if(userList.size() == 0) {
+                logger.error("User table is empty!");
+                throw new DataNotFoundException("User table is empty");
             }
 
 
@@ -126,6 +132,9 @@ public class UserDaoImpl implements UserDao {
                     client.setId(resultSet.getInt("id"));
                     client.setEmail(email);
                     return client;
+                } else {
+                    logger.error("User with email " + email + " not found");
+                    throw new DataNotFoundException("User with email " + email + " not found");
                 }
 
 

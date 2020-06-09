@@ -28,5 +28,7 @@
         </tr>
     </c:forEach>
 </table>
+
+<h2> <c:if test="${empty ticketList}">Ticket table is empty</c:if></h2>
 </body>
 </html>

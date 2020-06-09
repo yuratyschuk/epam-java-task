@@ -165,10 +165,12 @@ public class TripServlet extends HttpServlet {
         int departurePlace = Integer.parseInt(request.getParameter("from"));
         int arrivalPlace = Integer.parseInt(request.getParameter("to"));
         Route route = routeService.getByDeparturePlaceIdAndArrivalPlaceId(departurePlace, arrivalPlace);
-
-        List<Trip> tripListByRouteId = tripService.getByRouteId(route.getId());
-        request.setAttribute("tripList", tripListByRouteId);
-
+        if(route.getId() == null) {
+            request.setAttribute("searchTripNull", "Trips not found");
+        } else {
+            List<Trip> tripListByRouteId = tripService.getByRouteId(route.getId());
+            request.setAttribute("tripList", tripListByRouteId);
+        }
     }
 
     private void createOrEditTripPost(HttpServletRequest request, String action) {

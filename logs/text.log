@@ -4593,3 +4593,18 @@ DELETE FROM users WHERE users.id=? [23503-194]
 2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
 2020-06-08 13:31:59 [main] INFO  com.demo.dao.impl.WorkerDaoImpl - update successful
 2020-06-09 00:24:15 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name dadadadad doesn't exists
+2020-06-09 16:18:31 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 123213 not found
+com.demo.exceptions.DataNotFoundException: TEST
+	at com.demo.dao.impl.WorkerDaoImpl.getById(WorkerDaoImpl.java:154) [classes/:?]
+	at com.demo.Application.main(Application.java:10) [classes/:?]
+2020-06-09 16:18:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 123213 not found
+com.demo.exceptions.DataNotFoundException: TEST
+	at com.demo.dao.impl.WorkerDaoImpl.getById(WorkerDaoImpl.java:154) [classes/:?]
+	at com.demo.Application.main(Application.java:10) [classes/:?]
+2020-06-09 18:10:34 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 123213 not found
+2020-06-09 19:10:39 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-06-09 19:10:39 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-06-09 19:10:39 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-06-09 19:10:59 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-06-09 19:10:59 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-06-09 19:10:59 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22

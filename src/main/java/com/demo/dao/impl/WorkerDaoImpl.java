@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.WorkerDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
@@ -118,10 +119,6 @@ public class WorkerDaoImpl implements WorkerDao {
                 workerList.add(worker);
             }
 
-            if (workerList.isEmpty()) {
-                logger.error("Worker data table is empty");
-                throw new WorkerException("Worker data table is empty");
-            }
 
             return workerList;
         } catch (SQLException e) {
@@ -151,7 +148,7 @@ public class WorkerDaoImpl implements WorkerDao {
                     return getWorkerFromDataBase(resultSet);
                 } else {
                     logger.error("Worker with id " + id + " not found");
-                    throw new WorkerException("Worker with id " + id + " not found");
+                    throw new DataNotFoundException("Worker with id " + id + " not found");
                 }
             }
         } catch (SQLException e) {
@@ -176,11 +173,11 @@ public class WorkerDaoImpl implements WorkerDao {
             preparedStatement.setString(1, lastName);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {  // because cursor is before first row
+                if (resultSet.next()) {
                     return getWorkerFromDataBase(resultSet);
                 } else {
                     logger.error("Worker with last name: " + lastName + " not found");
-                    throw new WorkerException("Worker with last name " + lastName + " not found");
+                    throw new DataNotFoundException("Worker with last name: " + lastName + " not found");
                 }
             }
         } catch (SQLException e) {

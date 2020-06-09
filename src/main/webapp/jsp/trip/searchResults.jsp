@@ -27,6 +27,8 @@
             </td>
         </tr>
     </c:forEach>
+
+    <h1>${searchTripNull}</h1>
 </table>
 </body>
 </html>

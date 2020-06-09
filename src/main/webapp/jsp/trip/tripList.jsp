@@ -31,5 +31,7 @@
         </tr>
         </c:forEach>
     </table>
+
+<c:if test="${empty tripList}">Trip table is empty</c:if>
 </body>
 </html>

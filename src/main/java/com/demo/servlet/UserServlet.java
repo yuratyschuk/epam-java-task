@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -57,7 +58,6 @@ public class UserServlet extends HttpServlet {
             forward = REGISTER_PAGE;
         } else if (action.equalsIgnoreCase("userDelete")) {
             deleteUser(request);
-
         } else if (action.equalsIgnoreCase("userUpdate")) {
             updateUser(request);
         }
@@ -128,16 +128,18 @@ public class UserServlet extends HttpServlet {
 
         User user = userService.checkLogin(username, password);
         if(user == null) {
-
             request.setAttribute("errorMessage", "Login or password are incorrect");
+
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(LOGIN_PAGE);
             requestDispatcher.forward(request, response);
         } else {
             session = request.getSession();
             session.setAttribute("user", user);
-
-            String userPageRedirect = request.getContextPath() + "/user?action=page";
+            String userPageRedirect = request.getContextPath() + "/user?action=userPage";
             response.sendRedirect(userPageRedirect);
+
         }
+
+
     }
 }

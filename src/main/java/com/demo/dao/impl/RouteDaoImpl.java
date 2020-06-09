@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.RouteDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.exceptions.RouteException;
 import com.demo.model.Places;
 import com.demo.model.Route;
@@ -109,7 +110,6 @@ public class RouteDaoImpl implements RouteDao {
 
                     return route;
                 }
-
                 return new Route();
             }
         } catch (SQLException e) {
@@ -139,7 +139,7 @@ public class RouteDaoImpl implements RouteDao {
                     return getFromDatabase(resultSet);
                 } else {
                     logger.error("Route with id " + id + " doesn't exists");
-                    throw new RouteException("Route with id " + id + " doesn't exists");
+                    throw new DataNotFoundException("Route with id " + id + " doesn't exists");
                 }
 
             }

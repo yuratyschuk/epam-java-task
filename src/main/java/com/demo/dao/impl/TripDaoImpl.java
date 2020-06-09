@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.TripDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.exceptions.TrainException;
 import com.demo.exceptions.TripException;
 import com.demo.model.Places;
@@ -123,10 +124,6 @@ public class TripDaoImpl implements TripDao {
                 tripList.add(trip);
             }
 
-            if (tripList.isEmpty()) {
-                logger.error("Trip table is empty");
-                throw new TrainException("Trip table is empty");
-            }
 
             return tripList;
         } catch (SQLException e) {
@@ -165,7 +162,8 @@ public class TripDaoImpl implements TripDao {
                 }
 
                 if (tripList.isEmpty()) {
-                    throw new TripException("Trips not found");
+                    logger.error("Trips with route " + routeId + " not found");
+                    throw new DataNotFoundException("Trips with route " + routeId + " not found");
                 }
 
                 return tripList;
@@ -204,7 +202,7 @@ public class TripDaoImpl implements TripDao {
                     return getTripFromDataBase(resultSet);
                 } else {
                     logger.error("Trip with id " + id + " doesn't exists");
-                    throw new TripException("Trip with id " + id + " doesn't exists");
+                    throw new DataNotFoundException("Trip with id " + id + " doesn't exists");
                 }
             }
         } catch (SQLException e) {

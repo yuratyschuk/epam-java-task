@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.TrainDao;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.exceptions.TrainException;
 import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
@@ -90,7 +91,7 @@ public class TrainDaoImpl implements TrainDao {
                     return getTrainFromDataBase(resultSet);
                 } else {
                     logger.error("Train with name " + trainName + " not found");
-                    throw new TrainException("Train with name " + trainName + " not found");
+                    throw new DataNotFoundException("Train with name " + trainName + " not found");
                 }
             }
         } catch (SQLException e) {
@@ -117,7 +118,7 @@ public class TrainDaoImpl implements TrainDao {
                     return getTrainFromDataBase(resultSet);
                 } else {
                     logger.error("Train with id " + id + " not found");
-                    throw new TrainException("Train with id " + id + " not found");
+                    throw new DataNotFoundException("Train with id " + id + " not found");
                 }
             }
         } catch (SQLException e) {
@@ -238,7 +239,8 @@ public class TrainDaoImpl implements TrainDao {
                 }
 
                 if (trainList.isEmpty()) {
-                    throw new TrainException("Train with type:  " + trainType + " not found");
+                    logger.error("Train with type:  " + trainType + " not found");
+                    throw new DataNotFoundException("Train with type:  " + trainType + " not found");
                 }
 
                 return trainList;

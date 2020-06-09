@@ -38,5 +38,7 @@
         </tr>
     </c:forEach>
 </table>
+
+<c:if test="${empty positionList}">Position table is empty</c:if>
 </body>
 </html>

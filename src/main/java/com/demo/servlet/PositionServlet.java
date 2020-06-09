@@ -81,7 +81,7 @@ public class PositionServlet extends HttpServlet {
 
     private void showPositionListActive(HttpServletRequest request) {
         forward = LIST_POSITIONS;
-        List<Position> positionListActive = positionService.getPositionListByActive(positionList, true);
+        List<Position> positionListActive = positionService.getPositionListActive(true);
         request.setAttribute("positionList", positionListActive);
     }
 

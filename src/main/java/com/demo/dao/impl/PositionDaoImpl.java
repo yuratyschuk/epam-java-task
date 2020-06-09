@@ -153,25 +153,7 @@ public class PositionDaoImpl implements PositionDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                Position position = new Position();
-                while (resultSet.next()) {  // because cursor is before first row
-
-                    position.setId(Integer.parseInt(resultSet.getString("id")));
-                    position.setJobName(resultSet.getString("job_name"));
-                    position.setSalary(BigDecimal.valueOf(Long.parseLong(resultSet.getString("salary"))));
-                    position.setActive(resultSet.getBoolean("active"));
-                    if (resultSet.getString("first_name") == null) {
-                        break;
-                    } else {
-                        Worker worker = new Worker();
-                        worker.setFirstName(resultSet.getString("first_name"));
-                        worker.setLastName(resultSet.getString("last_name"));
-                        worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
-                        worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                    }
-                }
-
-                return position;
+                return getFromDatabase(resultSet);
             }
         } catch (SQLException e) {
 
@@ -195,24 +177,9 @@ public class PositionDaoImpl implements PositionDao {
             preparedStatement.setString(1, jobName);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                Position position = new Position();
-                while (resultSet.next()) {  // because cursor is before first row
 
-                    position.setId(Integer.parseInt(resultSet.getString("id")));
-                    position.setJobName(resultSet.getString("job_name"));
-                    position.setSalary(BigDecimal.valueOf(Long.parseLong(resultSet.getString("salary"))));
-                    position.setActive(resultSet.getBoolean("active"));
-                    if (resultSet.getString("first_name") == null) {
-                        break;
-                    } else {
-                        Worker worker = new Worker();
-                        worker.setFirstName(resultSet.getString("first_name"));
-                        worker.setLastName(resultSet.getString("last_name"));
-                        worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
-                        worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
-                    }
+                Position position = getFromDatabase(resultSet);
 
-                }
                 if (position.getId() == null) {
                     logger.error("Position with job name " + jobName + " doesn't exists");
                     throw new PositionException("Position with job name " + jobName + " doesn't exists");
@@ -307,4 +274,29 @@ public class PositionDaoImpl implements PositionDao {
 
         return Collections.emptyList();
     }
+
+
+    private Position getFromDatabase(ResultSet resultSet) throws SQLException {
+        Position position = new Position();
+        while (resultSet.next()) {  // because cursor is before first row
+
+            position.setId(Integer.parseInt(resultSet.getString("id")));
+            position.setJobName(resultSet.getString("job_name"));
+            position.setSalary(BigDecimal.valueOf(Long.parseLong(resultSet.getString("salary"))));
+            position.setActive(resultSet.getBoolean("active"));
+            if (resultSet.getString("first_name") == null) {
+                break;
+            } else {
+                Worker worker = new Worker();
+                worker.setFirstName(resultSet.getString("first_name"));
+                worker.setLastName(resultSet.getString("last_name"));
+                worker.setHireDate(Date.valueOf(resultSet.getString("hire_date")));
+                worker.setWorkingExperience(Integer.parseInt(resultSet.getString("working_experience")));
+            }
+
+        }
+
+        return position;
+    }
+
 }

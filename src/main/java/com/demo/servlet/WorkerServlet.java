@@ -73,7 +73,9 @@ public class WorkerServlet extends HttpServlet {
 
     private void showListOfWorkers(HttpServletRequest request) {
         forward = LIST_WORKERS;
+
         request.setAttribute("workerList", workerService.getAll());
+
     }
 
     private void addWorker(HttpServletRequest request) {
@@ -92,7 +94,7 @@ public class WorkerServlet extends HttpServlet {
     }
 
     private void deleteWorker(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String workerListRedirect = request.getContextPath() + "/worker?action=listWorkers";
+        String workerListRedirect = request.getContextPath() + "/worker?action=workerList";
 
         int workerId = Integer.parseInt(request.getParameter("workerId"));
         workerService.deleteById(workerId);
