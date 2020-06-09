@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
@@ -134,7 +135,7 @@ public class UserDaoImpl implements UserDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new User();
     }
 
     @Override

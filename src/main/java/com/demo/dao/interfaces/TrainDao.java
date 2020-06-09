@@ -5,6 +5,7 @@ import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TrainDao extends DAO<Train> {
 

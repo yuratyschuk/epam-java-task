@@ -36,7 +36,6 @@ public class UserServlet extends HttpServlet {
 
     private TicketService ticketService;
 
-    private List<User> userList;
 
     @Override
     public void init() throws ServletException {
@@ -51,36 +50,22 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("userPage")) {
-            forward = USER_PAGE;
-            session = request.getSession();
-            User user = (User) session.getAttribute("user");
-
-            List<Ticket> ticketList = ticketService.getTicketListByUserId(user.getId());
-
-            request.setAttribute("ticketList", ticketList);
-            request.setAttribute("user", user);
+            showUserPage(request);
         } else if (action.equalsIgnoreCase("userLogin")) {
             forward = LOGIN_PAGE;
         } else if (action.equalsIgnoreCase("userRegister")) {
             forward = REGISTER_PAGE;
         } else if (action.equalsIgnoreCase("userDelete")) {
-            forward = "index.jsp";
-            session = request.getSession();
-            User user = (User) session.getAttribute("user");
-
-            userService.delete(user);
+            deleteUser(request);
 
         } else if (action.equalsIgnoreCase("userUpdate")) {
-            forward = REGISTER_PAGE;
-            session = request.getSession();
-            User user = (User) session.getAttribute("user");
-
-            request.setAttribute("user", user);
+            updateUser(request);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
     }
+
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,9 +79,34 @@ public class UserServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
         } else if (action.equalsIgnoreCase("userLogin")) {
             loginUser(request, response);
-
-
         }
+    }
+
+    private void updateUser(HttpServletRequest request) {
+        forward = REGISTER_PAGE;
+        session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        request.setAttribute("user", user);
+    }
+
+    private void deleteUser(HttpServletRequest request) {
+        forward = "index.jsp";
+        session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        userService.delete(user);
+    }
+
+    private void showUserPage(HttpServletRequest request) {
+        forward = USER_PAGE;
+        session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        List<Ticket> ticketList = ticketService.getTicketListByUserId(user.getId());
+
+        request.setAttribute("ticketList", ticketList);
+        request.setAttribute("user", user);
     }
 
     private void registerUser(HttpServletRequest request) {

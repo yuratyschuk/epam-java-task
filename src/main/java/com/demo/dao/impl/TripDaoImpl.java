@@ -16,6 +16,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TripDaoImpl implements TripDao {
 
@@ -54,15 +55,15 @@ public class TripDaoImpl implements TripDao {
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
-                preparedStatement.setInt(1, trip.getId());
-                int checkIfNotNull = preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, trip.getId());
+            int checkIfNotNull = preparedStatement.executeUpdate();
 
-                if(checkIfNotNull == 0) {
-                    logger.error("Can't delete trip with id: " + trip.getId());
-                    throw new TripException("Error while deleting data");
-                }
+            if (checkIfNotNull == 0) {
+                logger.error("Can't delete trip with id: " + trip.getId());
+                throw new TripException("Error while deleting data");
+            }
 
-                return true;
+            return true;
         } catch (SQLException e) {
 
             logger.error("Message: {}", e.getMessage());
@@ -212,7 +213,7 @@ public class TripDaoImpl implements TripDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Trip();
     }
 
 
@@ -233,8 +234,8 @@ public class TripDaoImpl implements TripDao {
                 throw new TripException("Error while creating trip");
             }
 
-            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
-                if(resultSet.next()) {
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
                     trip.setId(resultSet.getInt(1));
 
                     return trip;
@@ -251,6 +252,28 @@ public class TripDaoImpl implements TripDao {
             logger.error("Sql state: {}", e.getSQLState());
         }
         return null;
+    }
+
+    @Override
+    public boolean saveToStopTripTable(int tripId, int stopId) {
+        String saveSql = "INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?)";
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {
+
+            preparedStatement.setInt(1, tripId);
+            preparedStatement.setInt(2, stopId);
+
+            preparedStatement.executeUpdate();
+
+            logger.info("Data saved");
+
+            return true;
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+
+        return false;
     }
 
     private void setPreparedStatement(Trip trip, PreparedStatement preparedStatement) throws SQLException {

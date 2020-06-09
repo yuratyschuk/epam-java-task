@@ -61,4 +61,8 @@ public class TripService {
         return tripDao.save(trip);
 
     }
+
+    public boolean saveToStopTripTable(int tripId, int stopId) {
+        return tripDao.saveToStopTripTable(tripId, stopId);
+    }
 }

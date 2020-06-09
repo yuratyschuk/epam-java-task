@@ -37,8 +37,6 @@ public class PositionServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         positionService = new PositionService(new PositionDaoImpl());
-        positionList = positionService.getAll();
-
     }
 
     @Override
@@ -48,35 +46,49 @@ public class PositionServlet extends HttpServlet {
         action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("positionList")) {
-            forward = LIST_POSITIONS;
-
-            request.setAttribute("positionList", positionList);
+            showPositionList(request);
         } else if (action.equalsIgnoreCase("positionListActive")) {
-            forward = LIST_POSITIONS;
-            List<Position> positionListActive = positionService.getPositionListByActive(positionList, true);
-            request.setAttribute("positionList", positionListActive);
-
-
+            showPositionListActive(request);
         } else if (action.equalsIgnoreCase("positionAdd")) {
             forward = ADD_POSITION;
-
         } else if (action.equalsIgnoreCase("positionDelete")) {
-            String positionRedirect = request.getContextPath() + "/position?action=positionList";
-            int positionId = Integer.parseInt(request.getParameter("positionId"));
+            deletePosition(request, response);
 
-            positionService.deleteById(positionId);
-            response.sendRedirect(positionRedirect);
             return;
         } else if (action.equalsIgnoreCase("positionUpdate")) {
-            forward = ADD_POSITION;
-            int positionId = Integer.parseInt(request.getParameter("positionId"));
-
-            request.setAttribute("position", positionService.getById(positionId));
-
+            showUpdatePage(request);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
+    }
+
+    private void showUpdatePage(HttpServletRequest request) {
+        forward = ADD_POSITION;
+        int positionId = Integer.parseInt(request.getParameter("positionId"));
+
+        request.setAttribute("position", positionService.getById(positionId));
+    }
+
+    private void deletePosition(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String positionRedirect = request.getContextPath() + "/position?action=positionList";
+        int positionId = Integer.parseInt(request.getParameter("positionId"));
+
+        positionService.deleteById(positionId);
+
+        response.sendRedirect(positionRedirect);
+    }
+
+    private void showPositionListActive(HttpServletRequest request) {
+        forward = LIST_POSITIONS;
+        List<Position> positionListActive = positionService.getPositionListByActive(positionList, true);
+        request.setAttribute("positionList", positionListActive);
+    }
+
+    private void showPositionList(HttpServletRequest request) {
+        forward = LIST_POSITIONS;
+
+        request.setAttribute("positionList", positionService.getAll());
     }
 
     @Override

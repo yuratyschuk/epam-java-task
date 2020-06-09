@@ -25,49 +25,65 @@ public class TrainServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private List<Train> trainList;
+
+    private String forward;
 
     @Override
     public void init() throws ServletException {
         trainService = new TrainService(new TrainDaoImpl());
 
-        trainList = trainService.getAll();
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        String forward;
         if (action.equalsIgnoreCase("trainDelete")) {
-            String redirectString = "/train?action=trainList";
-
-            int trainId = Integer.parseInt(request.getParameter("trainId"));
-            trainService.deleteById(trainId);
-
-//            trainList.removeIf(x -> x.getId().equals(trainId));
-
-            request.setAttribute("trainList", trainList);
-            response.sendRedirect(redirectString);
+            deleteTrain(request, response);
             return;
         } else if (action.equalsIgnoreCase("trainUpdate")) {
-            forward = UPDATE_OR_ADD_TRAIN;
-            int trainId = Integer.parseInt(request.getParameter("trainId"));
-            Train train = trainService.getById(trainId);
-            request.setAttribute("train", train);
-            request.setAttribute("trainTypeEnum", TrainType.values());
-
-
+            forward = showUpdateTrainPage(request);
         } else if (action.equalsIgnoreCase("trainAdd")) {
-            forward = UPDATE_OR_ADD_TRAIN;
-            request.setAttribute("trainTypeEnum", TrainType.values());
-        } else {
-            forward = LIST_TRAIN;
-            request.setAttribute("trainList", trainList);
+            forward = showTrainAddPage(request);
+        } else if(action.equalsIgnoreCase("trainList")) {
+            forward = showTrainListPage(request);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
+    }
+
+    private String showTrainListPage(HttpServletRequest request) {
+        String forward;
+        forward = LIST_TRAIN;
+        request.setAttribute("trainList", trainService.getAll());
+        return forward;
+    }
+
+    private String showTrainAddPage(HttpServletRequest request) {
+        String forward;
+        forward = UPDATE_OR_ADD_TRAIN;
+        request.setAttribute("trainTypeEnum", TrainType.values());
+        return forward;
+    }
+
+    private String showUpdateTrainPage(HttpServletRequest request) {
+        forward = UPDATE_OR_ADD_TRAIN;
+        int trainId = Integer.parseInt(request.getParameter("trainId"));
+        Train train = trainService.getById(trainId);
+        request.setAttribute("train", train);
+        request.setAttribute("trainTypeEnum", TrainType.values());
+        return forward;
+    }
+
+    private void deleteTrain(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String redirectString = "/train?action=trainList";
+
+        int trainId = Integer.parseInt(request.getParameter("trainId"));
+        trainService.deleteById(trainId);
+
+        request.setAttribute("trainList", trainService.getAll());
+        response.sendRedirect(redirectString);
     }
 
     @Override
@@ -75,7 +91,7 @@ public class TrainServlet extends HttpServlet {
         createOrEditTrain(request);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(LIST_TRAIN);
-        request.setAttribute("trainList", trainList);
+        request.setAttribute("trainList", trainService.getAll());
         requestDispatcher.forward(request, response);
     }
 

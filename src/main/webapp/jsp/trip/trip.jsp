@@ -114,6 +114,7 @@
     </div>
 
 
+        <button type="submit" value="Save">Save</button>
     <label>
 
         <c:choose>
@@ -125,7 +126,6 @@
         </c:otherwise>
         </c:choose>
 
-        <button type="submit" value="Save">Save</button>
 </form>
 <script>
     $('#trainType').on('change', function () {

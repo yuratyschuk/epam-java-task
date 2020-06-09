@@ -133,7 +133,7 @@ public class StopDaoImpl implements StopDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Stop();
     }
 
     @Override
@@ -256,4 +256,5 @@ public class StopDaoImpl implements StopDao {
 
         return Collections.emptySet();
     }
+
 }

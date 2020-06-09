@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TrainDaoImpl implements TrainDao {
 
@@ -98,7 +99,7 @@ public class TrainDaoImpl implements TrainDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Train();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class TrainDaoImpl implements TrainDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Train();
     }
 
     @Override

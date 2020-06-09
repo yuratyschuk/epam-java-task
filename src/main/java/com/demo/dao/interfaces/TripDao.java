@@ -8,4 +8,6 @@ import java.util.List;
 public interface TripDao extends DAO<Trip> {
 
     List<Trip> getByRouteId(int routeId);
+
+    boolean saveToStopTripTable(int tripId, int stopId);
 }

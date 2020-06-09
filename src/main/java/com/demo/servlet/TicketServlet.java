@@ -15,13 +15,10 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +38,6 @@ public class TicketServlet extends HttpServlet {
 
     private String forward;
 
-    private List<Ticket> ticketList;
 
     @Override
     public void init() throws ServletException {
@@ -49,7 +45,6 @@ public class TicketServlet extends HttpServlet {
         ticketService = new TicketService(new TicketDaoImpl());
         userService = new UserService(new UserDaoImpl());
 
-        ticketList = ticketService.getAll();
     }
 
     @Override
@@ -59,32 +54,48 @@ public class TicketServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("buyTicket")) {
-
-            forward = BUY_TICKET;
-            int tripId = Integer.parseInt(request.getParameter("tripId"));
-            Trip trip = tripService.getById(tripId);
-
-            request.setAttribute("trip", trip);
+            showTicketBuyPage(request);
         } else if(action.equalsIgnoreCase("ticketDelete")) {
-            String redirect = request.getContextPath() + "/ticket?action=ticketList";
+            deleteTicket(request, response);
 
-            int ticketId = Integer.parseInt(request.getParameter("ticketId"));
-            ticketService.deleteById(ticketId);
-
-            response.sendRedirect(redirect);
             return;
         } else if(action.equalsIgnoreCase("ticketUpdate")) {
-            forward = BUY_TICKET;
-            int ticketId = Integer.parseInt(request.getParameter("ticketId"));
-
-            request.setAttribute("ticket", ticketService.getById(ticketId));
+            showUpdateTicketPage(request);
         } else if(action.equalsIgnoreCase("ticketList")) {
-            forward = TRIP_LIST;
-            request.setAttribute("ticketList", ticketList);
+            showTicketListPage(request);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
 
+    }
+
+    private void showTicketListPage(HttpServletRequest request) {
+        forward = TRIP_LIST;
+        request.setAttribute("ticketList", ticketService.getAll());
+    }
+
+    private void showUpdateTicketPage(HttpServletRequest request) {
+        forward = BUY_TICKET;
+        int ticketId = Integer.parseInt(request.getParameter("ticketId"));
+
+        request.setAttribute("ticket", ticketService.getById(ticketId));
+    }
+
+    private void deleteTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String redirect = request.getContextPath() + "/ticket?action=ticketList";
+
+        int ticketId = Integer.parseInt(request.getParameter("ticketId"));
+        ticketService.deleteById(ticketId);
+
+        response.sendRedirect(redirect);
+    }
+
+    private void showTicketBuyPage(HttpServletRequest request) {
+        forward = BUY_TICKET;
+        int tripId = Integer.parseInt(request.getParameter("tripId"));
+        Trip trip = tripService.getById(tripId);
+
+        request.setAttribute("trip", trip);
     }
 
     @Override

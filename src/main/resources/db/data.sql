@@ -16,6 +16,7 @@ values (3, 'Artur', 'Mikhailiv', 1, 3, '2015-12-31');
 INSERT INTO worker
 values (4, 'Anton', 'Vakoluk', 1, 2, '2020-03-05');
 
+
 INSERT INTO places
 VALUES (1, 'Rivne');
 INSERT INTO places

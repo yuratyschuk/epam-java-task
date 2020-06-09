@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class WorkerDaoImpl implements WorkerDao {
 
@@ -146,7 +147,7 @@ public class WorkerDaoImpl implements WorkerDao {
             preparedStatement.setInt(1, id);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {  // because cursor is before first row
+                if (resultSet.next()) {
                     return getWorkerFromDataBase(resultSet);
                 } else {
                     logger.error("Worker with id " + id + " not found");
@@ -159,7 +160,7 @@ public class WorkerDaoImpl implements WorkerDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Worker();
     }
 
 
@@ -188,7 +189,7 @@ public class WorkerDaoImpl implements WorkerDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Worker();
 
     }
 

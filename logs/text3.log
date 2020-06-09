@@ -3206,3 +3206,87 @@ DELETE FROM users WHERE users.id=? [23503-194]
 2020-06-08 00:36:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
 2020-06-08 00:36:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 2500 not found
 2020-06-08 00:36:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-06-08 11:57:41 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 2500 doesn't exists
+2020-06-08 11:57:41 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-06-08 11:57:41 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-06-08 11:57:41 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-06-08 13:14:39 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with last name: Last name Exception not found
+2020-06-08 13:18:46 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-06-08 13:18:46 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-06-08 13:18:46 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: An SQLException was provoked by the following failure: com.mchange.v2.resourcepool.ResourcePoolException: A ResourcePool cannot acquire a new resource -- the factory or source appears to be down.
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Message: Connections could not be acquired from the underlying database!
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Error code: 0
+2020-06-08 13:19:16 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Sql state: null
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position info can't be update because doesn't exists. Id: 2500
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Can't delete route because it doesn't exists. Id 2500
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Route with id 2500 doesn't exists
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 2500 doesn't exists
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2500
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with id 2500 not found
+2020-06-08 13:29:48 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete because train with train name: exception doesn't exists
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with name exception not found
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete data because it doesn't exists. Id 2500
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 2500 doesn't exists
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete trip with id: 2500
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with last name: Last name Exception not found
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 2500
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 2500 not found
+2020-06-08 13:29:49 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position info can't be update because doesn't exists. Id: 2500
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Can't delete route because it doesn't exists. Id 2500
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Route with id 2500 doesn't exists
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 2500 doesn't exists
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2500
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with id 2500 not found
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete because train with train name: exception doesn't exists
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with name exception not found
+2020-06-08 13:31:43 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete data because it doesn't exists. Id 2500
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 2500 doesn't exists
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete trip with id: 2500
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with last name: Last name Exception not found
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 2500
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 2500 not found
+2020-06-08 13:31:44 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Id: 2500
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position info can't be update because doesn't exists. Id: 2500
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position can't be deleted because doesn't exist. Position: test job
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name exception doesn't exists
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Can't delete route because it doesn't exists. Id 2500
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.RouteDaoImpl - Route with id 2500 doesn't exists
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Ticket with id 2500 doesn't exists
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Message: Column "train_id" not found [42122-194]
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Error code: 42122
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TicketDaoImpl - Sql state: 42S22
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete train data because it doesn't exists. Id 2500
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with id 2500 not found
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Can't delete because train with train name: exception doesn't exists
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TrainDaoImpl - Train with name exception not found
+2020-06-08 13:31:58 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete data because it doesn't exists. Id 2500
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.TripDaoImpl - Trip with id 2500 doesn't exists
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.TripDaoImpl - Can't delete trip with id: 2500
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with last name: Last name Exception not found
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Id: 2500
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be update because doesn't exists. Id: 2500
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker with id 2500 not found
+2020-06-08 13:31:59 [main] ERROR com.demo.dao.impl.WorkerDaoImpl - Worker can't be deleted because doesn't exist. Last_name: LastName
+2020-06-09 00:24:15 [main] ERROR com.demo.dao.impl.PositionDaoImpl - Position with job name dadadadad doesn't exists

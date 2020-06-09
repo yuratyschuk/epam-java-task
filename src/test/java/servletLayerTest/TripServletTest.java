@@ -6,6 +6,7 @@ import com.demo.model.Train;
 import com.demo.model.Trip;
 import com.demo.model.utils.TrainType;
 import com.demo.service.RouteService;
+import com.demo.service.TrainService;
 import com.demo.service.TripService;
 import com.demo.servlet.TripServlet;
 import org.junit.Before;
@@ -46,26 +47,32 @@ public class TripServletTest {
     @Mock
     RouteService routeService;
 
+    @Mock
+    TrainService trainService;
+
     @InjectMocks
     TripServlet tripServlet;
 
-    String[] testString = new String[2];
-
     Route route;
 
+    Trip trip;
+
     List<Trip> tripList;
+
+    String[] stopPlaceId;
 
     @Before
     public void setup() {
         route = new Route();
         route.setId(1);
 
-        Trip trip = new Trip();
+        trip = new Trip();
         trip.setId(1);
         tripList = new ArrayList<>();
 
         tripList.add(trip);
-
+        stopPlaceId = new String[1];
+        stopPlaceId[0] = "1";
     }
 
 
@@ -102,6 +109,7 @@ public class TripServletTest {
     public void testDoGetActionTripAdd() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("tripAdd");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(trainService.getAll()).thenReturn(anyList());
 
         tripServlet.doGet(request, response);
 
@@ -116,7 +124,7 @@ public class TripServletTest {
         when(request.getParameter("tripId")).thenReturn("4");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         when(tripService.getById(anyInt())).thenReturn(new Trip());
-
+        when(tripService.getAll()).thenReturn(anyList());
         tripServlet.doGet(request, response);
 
         verify(request, times(1)).getParameter("action");
@@ -171,9 +179,8 @@ public class TripServletTest {
     }
 
     @Test
-    public void testDoPostUpdateRouteNotNullTrainTypeCargo() throws ServletException, IOException {
+    public void testDoPostAddRouteNotNullTrainTypeCargo() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("tripAdd");
-        when(request.getParameter("tripId")).thenReturn("4");
         when(request.getParameter("departureTime")).thenReturn("2020-11-20");
         when(request.getParameter("arrivalTime")).thenReturn("2020-11-20");
         when(request.getParameter("numberOfCarriages")).thenReturn("2");
@@ -182,12 +189,12 @@ public class TripServletTest {
         when(request.getParameter("departurePlaceId")).thenReturn("1");
         when(request.getParameter("arrivalPlaceId")).thenReturn("2");
         when(routeService.getByDeparturePlaceIdAndArrivalPlaceId(anyInt(), anyInt())).thenReturn(route);
-        when(tripService.save(any(Trip.class))).thenReturn(new Trip());
+        when(tripService.save(any(Trip.class))).thenReturn(trip);
+        when(request.getParameterValues("stopPlaceId")).thenReturn(stopPlaceId);
 
         tripServlet.doPost(request, response);
 
         verify(request, times(1)).getParameter("action");
-        verify(request, times(1)).getParameter("tripId");
         verify(request, times(1)).getParameter("arrivalTime");
         verify(request, times(1)).getParameter("departureTime");
         verify(request, times(1)).getParameter("numberOfCarriages");
@@ -195,12 +202,13 @@ public class TripServletTest {
         verify(request, times(1)).getParameter("trainType");
         verify(request, times(1)).getParameter("departurePlaceId");
         verify(request, times(1)).getParameter("arrivalPlaceId");
+        verify(request, times(1)).getParameterValues("stopPlaceId");
         verify(response, times(1)).sendRedirect(anyString());
     }
 
 
     @Test
-    public void testDoPostAddRouteNullAndTrainTypePassenger() throws ServletException, IOException {
+    public void testDoPostUpdateRouteNullAndTrainTypePassenger() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("tripUpdate");
         when(request.getParameter("tripId")).thenReturn("2");
         when(request.getParameter("departureTime")).thenReturn("2020-11-20");
@@ -213,6 +221,7 @@ public class TripServletTest {
         when(request.getParameter("departurePlaceId")).thenReturn("1");
         when(request.getParameter("arrivalPlaceId")).thenReturn("4");
         when(routeService.getByDeparturePlaceIdAndArrivalPlaceId(anyInt(), anyInt())).thenReturn(null);
+        when(request.getParameterValues("stopPlaceId")).thenReturn(stopPlaceId);
 
         tripServlet.doPost(request, response);
 
@@ -227,6 +236,8 @@ public class TripServletTest {
         verify(request, times(1)).getParameter("numberOfPlaces");
         verify(request, times(1)).getParameter("departurePlaceId");
         verify(request, times(1)).getParameter("arrivalPlaceId");
+
+        verify(request, times(1)).getParameterValues("stopPlaceId");
         verify(response, times(1)).sendRedirect(anyString());
     }
 }

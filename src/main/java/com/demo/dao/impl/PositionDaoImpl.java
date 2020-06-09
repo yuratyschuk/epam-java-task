@@ -179,7 +179,7 @@ public class PositionDaoImpl implements PositionDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Position();
     }
 
     @Override
@@ -226,7 +226,7 @@ public class PositionDaoImpl implements PositionDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Position();
 
     }
 

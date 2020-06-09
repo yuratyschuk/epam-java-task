@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class PlacesDaoImpl implements PlacesDao {
 
@@ -65,7 +66,7 @@ public class PlacesDaoImpl implements PlacesDao {
 
     @Override
     public Places getById(Integer id) {
-        return null;
+        return new Places();
     }
 
     @Override

@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class RouteDaoImpl implements RouteDao {
 
@@ -82,7 +83,9 @@ public class RouteDaoImpl implements RouteDao {
     }
 
     @Override
-    public Route getByArrivalPlaceIdAndDeparturePlaceId(Integer departurePlaceId, Integer arrivalPlaceId) {
+    public Route getByArrivalPlaceIdAndDeparturePlaceId(Integer departurePlaceId,
+                                                                  Integer arrivalPlaceId) {
+
         String findByArrivalPlaceIdAndDeparturePlaceIdSql = "SELECT route.id FROM route " +
                 "WHERE route.departure_place_id=? AND route.arrival_place_id=?";
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -107,7 +110,7 @@ public class RouteDaoImpl implements RouteDao {
                     return route;
                 }
 
-                return null;
+                return new Route();
             }
         } catch (SQLException e) {
 
@@ -146,7 +149,7 @@ public class RouteDaoImpl implements RouteDao {
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
         }
-        return null;
+        return new Route();
     }
 
 

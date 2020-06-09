@@ -1,6 +1,7 @@
 package servletLayerTest;
 
 import com.demo.model.Worker;
+import com.demo.service.PositionService;
 import com.demo.service.WorkerService;
 import com.demo.servlet.WorkerServlet;
 import org.junit.Test;
@@ -32,6 +33,9 @@ public class WorkerServletTest {
     @Mock
     WorkerService workerService;
 
+    @Mock
+    PositionService positionService;
+
 
     @InjectMocks
     WorkerServlet workerServlet;
@@ -55,6 +59,7 @@ public class WorkerServletTest {
         when(request.getParameter("workerId")).thenReturn("4");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         when(workerService.getById(anyInt())).thenReturn(new Worker());
+        when(positionService.getAll()).thenReturn(anyList());
 
         workerServlet.doGet(request, response);
 
@@ -68,8 +73,9 @@ public class WorkerServletTest {
 
     @Test
     public void testDoGetActionAdd() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("insert");
+        when(request.getParameter("action")).thenReturn("workerAdd");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(positionService.getAll()).thenReturn(anyList());
 
         workerServlet.doGet(request, response);
 
@@ -81,7 +87,7 @@ public class WorkerServletTest {
 
     @Test
     public void testDoGetActionElse() throws ServletException, IOException {
-        when(request.getParameter("action")).thenReturn("else");
+        when(request.getParameter("action")).thenReturn("workerList");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         workerServlet.doGet(request, response);
