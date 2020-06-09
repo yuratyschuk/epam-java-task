@@ -1,8 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.TicketDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
-import com.demo.exceptions.TicketException;
 import com.demo.model.*;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +12,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class TicketDaoImpl implements TicketDao {
 
@@ -32,7 +31,7 @@ public class TicketDaoImpl implements TicketDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new TicketException("Exception while updating ticket");
+                throw new DataInsertException("Exception while updating ticket");
             }
 
             return true;
@@ -136,7 +135,7 @@ public class TicketDaoImpl implements TicketDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Ticket with id " + id + " doesn't exists");
-                throw new TicketException("Ticket with id " + id + " doesn't exists");
+                throw new DataNotFoundException("Ticket with id " + id + " doesn't exists");
             }
 
             logger.info("data deleted");
@@ -164,7 +163,7 @@ public class TicketDaoImpl implements TicketDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Error while creating ticket");
-                throw new TicketException("Error while creating ticket");
+                throw new DataInsertException("Error while creating ticket");
             }
 
             try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {

@@ -1,8 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.TrainDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
-import com.demo.exceptions.TrainException;
 import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
 import com.demo.utils.ConnectionPool;
@@ -13,7 +13,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class TrainDaoImpl implements TrainDao {
 
@@ -37,7 +36,7 @@ public class TrainDaoImpl implements TrainDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new TrainException("Error while updating train with id " + train.getId());
+                throw new DataInsertException("Error while updating train with id " + train.getId());
             }
 
             return true;
@@ -141,8 +140,10 @@ public class TrainDaoImpl implements TrainDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                logger.error("Can't delete because train with train name: " + train.getTrainName() + " doesn't exists");
-                throw new TrainException("Can't delete because train with train name: " + train.getTrainName() + " doesn't exists");
+                logger.error("Can't delete because train with train name: " +
+                        train.getTrainName() + " doesn't exists");
+                throw new DataNotFoundException("Can't delete because train with train name: " +
+                        train.getTrainName() + " doesn't exists");
             }
 
             logger.info("Successfully deleted");
@@ -167,7 +168,7 @@ public class TrainDaoImpl implements TrainDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Can't delete train data because it doesn't exists. Id " + id);
-                throw new TrainException("Can't delete train data because id doesn't exists. Id" + id);
+                throw new DataNotFoundException("Can't delete train data because id doesn't exists. Id" + id);
             }
 
             logger.info("Data successfully deleted");
@@ -196,7 +197,7 @@ public class TrainDaoImpl implements TrainDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Error while saving new train");
-                throw new TrainException("Error while saving new train");
+                throw new DataInsertException("Error while saving new train");
             }
 
             try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {

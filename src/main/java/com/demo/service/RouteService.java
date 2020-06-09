@@ -1,7 +1,6 @@
 package com.demo.service;
 
 import com.demo.dao.interfaces.RouteDao;
-import com.demo.exceptions.PlacesException;
 import com.demo.model.Route;
 
 import java.util.List;

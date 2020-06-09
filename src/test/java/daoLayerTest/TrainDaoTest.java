@@ -2,11 +2,10 @@ package daoLayerTest;
 
 import com.demo.dao.impl.TrainDaoImpl;
 import com.demo.dao.interfaces.TrainDao;
-import com.demo.exceptions.TrainException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Train;
 import com.demo.model.utils.TrainType;
-import com.demo.utils.ConnectionPool;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -145,36 +144,32 @@ public class TrainDaoTest {
         }
     }
 
-    @Test(expected = TrainException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
         train.setId(2500);
         trainDao.update(train);
     }
 
-    @Test(expected = TrainException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByNameMethodExceptionDao() {
         trainDao.getByName("exception");
     }
 
-    @Test(expected = TrainException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByIdMethodExceptionDao() {
         trainDao.getById(2500);
     }
 
-    @Test(expected = TrainException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteMethodExceptionDao() {
         train.setTrainName("exception");
         trainDao.delete(train);
     }
 
-    @Test(expected = TrainException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         trainDao.deleteById(2500);
     }
-//
-//    @Test(expected = TrainException.class)
-//    public void testGetByTrainTypeExceptionDao() {
-//        trainDao.getTrainListByType(TrainType.valueOf("exception"));
-//    }
+
 
 }

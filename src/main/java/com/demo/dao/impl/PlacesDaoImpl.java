@@ -1,7 +1,6 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.PlacesDao;
-import com.demo.exceptions.PlacesException;
 import com.demo.model.Places;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class PlacesDaoImpl implements PlacesDao {
 
@@ -47,9 +45,6 @@ public class PlacesDaoImpl implements PlacesDao {
                 placesList.add(places);
             }
 
-            if (placesList.isEmpty()) {
-                throw new PlacesException("Places table is empty");
-            }
             return placesList;
         } catch (SQLException e) {
             logger.error("Message: {}", e.getMessage());

@@ -2,17 +2,15 @@ package daoLayerTest;
 
 import com.demo.dao.impl.TripDaoImpl;
 import com.demo.dao.interfaces.TripDao;
-import com.demo.exceptions.TripException;
-import com.demo.model.Places;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Route;
 import com.demo.model.Train;
 import com.demo.model.Trip;
-import com.demo.model.utils.TrainType;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.security.spec.ECField;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -115,29 +113,29 @@ public class TripDaoTest {
         assertEquals(trip.getTicketPrice(), savedTrip.getTicketPrice());
     }
 
-    @Test(expected = TripException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
         trip.setId(2500);
         tripDao.update(trip);
     }
 
-    @Test(expected = TripException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteMethodExceptionDao() {
         trip.setId(2500);
         tripDao.delete(trip);
     }
 
-    @Test(expected = TripException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         tripDao.deleteById(2500);
     }
 
-    @Test(expected = TripException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByRouteIdMethodExceptionDao() {
         tripDao.getByRouteId(2500);
     }
 
-    @Test(expected = TripException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByIdMethodExceptionDao() {
         tripDao.getById(2500);
     }

@@ -2,11 +2,11 @@ package daoLayerTest;
 
 import com.demo.dao.impl.TicketDaoImpl;
 import com.demo.dao.interfaces.TicketDao;
-import com.demo.exceptions.TicketException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Ticket;
 import com.demo.model.Trip;
 import com.demo.model.User;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -96,23 +96,23 @@ public class TicketDaoTest {
         assertEquals(ticketList.size(), 8);
     }
 
-    @Test(expected = TicketException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
         ticket.setId(2500);
         ticketDao.update(ticket);
     }
 
-    @Test(expected = TicketException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByIdMethodExceptionDao() {
         ticketDao.getById(2500);
     }
 
-    @Test(expected = TicketException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         ticketDao.deleteById(2500);
     }
 
-    @Test(expected = TicketException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetTicketListByUserIdMethodExceptionDao() {
         ticketDao.getTicketListByUserId(2500);
     }

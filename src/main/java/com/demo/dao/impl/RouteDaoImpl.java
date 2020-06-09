@@ -1,8 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.RouteDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
-import com.demo.exceptions.RouteException;
 import com.demo.model.Places;
 import com.demo.model.Route;
 import com.demo.utils.ConnectionPool;
@@ -13,7 +13,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class RouteDaoImpl implements RouteDao {
 
@@ -34,7 +33,7 @@ public class RouteDaoImpl implements RouteDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new RouteException("Error while updating Route");
+                throw new DataInsertException("Error while updating Route");
             }
 
             logger.info("Updated successfully");
@@ -68,10 +67,6 @@ public class RouteDaoImpl implements RouteDao {
                 routeList.add(route);
             }
 
-            if (routeList.isEmpty()) {
-                logger.error("Route table is empty");
-                throw new RouteException("Route table is empty");
-            }
 
             return routeList;
         } catch (SQLException e) {
@@ -164,7 +159,7 @@ public class RouteDaoImpl implements RouteDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Can't delete route because it doesn't exists. Id " + id);
-                throw new RouteException("Can't delete route because it doesn't exists. Id " + id);
+                throw new DataNotFoundException("Can't delete route because it doesn't exists. Id " + id);
             }
 
             logger.info("Data deleted successfully");
@@ -191,7 +186,7 @@ public class RouteDaoImpl implements RouteDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Error while creating new route");
-                throw new RouteException("Error while creating new route");
+                throw new DataInsertException("Error while creating new route");
             }
 
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {

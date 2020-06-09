@@ -2,14 +2,12 @@ package daoLayerTest;
 
 import com.demo.dao.impl.RouteDaoImpl;
 import com.demo.dao.interfaces.RouteDao;
-import com.demo.exceptions.RouteException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Places;
 import com.demo.model.Route;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
@@ -96,19 +94,19 @@ public class RouteDaoTest {
         assertEquals(savedRoute.getArrivalPlace().getId(), route.getArrivalPlace().getId());
     }
 
-    @Test(expected = RouteException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
         route.setId(2500);
         routeDao.update(route);
     }
 
 
-    @Test(expected = RouteException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByIdMethodExceptionDao() {
         routeDao.getById(2500);
     }
 
-    @Test(expected = RouteException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         routeDao.deleteById(2500);
     }

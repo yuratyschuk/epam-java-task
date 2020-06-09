@@ -2,7 +2,8 @@ package daoLayerTest;
 
 import com.demo.dao.impl.WorkerDaoImpl;
 import com.demo.dao.interfaces.WorkerDao;
-import com.demo.exceptions.WorkerException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
 import org.junit.Before;
@@ -120,19 +121,19 @@ public class WorkerDaoTest {
         assertEquals(getByLastNameWorker.getWorkingExperience(), worker.getWorkingExperience());
     }
 
-    @Test(expected = WorkerException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
        worker.setId(2500);
         workerDao.update(worker);
     }
 
-    @Test(expected = WorkerException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteMethodExceptionDao() {
         worker.setId(2500);
         workerDao.delete(worker);
     }
 
-    @Test(expected = WorkerException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         worker.setId(2500);
         workerDao.deleteById(worker.getId());
@@ -140,12 +141,12 @@ public class WorkerDaoTest {
 
 
 
-    @Test(expected = WorkerException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByIdMethodExceptionDao() {
         workerDao.getById(2500);
     }
 
-    @Test(expected = WorkerException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByLastNameMethodExceptionDao() {
         workerDao.getByLastName("Last name Exception");
     }

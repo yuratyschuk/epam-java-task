@@ -1,8 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.WorkerDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
-import com.demo.exceptions.WorkerException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
 import com.demo.utils.ConnectionPool;
@@ -13,7 +13,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class WorkerDaoImpl implements WorkerDao {
 
@@ -38,7 +37,7 @@ public class WorkerDaoImpl implements WorkerDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Worker can't be update because doesn't exists. Id: " + worker.getId());
-                throw new WorkerException("Worker with id " + worker.getId() + " doesn't exists");
+                throw new DataInsertException("Worker with id " + worker.getId() + " doesn't exists");
             }
 
             logger.info("update successful");
@@ -64,7 +63,7 @@ public class WorkerDaoImpl implements WorkerDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Worker can't be deleted because doesn't exist. Last_name: " + worker.getLastName());
-                throw new WorkerException("Worker with last_name " + worker.getLastName() + " doesn't exist");
+                throw new DataNotFoundException("Worker with last_name " + worker.getLastName() + " doesn't exist");
             }
 
             logger.info("Data deleted");
@@ -89,7 +88,7 @@ public class WorkerDaoImpl implements WorkerDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Worker can't be deleted because doesn't exist. Id: " + id);
-                throw new WorkerException("Worker not found");
+                throw new DataNotFoundException("Worker not found");
             }
 
             logger.info("Data successfully deleted");
@@ -209,7 +208,7 @@ public class WorkerDaoImpl implements WorkerDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Worker didn't create");
-                throw new WorkerException("Error while creating worker!");
+                throw new DataInsertException( "Error while creating worker!");
             }
 
             try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {

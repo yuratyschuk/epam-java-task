@@ -1,6 +1,5 @@
 package serviceLayerTest;
 
-import com.demo.dao.impl.WorkerDaoImpl;
 import com.demo.dao.interfaces.WorkerDao;
 import com.demo.model.Worker;
 import com.demo.service.WorkerService;

@@ -2,15 +2,13 @@ package daoLayerTest;
 
 import com.demo.dao.impl.PositionDaoImpl;
 import com.demo.dao.interfaces.PositionDao;
-import com.demo.exceptions.PositionException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Position;
-import com.demo.utils.ConnectionPool;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
+import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
@@ -146,25 +144,25 @@ public class PositionDaoTest {
 
     }
 
-    @Test(expected = PositionException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
         position.setId(2500);
         positionDao.update(position);
     }
 
-    @Test(expected = PositionException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteMethodExceptionDao() {
         position.setId(2500);
         positionDao.delete(position);
     }
 
-    @Test(expected = PositionException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         positionDao.deleteById(2500);
     }
 
 
-    @Test(expected = PositionException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByNameMethodExceptionDao() {
         positionDao.getByName("exception");
     }

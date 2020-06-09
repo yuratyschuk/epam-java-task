@@ -1,8 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.PositionDao;
-import com.demo.exceptions.PositionException;
-import com.demo.exceptions.PositionException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Position;
 import com.demo.model.Worker;
 import com.demo.utils.ConnectionPool;
@@ -11,8 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PositionDaoImpl implements PositionDao {
 
@@ -35,7 +36,7 @@ public class PositionDaoImpl implements PositionDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Position info can't be update because doesn't exists. Id: " + position.getId());
-                throw new PositionException("Position with id " + position.getId() + " doesn't exists");
+                throw new DataInsertException("Position with id " + position.getId() + " doesn't exists");
             }
 
             logger.info("update successful");
@@ -61,7 +62,7 @@ public class PositionDaoImpl implements PositionDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Position can't be deleted because doesn't exist. Position: " + position.getJobName());
-                throw new PositionException("Position with job name " + position.getJobName() + " doesn't exist");
+                throw new DataNotFoundException("Position with job name " + position.getJobName() + " doesn't exist");
             }
 
             logger.info("Data deleted");
@@ -87,7 +88,7 @@ public class PositionDaoImpl implements PositionDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Position can't be deleted because doesn't exist. Id: " + id);
-                throw new PositionException("Position not found");
+                throw new DataNotFoundException("Position not found");
             }
 
             logger.info("Data successfully deleted");
@@ -182,7 +183,7 @@ public class PositionDaoImpl implements PositionDao {
 
                 if (position.getId() == null) {
                     logger.error("Position with job name " + jobName + " doesn't exists");
-                    throw new PositionException("Position with job name " + jobName + " doesn't exists");
+                    throw new DataNotFoundException("Position with job name " + jobName + " doesn't exists");
                 }
 
                 return position;
@@ -213,7 +214,7 @@ public class PositionDaoImpl implements PositionDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Position didn't create");
-                throw new PositionException("Error while creating position!");
+                throw new DataInsertException("Error while creating position!");
             }
 
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
@@ -259,7 +260,7 @@ public class PositionDaoImpl implements PositionDao {
                 }
 
                 if (positionList.isEmpty()) {
-                    throw new PositionException("No active positions");
+                    throw new DataNotFoundException("No active positions");
                 }
 
                 return positionList;

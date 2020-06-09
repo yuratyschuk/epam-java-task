@@ -2,12 +2,12 @@ package daoLayerTest;
 
 import com.demo.dao.impl.StopDaoImpl;
 import com.demo.dao.interfaces.StopDao;
-import com.demo.exceptions.StopException;
+import com.demo.exceptions.DataInsertException;
+import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Stop;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.security.spec.ECField;
 import java.util.List;
 import java.util.Set;
 
@@ -102,29 +102,29 @@ public class StopDaoTest {
         assertEquals(savedStop.getDuration(), stop.getDuration());
     }
 
-    @Test(expected = StopException.class)
+    @Test(expected = DataInsertException.class)
     public void testUpdateMethodExceptionDao() {
         stop.setId(2500);
         stopDao.update(stop);
     }
 
-    @Test(expected = StopException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByNameMethodExceptionDao() {
         stopDao.getByName("exception");
     }
 
-    @Test(expected = StopException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testGetByIdMethodExceptionDao() {
         stopDao.getById(2500);
     }
 
-    @Test(expected = StopException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteMethodExceptionDao() {
         stop.setName("exception");
         stopDao.delete(stop);
     }
 
-    @Test(expected = StopException.class)
+    @Test(expected = DataNotFoundException.class)
     public void testDeleteByIdMethodExceptionDao() {
         stopDao.deleteById(2500);
     }

@@ -1,8 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.StopDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
-import com.demo.exceptions.StopException;
 import com.demo.model.Stop;
 import com.demo.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +29,7 @@ public class StopDaoImpl implements StopDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new StopException("Data in stop table can't be updated");
+                throw new DataInsertException("Data in stop table can't be updated");
             }
 
             logger.info("Data successfully updated");
@@ -150,7 +150,7 @@ public class StopDaoImpl implements StopDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new StopException("Can't delete stop by name. Name " + stop.getName());
+                throw new DataNotFoundException("Can't delete stop by name. Name " + stop.getName());
             }
 
             return true;
@@ -174,7 +174,7 @@ public class StopDaoImpl implements StopDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new StopException("Can't delete stop by id. Id " + id);
+                throw new DataNotFoundException("Can't delete stop by id. Id " + id);
             }
 
             return true;
@@ -201,7 +201,7 @@ public class StopDaoImpl implements StopDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new StopException("Error while saving stop");
+                throw new DataInsertException("Error while saving stop");
             }
 
             try(ResultSet resultSet = preparedStatement.getGeneratedKeys()) {

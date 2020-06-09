@@ -1,6 +1,7 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.UserDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.User;
 import com.demo.utils.ConnectionPool;
@@ -36,7 +37,7 @@ public class UserDaoImpl implements UserDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if(checkIfNotNull == 0 ) {
                 logger.error("User can't be updated because doesn't exists. User id " + user.getId());
-                throw new DataNotFoundException("User can't be updated because doesn't exists. User id " + user.getId());
+                throw new DataInsertException("User can't be updated because doesn't exists. User id " + user.getId());
             }
 
             return true;
@@ -125,6 +126,7 @@ public class UserDaoImpl implements UserDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("User doesn't saved");
+                throw new DataInsertException("User doesn't saved");
             }
 
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {

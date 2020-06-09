@@ -1,9 +1,8 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.interfaces.TripDao;
+import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
-import com.demo.exceptions.TrainException;
-import com.demo.exceptions.TripException;
 import com.demo.model.Places;
 import com.demo.model.Route;
 import com.demo.model.Train;
@@ -17,7 +16,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class TripDaoImpl implements TripDao {
 
@@ -37,7 +35,7 @@ public class TripDaoImpl implements TripDao {
 
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
-                throw new TripException("Error while updating trip");
+                throw new DataInsertException("Error while updating trip");
             }
 
             return true;
@@ -61,7 +59,7 @@ public class TripDaoImpl implements TripDao {
 
             if (checkIfNotNull == 0) {
                 logger.error("Can't delete trip with id: " + trip.getId());
-                throw new TripException("Error while deleting data");
+                throw new DataNotFoundException("Error while deleting data");
             }
 
             return true;
@@ -86,7 +84,7 @@ public class TripDaoImpl implements TripDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Can't delete data because it doesn't exists. Id " + id);
-                throw new TripException("Can't delete data because it doesn't exists. Id " + id);
+                throw new DataNotFoundException("Can't delete data because it doesn't exists. Id " + id);
             }
 
             return true;
@@ -229,7 +227,7 @@ public class TripDaoImpl implements TripDao {
             int checkIfNotNull = preparedStatement.executeUpdate();
             if (checkIfNotNull == 0) {
                 logger.error("Error while creating trip");
-                throw new TripException("Error while creating trip");
+                throw new DataInsertException("Error while creating trip");
             }
 
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
