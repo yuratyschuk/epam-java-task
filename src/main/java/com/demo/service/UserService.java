@@ -23,7 +23,16 @@ public class UserService {
         return userDao.validateLogin(username, password);
     }
 
+    public boolean update(User user) {
+        return userDao.update(user);
+    }
+
     public boolean delete(User user) {
         return userDao.delete(user);
+    }
+
+    public boolean changePassword(User user, String repeatedPassword) {
+        //validation;
+        return userDao.update(user);
     }
 }

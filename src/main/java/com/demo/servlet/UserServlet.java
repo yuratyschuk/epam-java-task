@@ -31,6 +31,10 @@ public class UserServlet extends HttpServlet {
 
     private static final String REGISTER_PAGE = "jsp/user/register.jsp";
 
+    private static final String UPDATE_INFO = "jsp/user/updateUserInfo.jsp";
+
+    private static final String CHANGE_PASSWORD = "jsp/user/changeUserPassword.jsp";
+
     private HttpSession session;
 
     private String forward;
@@ -60,7 +64,10 @@ public class UserServlet extends HttpServlet {
             deleteUser(request);
         } else if (action.equalsIgnoreCase("userUpdate")) {
             updateUser(request);
+        } else if(action.equalsIgnoreCase("userChangePassword")) {
+            forward = CHANGE_PASSWORD;
         }
+
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
@@ -79,11 +86,47 @@ public class UserServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
         } else if (action.equalsIgnoreCase("userLogin")) {
             loginUser(request, response);
+        } else if(action.equalsIgnoreCase("userUpdateInfo")) {
+            changeUserInfo(request, response);
+        } else if(action.equalsIgnoreCase("userChangePassword")) {
+            changePassword(request, response);
         }
     }
 
+    private void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        user.setPassword(request.getParameter("password"));
+        String repeatedPassword = request.getParameter("repeatedPassword");
+
+        userService.changePassword(user, repeatedPassword);
+
+        String userPageRedirect = request.getContextPath() + "/user?action=userPage";
+        response.sendRedirect(userPageRedirect);
+
+    }
+
+    private void changeUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        user.setUsername(request.getParameter("username"));
+        user.setFirstName(request.getParameter("firstName"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setEmail(request.getParameter("email"));
+
+        userService.update(user);
+
+        session.setAttribute("user", user);
+        String userPageRedirect = request.getContextPath() + "/user?action=userPage";
+        response.sendRedirect(userPageRedirect);
+
+
+    }
+
     private void updateUser(HttpServletRequest request) {
-        forward = REGISTER_PAGE;
+        forward = UPDATE_INFO;
         session = request.getSession();
         User user = (User) session.getAttribute("user");
 

@@ -18,7 +18,34 @@ public class UserDaoImpl implements UserDao {
     private final static Logger logger = LogManager.getLogger();
 
     @Override
-    public boolean update(User client) {
+    public boolean update(User user) {
+        String updateSQL = "UPDATE users SET users.username=?, users.firstName=?, users.lastName=?, users.email=?," +
+                " users.password=? " +
+                "WHERE users.id=?";
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSQL)) {
+
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setInt(6, user.getId());
+
+            int checkIfNotNull = preparedStatement.executeUpdate();
+            if(checkIfNotNull == 0 ) {
+                logger.error("User can't be updated because doesn't exists. User id " + user.getId());
+                throw new DataNotFoundException("User can't be updated because doesn't exists. User id " + user.getId());
+            }
+
+            return true;
+        } catch (SQLException e) {
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+
         return false;
     }
 
@@ -63,7 +90,7 @@ public class UserDaoImpl implements UserDao {
                 userList.add(user);
             }
 
-            if(userList.size() == 0) {
+            if (userList.size() == 0) {
                 logger.error("User table is empty!");
                 throw new DataNotFoundException("User table is empty");
             }

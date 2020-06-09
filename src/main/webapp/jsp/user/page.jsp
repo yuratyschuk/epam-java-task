@@ -17,6 +17,7 @@ ${user.username}
 ${user.firstName}
 ${user.lastName}
 ${user.email}
+${user.password}
 
 <a href="user?action=userDelete">Delete account</a>
 <a href="user?action=userUpdate">Update info</a>
