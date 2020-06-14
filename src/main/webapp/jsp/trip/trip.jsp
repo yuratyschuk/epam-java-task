@@ -11,6 +11,7 @@
 
 <body>
 <form action="trip" method="post">
+
     <input type="hidden" name="tripId" value="${trip.id}">
 
     <label>
@@ -37,7 +38,7 @@
     <br>
     <label>
         Arrival place:
-        <select name="arrivalPlaceId" class="form-control" required >
+        <select name="arrivalPlaceId" class="form-control" required>
             <option selected disabled hidden>Choose arrival place</option>
             <c:forEach items="${placesList}" var="places">
                 <option value="${places.id}"
@@ -113,17 +114,15 @@
         </label>
     </div>
     <br>
-
-        <button type="submit" value="Save" class="btn-primary">Save</button>
-    <label>
+    <button type="submit" value="Save" class="btn-primary">Save</button>
 
         <c:choose>
         <c:when test="${trip.id == null}">
         <input type="hidden" name="action" value="tripAdd">
         </c:when>
-        <c:otherwise>
+        <c:when test="${trip.id != null}">
         <input type="hidden" name="action" value="tripUpdate">
-        </c:otherwise>
+        </c:when>
         </c:choose>
 
 </form>

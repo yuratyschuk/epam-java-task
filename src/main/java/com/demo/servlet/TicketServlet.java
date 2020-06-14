@@ -25,13 +25,15 @@ import java.util.List;
 
 public class TicketServlet extends HttpServlet {
 
-    private  TripService tripService;
+    private TripService tripService;
 
-    private  TicketService ticketService;
+    private TicketService ticketService;
 
     private HttpSession session;
 
     private UserService userService;
+
+    private RequestDispatcher requestDispatcher;
 
     private final static Logger logger = LogManager.getLogger();
 
@@ -56,15 +58,13 @@ public class TicketServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("buyTicket")) {
-            showTicketBuyPage(request);
-        } else if(action.equalsIgnoreCase("ticketDelete")) {
+        if (action.equalsIgnoreCase("ticketDelete")) {
             deleteTicket(request, response);
 
             return;
-        } else if(action.equalsIgnoreCase("ticketUpdate")) {
+        } else if (action.equalsIgnoreCase("ticketUpdate")) {
             showUpdateTicketPage(request);
-        } else if(action.equalsIgnoreCase("ticketList")) {
+        } else if (action.equalsIgnoreCase("ticketList")) {
             showTicketListPage(request);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
@@ -93,20 +93,19 @@ public class TicketServlet extends HttpServlet {
         response.sendRedirect(redirect);
     }
 
-    private void showTicketBuyPage(HttpServletRequest request) {
-        forward = BUY_TICKET;
-        int tripId = Integer.parseInt(request.getParameter("tripId"));
-
-        Trip trip = tripService.getById(tripId);
-        request.setAttribute("trip", trip);
-    }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        createTicket(request, response);
+        String action = request.getParameter("action");
+
+        if (action.equalsIgnoreCase("buyTicket")) {
+            createTicket(request, response);
+        }
     }
 
     private void createTicket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
         int tripId = Integer.parseInt(request.getParameter("tripId"));
         Trip trip = tripService.getById(tripId);
 
@@ -122,13 +121,19 @@ public class TicketServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
 
-        if(user == null) {
-            request.setAttribute("loginMessage", "Please login to buy tickets");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(BUY_TICKET);
-            requestDispatcher.forward(request, response);
+        if (user == null) {
+            session.setAttribute("loginMessage", "Please login to buy tickets");
+            String redirect = request.getContextPath() + "/trip?action=tripDetails&tripId=" + tripId;
+            response.sendRedirect(redirect);
+
+            return;
         } else {
             ticket.setUser(user);
             ticketService.save(ticket);
+
+            requestDispatcher = request.getRequestDispatcher("index.jsp");
+            requestDispatcher.forward(request, response);
+
         }
 
 

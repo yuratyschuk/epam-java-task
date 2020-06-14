@@ -66,11 +66,19 @@ public class UserServlet extends HttpServlet {
             updateUser(request);
         } else if (action.equalsIgnoreCase("userChangePassword")) {
             forward = CHANGE_PASSWORD;
+        } else if(action.equalsIgnoreCase("userExit")) {
+            exitFromAccount(request);
         }
 
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
+    }
+
+    private void exitFromAccount(HttpServletRequest request) {
+        session = request.getSession();
+        session.setAttribute("user", null);
+        forward = "index.jsp";
     }
 
 

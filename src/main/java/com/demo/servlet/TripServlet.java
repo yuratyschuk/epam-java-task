@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -37,6 +38,8 @@ public class TripServlet extends HttpServlet {
     private RouteService routeService;
 
     private TrainService trainService;
+
+    private HttpSession session;
 
     private static final String SEARCH_PAGE = "jsp/trip/searchTrip.jsp";
 
@@ -148,6 +151,7 @@ public class TripServlet extends HttpServlet {
     }
 
     private void showDetailsPage(HttpServletRequest request) {
+
         forward = DETAILS_PAGE;
         int tripId = Integer.parseInt(request.getParameter("tripId"));
         Trip trip = tripService.getById(tripId);
@@ -156,7 +160,8 @@ public class TripServlet extends HttpServlet {
 
     private void showSearchPage(HttpServletRequest request) {
         forward = SEARCH_PAGE;
-
+        session = request.getSession();
+        session.setAttribute("loginMessage", "");
         request.setAttribute("placesList", placesList);
     }
 
@@ -209,10 +214,11 @@ public class TripServlet extends HttpServlet {
                 route.setArrivalPlace(arrivalPlace);
 
                 route = routeService.save(route);
-
+                System.out.println(route.getId());
             }
             trip.setDepartureTime(departureTime);
             trip.setArrivalTime(arrivalTime);
+            System.out.println(route.getId());
             trip.setRoute(route);
 
             Train train = new Train();

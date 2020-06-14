@@ -31,6 +31,7 @@
         <td>${user.password}</td>
         <td><a href="user?action=userDelete">Delete account</a></td>
         <td><a href="user?action=userUpdate">Update info</a></td>
+        <td><a href="user?action=userExit">Exit</a></td>
     </tr>
 
 </table>
