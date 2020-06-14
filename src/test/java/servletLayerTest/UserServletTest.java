@@ -117,6 +117,18 @@ public class UserServletTest {
     }
 
     @Test
+    public void testDoGetActionUserExit() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userExit");
+        when(request.getSession()).thenReturn(session);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        userServlet.doGet(request, response);
+
+        verify(session, times(1)).setAttribute(anyString(), eq(null));
+        verify(requestDispatcher,times(1)).forward(request, response);
+    }
+
+    @Test
     public void testDoPostActionRegister() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("userRegister");
         when(request.getParameter("firstName")).thenReturn(user.getFirstName());

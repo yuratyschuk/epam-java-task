@@ -214,11 +214,9 @@ public class TripServlet extends HttpServlet {
                 route.setArrivalPlace(arrivalPlace);
 
                 route = routeService.save(route);
-                System.out.println(route.getId());
             }
             trip.setDepartureTime(departureTime);
             trip.setArrivalTime(arrivalTime);
-            System.out.println(route.getId());
             trip.setRoute(route);
 
             Train train = new Train();

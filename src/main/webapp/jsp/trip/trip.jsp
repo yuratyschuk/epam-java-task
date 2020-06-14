@@ -9,6 +9,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+<jsp:include page="../../templates/header.jsp"></jsp:include>
+
 <body>
 <form action="trip" method="post">
 

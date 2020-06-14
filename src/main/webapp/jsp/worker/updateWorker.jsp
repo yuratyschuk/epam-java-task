@@ -4,6 +4,7 @@
 <html lang="en">
 
 <head>
+    <jsp:include page="../../templates/header.jsp"></jsp:include>
     <title>Update Worker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>

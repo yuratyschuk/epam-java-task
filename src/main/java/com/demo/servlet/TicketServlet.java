@@ -62,8 +62,6 @@ public class TicketServlet extends HttpServlet {
             deleteTicket(request, response);
 
             return;
-        } else if (action.equalsIgnoreCase("ticketUpdate")) {
-            showUpdateTicketPage(request);
         } else if (action.equalsIgnoreCase("ticketList")) {
             showTicketListPage(request);
         }
@@ -77,12 +75,6 @@ public class TicketServlet extends HttpServlet {
         request.setAttribute("ticketList", ticketService.getAll());
     }
 
-    private void showUpdateTicketPage(HttpServletRequest request) {
-        forward = BUY_TICKET;
-        int ticketId = Integer.parseInt(request.getParameter("ticketId"));
-
-        request.setAttribute("ticket", ticketService.getById(ticketId));
-    }
 
     private void deleteTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String redirect = request.getContextPath() + "/ticket?action=ticketList";
@@ -104,7 +96,6 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void createTicket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
         int tripId = Integer.parseInt(request.getParameter("tripId"));
         Trip trip = tripService.getById(tripId);

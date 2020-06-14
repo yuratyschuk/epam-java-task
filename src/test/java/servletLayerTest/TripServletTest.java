@@ -20,6 +20,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.DataInput;
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class TripServletTest {
 
     @Mock
     HttpServletResponse response;
+
+    @Mock
+    HttpSession session;
 
     @Mock
     RequestDispatcher requestDispatcher;
@@ -80,6 +84,7 @@ public class TripServletTest {
     public void testDoGetActionSearch() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("tripSearch");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(request.getSession()).thenReturn(session);
 
         tripServlet.doGet(request, response);
 

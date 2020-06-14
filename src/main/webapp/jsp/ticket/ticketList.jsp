@@ -6,6 +6,8 @@
     <title>Ticket list</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+    <jsp:include page="../../templates/header.jsp"></jsp:include>
+
 </head>
 <body>
 <table class="table">

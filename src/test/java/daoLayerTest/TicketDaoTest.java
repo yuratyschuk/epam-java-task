@@ -104,8 +104,5 @@ public class TicketDaoTest {
         ticketDao.deleteById(2500);
     }
 
-    @Test(expected = DataNotFoundException.class)
-    public void testGetTicketListByUserIdMethodExceptionDao() {
-        ticketDao.getTicketListByUserId(2500);
-    }
+
 }

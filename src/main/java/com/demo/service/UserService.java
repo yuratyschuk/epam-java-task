@@ -5,6 +5,8 @@ import com.demo.model.User;
 import com.demo.validation.Validation;
 import com.demo.validation.ValidationEnum;
 
+import java.util.List;
+
 import static com.demo.validation.Validation.*;
 import static com.demo.validation.Validation.userNameValidation;
 import static com.demo.validation.ValidationEnum.*;
@@ -85,5 +87,9 @@ public class UserService {
 
     public User getById(int id) {
         return userDao.getById(id);
+    }
+
+    public List<User> getAll() {
+        return userDao.getAll();
     }
 }
