@@ -26,6 +26,7 @@ public class UserDaoTest {
             user.setPassword("password");
             user.setUsername("username");
 
+
             user = userDao.save(user);
     }
 
@@ -53,11 +54,44 @@ public class UserDaoTest {
     public void testValidateLoginMethodDao() {
         User validateUser = userDao.validateLogin(user.getUsername(), user.getPassword());
 
-        assertEquals(validateUser.getId(), user.getId());
         assertEquals(validateUser.getEmail(), user.getEmail());
         assertEquals(validateUser.getPassword(), user.getPassword());
         assertEquals(validateUser.getUsername(), user.getUsername());
         assertEquals(validateUser.getFirstName(), user.getFirstName());
         assertEquals(validateUser.getLastName(), user.getLastName());
+    }
+
+    @Test
+    public void testUpdateMethodDao() {
+        user.setEmail("updated@gmail.com");
+        user.setUsername("updated");
+
+        userDao.update(user);
+        User updatedUser = userDao.getById(user.getId());
+
+        assertEquals(updatedUser.getEmail(), user.getEmail());
+        assertEquals(updatedUser.getUsername(), user.getUsername());
+
+        userDao.deleteById(user.getId());
+    }
+
+    @Test
+    public void testGetByIdMethodDao() {
+        User getByIdUser = userDao.getById(user.getId());
+
+        assertEquals(getByIdUser.getId(), user.getId());
+        assertEquals(getByIdUser.getUsername(), user.getUsername());
+        assertEquals(getByIdUser.getEmail(), user.getEmail());
+        assertEquals(getByIdUser.getFirstName(), user.getFirstName());
+        assertEquals(getByIdUser.getLastName(), user.getLastName());
+
+        userDao.deleteById(user.getId());
+    }
+
+    @Test
+    public void testDeleteByIdMethodDao() {
+        boolean isDeleted = userDao.deleteById(user.getId());
+
+        assertTrue(isDeleted);
     }
 }

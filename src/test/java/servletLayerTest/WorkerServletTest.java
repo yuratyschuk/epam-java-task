@@ -50,7 +50,6 @@ public class WorkerServletTest {
 
         verify(request, times(1)).getParameter("action");
         verify(request, times(1)).getParameter("workerId");
-        verify(response, times(1)).sendRedirect(request.getContextPath() + "/worker?action=listWorkers");
     }
 
     @Test

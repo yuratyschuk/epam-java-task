@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setInt(6, user.getId());
 
             int checkIfNotNull = preparedStatement.executeUpdate();
-            if(checkIfNotNull == 0 ) {
+            if (checkIfNotNull == 0) {
                 logger.error("User can't be updated because doesn't exists. User id " + user.getId());
                 throw new DataInsertException("User can't be updated because doesn't exists. User id " + user.getId());
             }
@@ -178,11 +178,61 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(Integer id) {
-        return null;
+        String getByIdSql = "SELECT users.username, users.password, " +
+                "users.lastName, users.firstName, users.email FROM users WHERE users.id=?";
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getByIdSql)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = new User();
+
+                    user.setId(id);
+                    user.setUsername(resultSet.getString("username"));
+                    user.setPassword(resultSet.getString("password"));
+                    user.setLastName(resultSet.getString("lastName"));
+                    user.setFirstName(resultSet.getString("firstName"));
+                    user.setEmail(resultSet.getString("email"));
+
+                    return user;
+                } else {
+                    logger.error("User with id: " + id + " not found");
+                    throw new DataNotFoundException("User with id: " + id + " not found");
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+
+        return new User();
     }
 
     @Override
     public boolean deleteById(Integer id) {
+        String deleteByIdSql = "DELETE FROM users WHERE users.id=?";
+
+        try(Connection connection = ConnectionPool.getDataSource().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteByIdSql)) {
+            preparedStatement.setInt(1, id);
+
+            int checkIfNotNull = preparedStatement.executeUpdate();
+
+            if(checkIfNotNull == 0 ) {
+                logger.error("User with id:  " + id + " don't be deleted");
+                throw new DataNotFoundException("User with id:  " + id + " don't be deleted");
+            }
+
+            return true;
+        } catch (SQLException e) {
+            logger.error("Message: {}", e.getMessage());
+            logger.error("Error code: {}", e.getErrorCode());
+            logger.error("Sql state: {}", e.getSQLState());
+        }
+
         return false;
     }
 

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS positions
 (
     id       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    job_name VARCHAR(40)  NOT NULL UNIQUE,
+    job_name VARCHAR(40)  NOT NULL,
     salary   DECIMAL      NOT NULL,
     active   TINYINT      NOT NULL
 );

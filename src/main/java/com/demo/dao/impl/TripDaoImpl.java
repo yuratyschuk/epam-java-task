@@ -252,7 +252,7 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public boolean saveToStopTripTable(int tripId, int stopId) {
-        String saveSql = "INSERT INTO stop_trip(stop_trip.trip_id, stop_trip.stop_id) VALUES(?, ?)";
+        String saveSql = "INSERT INTO stop_trip(trip_id, stop_id) VALUES(?, ?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(saveSql)) {

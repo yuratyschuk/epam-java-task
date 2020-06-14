@@ -19,6 +19,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static org.mockito.Mockito.*;
@@ -40,6 +41,9 @@ public class TicketServletTest {
 
     @Mock
     TripService tripService;
+
+    @Mock
+    HttpSession httpSession;
 
     @Mock
     UserService userService;
@@ -112,19 +116,37 @@ public class TicketServletTest {
     }
 
     @Test
-    public void testDoPost() {
+    public void testDoPostSuccess() throws ServletException, IOException {
         when(request.getParameter("tripId")).thenReturn("5");
-        when(request.getParameter("firstName")).thenReturn("Test");
-        when(request.getParameter("lastName")).thenReturn("Test");
-        when(request.getParameter("email")).thenReturn("test25@gmail.com");
+        when(request.getSession()).thenReturn(httpSession);
+        when(httpSession.getAttribute("user")).thenReturn(new User());
         when(tripService.getById(anyInt())).thenReturn(new Trip());
         when(userService.save(any(User.class))).thenReturn(String.valueOf(new User()));
 
         ticketServlet.doPost(request, response);
 
         verify(request, times(1)).getParameter("tripId");
-        verify(request, times(1)).getParameter("firstName");
-        verify(request, times(1)).getParameter("lastName");
-        verify(request, times(1)).getParameter("email");
+        verify(request, times(1)).getSession();
+        verify(httpSession, times(1)).getAttribute("user");
+    }
+
+
+    @Test
+    public void testDoPostUserNull() throws ServletException, IOException {
+        when(request.getParameter("tripId")).thenReturn("5");
+        when(request.getSession()).thenReturn(httpSession);
+        when(httpSession.getAttribute("user")).thenReturn(null);
+        when(tripService.getById(anyInt())).thenReturn(new Trip());
+        when(userService.save(any(User.class))).thenReturn(String.valueOf(new User()));
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        ticketServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("tripId");
+        verify(request, times(1)).getSession();
+        verify(httpSession, times(1)).getAttribute("user");
+        verify(request, times(1)).setAttribute(anyString(), anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+
     }
 }

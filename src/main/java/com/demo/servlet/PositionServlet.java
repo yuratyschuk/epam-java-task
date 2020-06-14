@@ -29,13 +29,12 @@ public class PositionServlet extends HttpServlet {
 
     private String forward;
 
-    private List<Position> positionList;
 
     public PositionServlet() {
     }
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         positionService = new PositionService(new PositionDaoImpl());
     }
 
@@ -61,6 +60,15 @@ public class PositionServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward);
         requestDispatcher.forward(request, response);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        createOrUpdatePosition(request);
+
+        String positionRedirect = request.getContextPath() + "/position?action=positionList";
+        response.sendRedirect(positionRedirect);
     }
 
     private void showUpdatePage(HttpServletRequest request) {
@@ -91,14 +99,7 @@ public class PositionServlet extends HttpServlet {
         request.setAttribute("positionList", positionService.getAll());
     }
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        createOrUpdatePosition(request);
-
-        String positionRedirect = request.getContextPath() + "/position?action=positionList";
-        response.sendRedirect(positionRedirect);
-    }
 
     private void createOrUpdatePosition(HttpServletRequest request) {
         action = request.getParameter("action");

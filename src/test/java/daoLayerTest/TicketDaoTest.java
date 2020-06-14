@@ -80,14 +80,6 @@ public class TicketDaoTest {
         assertEquals(ticket.getId(), savedTicket.getId());
     }
 
-    @Test
-    public void testGetTicketListByUserIdMethodDao() {
-        List<Ticket> ticketList = ticketDao.getTicketListByUserId(2);
-
-        for(Ticket ticket : ticketList) {
-            assertEquals(ticket.getId(), this.ticket.getId());
-        }
-    }
 
     @Test
     public void testGetAllMethodTicketDao() {

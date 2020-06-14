@@ -44,7 +44,6 @@ public class PositionServiceTest {
         position.setJobName("test job");
         position.setSalary(BigDecimal.ONE);
         position.setActive(false);
-        when(positionDao.getById(1)).thenReturn(position);
 
         position1 = new Position();
         position1.setId(2);
@@ -61,7 +60,6 @@ public class PositionServiceTest {
 
         listPosition = Arrays.asList(position, position1, position2);
         listPositionActive = Arrays.asList(position1, position2);
-        when(positionDao.getByName(any(String.class))).thenReturn(position2);
     }
 
     @Test
@@ -74,6 +72,7 @@ public class PositionServiceTest {
     @Test
     public void testVerifySaveMethod() {
 
+        when(positionDao.getById(1)).thenReturn(position);
         Position position1 = positionService.getById(1);
         assertEquals(position1.getId(), position.getId());
         assertEquals(position1.getJobName(), position.getJobName());
@@ -94,6 +93,7 @@ public class PositionServiceTest {
     @Test
     public void testVerifyGetByNameMethod() {
 
+        when(positionDao.getByName(any(String.class))).thenReturn(position2);
         Position positionToTest = positionService.getByName("test job3");
 
         verify(positionDao, times(1)).getByName(any(String.class));

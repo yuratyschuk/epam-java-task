@@ -18,7 +18,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public boolean update(Stop stop) {
-        String updateSql = "UPDATE stop SET stop.name=?, stop.duration=? WHERE stop.id=?";
+        String updateSql = "UPDATE stop SET stop.stop_name=?, stop.duration=? WHERE stop.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
@@ -45,7 +45,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public List<Stop> getAll() {
-        String getAllSql = "SELECT stop.id, stop.name, stop.duration FROM stop";
+        String getAllSql = "SELECT stop.id, stop.stop_name, stop.duration FROM stop";
         List<Stop> stopList = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -55,7 +55,7 @@ public class StopDaoImpl implements StopDao {
             while (resultSet.next()) {
                 Stop stop = new Stop();
                 stop.setId(resultSet.getInt("id"));
-                stop.setName(resultSet.getString("name"));
+                stop.setName(resultSet.getString("stop_name"));
                 stop.setDuration(resultSet.getInt("duration"));
 
                 stopList.add(stop);
@@ -79,7 +79,7 @@ public class StopDaoImpl implements StopDao {
     @Override
     public Stop getByName(String stopName) {
         String findByStopNameSql = "SELECT stop.id, stop.duration" +
-                " FROM stop WHERE stop.name=?";
+                " FROM stop WHERE stop.stop_name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(findByStopNameSql)) {
@@ -110,7 +110,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public Stop getById(Integer id) {
-        String findByIdSql = "SELECT stop.id, stop.name, stop.duration FROM stop WHERE stop.id=?";
+        String findByIdSql = "SELECT stop.id, stop.stop_name, stop.duration FROM stop WHERE stop.id=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(findByIdSql)) {
@@ -122,7 +122,7 @@ public class StopDaoImpl implements StopDao {
                 if (resultSet.next()) {
                     Stop stop = new Stop();
                     stop.setId(resultSet.getInt("id"));
-                    stop.setName(resultSet.getString("name"));
+                    stop.setName(resultSet.getString("stop_name"));
                     stop.setDuration(resultSet.getInt("duration"));
                     return stop;
                 } else {
@@ -141,7 +141,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public boolean delete(Stop stop) {
-        String deleteByNameSql = "DELETE FROM stop WHERE stop.name=?";
+        String deleteByNameSql = "DELETE FROM stop WHERE stop.stop_name=?";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(deleteByNameSql)) {
@@ -190,7 +190,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public Stop save(Stop stop) {
-        String saveSql = "INSERT INTO stop(name, duration) VALUES(?,?)";
+        String saveSql = "INSERT INTO stop(stop_name, duration) VALUES(?,?)";
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(saveSql,
@@ -224,7 +224,7 @@ public class StopDaoImpl implements StopDao {
 
     @Override
     public Set<Stop> getStopByRouteId(int routeId) {
-        String getStopByRouteIdSql = "SELECT  stop.name, stop.duration " +
+        String getStopByRouteIdSql = "SELECT  stop.stop_name, stop.duration " +
                 "FROM stop_trip  " +
                 "INNER JOIN stop ON stop.id = stop_trip.stop_id " +
                 "WHERE stop_trip.trip_id=?";
@@ -241,7 +241,7 @@ public class StopDaoImpl implements StopDao {
                 while(resultSet.next()) {
                     Stop stop = new Stop();
                     stop.setId(routeId);
-                    stop.setName(resultSet.getString("name"));
+                    stop.setName(resultSet.getString("stop_name"));
                     stop.setDuration(resultSet.getInt("duration"));
 
                     stopSet.add(stop);

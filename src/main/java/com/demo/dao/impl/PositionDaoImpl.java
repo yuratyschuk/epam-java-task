@@ -98,7 +98,7 @@ public class PositionDaoImpl implements PositionDao {
             logger.error("Message: {}", e.getMessage());
             logger.error("Error code: {}", e.getErrorCode());
             logger.error("Sql state: {}", e.getSQLState());
-            ;
+
         }
         return false;
     }

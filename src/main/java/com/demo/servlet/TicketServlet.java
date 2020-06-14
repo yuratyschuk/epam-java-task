@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,8 @@ public class TicketServlet extends HttpServlet {
     private  TripService tripService;
 
     private  TicketService ticketService;
+
+    private HttpSession session;
 
     private UserService userService;
 
@@ -93,44 +96,42 @@ public class TicketServlet extends HttpServlet {
     private void showTicketBuyPage(HttpServletRequest request) {
         forward = BUY_TICKET;
         int tripId = Integer.parseInt(request.getParameter("tripId"));
-        Trip trip = tripService.getById(tripId);
 
+        Trip trip = tripService.getById(tripId);
         request.setAttribute("trip", trip);
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
-        createTicket(request);
-
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        createTicket(request, response);
     }
 
-    private void createTicket(HttpServletRequest request) {
+    private void createTicket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int tripId = Integer.parseInt(request.getParameter("tripId"));
         Trip trip = tripService.getById(tripId);
 
         int numberOfPlaces = trip.getNumberOfPlaces();
         trip.setNumberOfPlaces(numberOfPlaces - 1);
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPassword("password");
-        user.setUsername("username");
-
 
         Date currentDate = new Date();
         Ticket ticket = new Ticket();
         ticket.setTimeWhenTicketWasBought(currentDate);
         ticket.setTrip(trip);
+        session = request.getSession();
 
-//        user = userService.save(user);
-//        ticket.setUser(user);
+        User user = (User) session.getAttribute("user");
 
-//        ticketService.save(ticket);
+        if(user == null) {
+            request.setAttribute("loginMessage", "Please login to buy tickets");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(BUY_TICKET);
+            requestDispatcher.forward(request, response);
+        } else {
+            ticket.setUser(user);
+            ticketService.save(ticket);
+        }
+
+
     }
 }
 

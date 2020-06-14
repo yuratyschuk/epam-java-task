@@ -20,4 +20,5 @@ ${trip.numberOfCarriages}
 <button type="submit" value="Buy ticket" size="20"><a href="ticket?action=buyTicket&tripId=${trip.id}">Buy</a></button>
 
 </body>
+
 </html>

@@ -88,6 +88,8 @@ public class TripServletTest {
         verify(requestDispatcher, times(1)).forward(request, response);
     }
 
+
+
     @Test
     public void testDoGetActionDetails() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("tripDetails");
@@ -174,6 +176,24 @@ public class TripServletTest {
         verify(request, times(1)).getParameter("action");
         verify(request, times(1)).getParameter("from");
         verify(request, times(1)).getParameter("to");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+    }
+
+    @Test
+    public void testDoPostSearchNull() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("searchTrip");
+        when(request.getParameter("from")).thenReturn("1");
+        when(request.getParameter("to")).thenReturn("2");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(routeService.getByDeparturePlaceIdAndArrivalPlaceId(anyInt(), anyInt())).thenReturn(new Route());
+
+        tripServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("from");
+        verify(request, times(1)).getParameter("to");
+        verify(request, times(1)).setAttribute(anyString(), anyString());
         verify(request, times(1)).getRequestDispatcher(anyString());
         verify(requestDispatcher, times(1)).forward(request, response);
     }

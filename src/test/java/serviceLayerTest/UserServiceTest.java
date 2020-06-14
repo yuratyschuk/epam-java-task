@@ -4,6 +4,8 @@ import com.demo.dao.impl.UserDaoImpl;
 import com.demo.dao.interfaces.UserDao;
 import com.demo.model.User;
 import com.demo.service.UserService;
+import com.demo.validation.Validation;
+import com.demo.validation.ValidationEnum;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.sql.SQLException;
 
+import static com.demo.validation.Validation.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,6 +32,7 @@ public class UserServiceTest {
     @InjectMocks
     UserService userService;
 
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
@@ -39,15 +43,11 @@ public class UserServiceTest {
     public void setup() {
         user = new User();
         user.setId(1);
+        user.setUsername("test_user");
+        user.setEmail("testuser@gmail.com");
+        user.setPassword("testtest1");
     }
 
-    @Test
-    public void testVerifySaveMethodCalled() throws SQLException {
-        when(userDao.save(any(User.class))).thenReturn(new User());
-        userService.save(new User());
-
-        verify(userDao, times(1)).save(any(User.class));
-    }
 
 
     @Test
@@ -79,6 +79,22 @@ public class UserServiceTest {
         assertEquals(userToTest.getId(), user.getId());
     }
 
+    @Test
+    public void testGetByIdMethodCalled() {
+        when(userDao.getById(anyInt())).thenReturn(any(User.class));
+
+        User getByIdUser = userDao.getById(user.getId());
+        verify(userDao, times(1)).getById(anyInt());
+    }
+
+    @Test
+    public void testDeleteByIdMethodCalled() {
+        when(userDao.deleteById(anyInt())).thenReturn(true);
+
+        userService.deleteById(1);
+
+        verify(userDao, times(1)).deleteById(anyInt());
+    }
 
 
 }

@@ -78,4 +78,12 @@ public class UserService {
             return false;
         }
     }
+
+    public  boolean deleteById(int id) {
+        return userDao.deleteById(id);
+    }
+
+    public User getById(int id) {
+        return userDao.getById(id);
+    }
 }

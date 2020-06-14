@@ -5,6 +5,7 @@ import com.demo.dao.interfaces.PositionDao;
 import com.demo.exceptions.DataInsertException;
 import com.demo.exceptions.DataNotFoundException;
 import com.demo.model.Position;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,6 +36,7 @@ public class PositionDaoTest {
         position = positionDao.save(position);
 
     }
+
 
 
     @Test
@@ -100,7 +102,6 @@ public class PositionDaoTest {
     }
 
     @Test
-
     public void testDeleteByIdMethodDao() {
         List<Position> positionListBeforeDelete = positionDao.getAll();
 

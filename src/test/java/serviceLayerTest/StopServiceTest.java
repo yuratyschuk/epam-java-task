@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -129,5 +130,14 @@ public class StopServiceTest {
 
         verify(stopDao, times(1)).update(any(Stop.class));
         assertTrue(testIfUpdate);
+    }
+
+    @Test
+    public void testGetByRouteIdMethodCalled() {
+        when(stopDao.getStopByRouteId(anyInt())).thenReturn(anySet());
+
+        stopService.getStopByRouteId(2);
+
+        verify(stopDao, times(1)).getStopByRouteId(anyInt());
     }
 }

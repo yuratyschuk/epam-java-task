@@ -29,7 +29,7 @@ public class TrainServlet extends HttpServlet {
     private String forward;
 
     @Override
-    public void init() throws ServletException {
+    public void init()  {
         trainService = new TrainService(new TrainDaoImpl());
 
     }

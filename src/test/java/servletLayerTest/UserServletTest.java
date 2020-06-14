@@ -5,7 +5,7 @@ import com.demo.model.User;
 import com.demo.service.TicketService;
 import com.demo.service.UserService;
 import com.demo.servlet.UserServlet;
-import org.junit.Assert;
+import com.demo.validation.ValidationEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +30,7 @@ public class UserServletTest {
 
     @Mock
     HttpServletResponse response;
+
 
     @Mock
     HttpSession session;
@@ -124,7 +125,7 @@ public class UserServletTest {
         when(request.getParameter("password")).thenReturn(user.getPassword());
         when(request.getParameter("username")).thenReturn(user.getUsername());
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-//        when(userService.save(any(User.class))).thenReturn(new User());
+        when(userService.save(any(User.class))).thenReturn(ValidationEnum.SUCCESS.toString());
 
         userServlet.doPost(request, response);
 
@@ -148,7 +149,172 @@ public class UserServletTest {
         verify(request, times(1)).getParameter("action");
         verify(request, times(1)).getSession();
         verify(session, times(1)).setAttribute(anyString(), any(User.class));
-        verify(response, times(1)).sendRedirect(request.getContextPath() + "/user?action=page");
+
+    }
+
+    @Test
+    public void testDoPostChangePassword() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userChangePassword");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+
+        when(request.getParameter("password")).thenReturn("passworD1");
+        when(request.getParameter("repeatedPassword")).thenReturn("passworD1");
+        when(userService.changePassword(any(User.class), anyString())).thenReturn(true);
+
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).getAttribute(anyString());
+        verify(request, times(1)).getParameter("password");
+        verify(request, times(1)).getParameter("repeatedPassword");
+        verify(userService, times(1)).changePassword(any(User.class), anyString());
+        verify(response, times(1)).sendRedirect(anyString());
+    }
+
+    @Test
+    public void testDoPostChangePasswordPasswordNotValid() throws ServletException, IOException {
+
+        when(request.getParameter("action")).thenReturn("userChangePassword");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+
+        when(request.getParameter("password")).thenReturn("passworD1");
+        when(request.getParameter("repeatedPassword")).thenReturn("passworD1");
+        when(userService.changePassword(any(User.class), anyString())).thenReturn(false);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).getAttribute(anyString());
+        verify(request, times(1)).getParameter("password");
+        verify(request, times(1)).getParameter("repeatedPassword");
+        verify(userService, times(1)).changePassword(any(User.class), anyString());
+        verify(request, times(1)).setAttribute(anyString(), anyString());
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+    }
+
+    @Test
+    public void testDoPostChangeUserInfoValidationNotSuccessful() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userUpdateInfo");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+        when(request.getParameter("username")).thenReturn("changedUsername");
+        when(request.getParameter("firstName")).thenReturn("changedFirstName");
+        when(request.getParameter("lastName")).thenReturn("changedLastName");
+        when(request.getParameter("email")).thenReturn("changed_email@gmail.com");
+        when(userService.update(any(User.class))).thenReturn("validationNotSuccessful");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).getAttribute("user");
+        verify(request, times(1)).getParameter("username");
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("email");
+        verify(request, times(1)).setAttribute(anyString(), any(String.class));
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+
+    }
+
+
+    @Test
+    public void testDoPostChangeUserInfoValidationSuccessful() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userUpdateInfo");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+        when(request.getParameter("username")).thenReturn("changedUsername");
+        when(request.getParameter("firstName")).thenReturn("changedFirstName");
+        when(request.getParameter("lastName")).thenReturn("changedLastName");
+        when(request.getParameter("email")).thenReturn("changed_email@gmail.com");
+        when(userService.update(any(User.class))).thenReturn("");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).getAttribute("user");
+        verify(request, times(1)).getParameter("username");
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("email");
+        verify(session, times(1)).setAttribute(anyString(), any(User.class));
+
+        verify(response, times(1)).sendRedirect(anyString());
+
+    }
+
+    @Test
+    public void testDoPostRegisterUserNotValid() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userRegister");
+        when(request.getParameter("username")).thenReturn("username");
+        when(request.getParameter("firstName")).thenReturn("firstName");
+        when(request.getParameter("lastName")).thenReturn("lastName");
+        when(request.getParameter("email")).thenReturn("email@gmail.com");
+        when(request.getParameter("password")).thenReturn("password");
+        when(userService.save(any(User.class))).thenReturn("notValid");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("username");
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("email");
+        verify(request, times(1)).getParameter("password");
+
+        verify(request, times(1)).setAttribute(anyString(), anyString());
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+    }
+
+
+    @Test
+    public void testDoPostRegisterUserValid() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userRegister");
+        when(request.getParameter("firstName")).thenReturn("firstName");
+        when(request.getParameter("lastName")).thenReturn("lastName");
+        when(request.getParameter("email")).thenReturn("email@gmail.com");
+        when(request.getParameter("username")).thenReturn("username");
+        when(request.getParameter("password")).thenReturn("password");
+        when(userService.save(any(User.class))).thenReturn("");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("action");
+        verify(request, times(1)).getParameter("firstName");
+        verify(request, times(1)).getParameter("lastName");
+        verify(request, times(1)).getParameter("email");
+        verify(request, times(1)).getParameter("password");
+        verify(request, times(1)).getParameter("username");
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
+    }
+
+    @Test
+    public void testLoginUserNotValid() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn("userLogin");
+        when(request.getParameter("username")).thenReturn("username");
+        when(request.getParameter("password")).thenReturn("password");
+        when(userService.checkLogin(anyString(), anyString())).thenReturn(null);
+
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+        userServlet.doPost(request, response);
+
+        verify(request, times(1)).getParameter("password");
+        verify(request, times(1)).getParameter("username");
+        verify(request, times(1)).setAttribute(anyString(), anyString());
+        verify(request, times(1)).getRequestDispatcher(anyString());
+        verify(requestDispatcher, times(1)).forward(request, response);
 
     }
 }

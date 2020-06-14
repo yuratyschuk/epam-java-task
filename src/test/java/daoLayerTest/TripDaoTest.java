@@ -9,6 +9,7 @@ import com.demo.model.Train;
 import com.demo.model.Trip;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -111,6 +112,13 @@ public class TripDaoTest {
         assertEquals(trip.getNumberOfCarriages(), savedTrip.getNumberOfCarriages());
         assertEquals(trip.getNumberOfPlaces(), savedTrip.getNumberOfPlaces());
         assertEquals(trip.getTicketPrice(), savedTrip.getTicketPrice());
+    }
+
+    @Test
+    public void testSaveToStopTripTable() {
+        boolean isSaved = tripDao.saveToStopTripTable(1, 2);
+
+        assertTrue(isSaved);
     }
 
     @Test(expected = DataInsertException.class)

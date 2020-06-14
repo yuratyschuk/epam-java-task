@@ -126,13 +126,13 @@ public class UserServlet extends HttpServlet {
 
         String registerValidation = userService.update(user);
 
-        session.setAttribute("user", user);
 
         if (!registerValidation.isEmpty()) {
             request.setAttribute("updateValidation", registerValidation);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(UPDATE_INFO);
             requestDispatcher.forward(request, response);
         } else {
+            session.setAttribute("user", user);
             String userPageRedirect = request.getContextPath() + "/user?action=userPage";
             response.sendRedirect(userPageRedirect);
         }

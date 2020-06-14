@@ -58,7 +58,7 @@ public class TripServlet extends HttpServlet {
     private List<Places> placesList;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         tripService = new TripService(new TripDaoImpl(), new StopDaoImpl());
         placeService = new PlaceService(new PlacesDaoImpl());
         routeService = new RouteService(new RouteDaoImpl());
