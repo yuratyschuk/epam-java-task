@@ -3,21 +3,27 @@
 <html lang="en">
 <head>
     <title>Login page</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <form action="user" method="post">
+
     <label>
         Username:
     </label>
-        <input type="text" name="username" required>
+        <input type="text" name="username" class="form-control" required>
+    <br>
     <label>
         Password:
     </label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" class="form-control" required>
 
     <input type="hidden" name="action" value="userLogin">
+    <br>
     <span>${errorMessage}</span>
-    <button type="submit" >Submit</button>
+    <br>
+    <button type="submit" class="btn-primary" >Submit</button>
 </form>
 </body>
 </html>

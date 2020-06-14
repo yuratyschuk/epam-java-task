@@ -196,7 +196,7 @@ public class TicketDaoImpl implements TicketDao {
                 "JOIN route ON trip.route_id = route.id " +
                 "JOIN places departure_place ON route.departure_place_id = departure_place.id " +
                 "JOIN places arrival_place ON route.arrival_place_id = arrival_place.id " +
-                "JOIN train ON trip.train_id = train.id WHERE ticket.user_id    =?";
+                "JOIN train ON trip.train_id = train.id WHERE ticket.user_id=?";
         List<Ticket> ticketList = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
@@ -207,11 +207,6 @@ public class TicketDaoImpl implements TicketDao {
                 while(resultSet.next()) {
                     Ticket ticket = getTicketFromDataBase(resultSet);
                     ticketList.add(ticket);
-                }
-
-                if(ticketList.isEmpty()) {
-                    logger.error("Tickets for user not found");
-                    throw new DataNotFoundException("Tickets for user not found");
                 }
 
                 return ticketList;

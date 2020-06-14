@@ -4,7 +4,7 @@
 
 <head>
     <title>Train</title>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -17,49 +17,34 @@
 
         <input type="hidden" name="trainId" value="${train.id}"/>
 
-        <table>
-            <tbody>
-            <tr>
-                <td><label>Train number:</label></td>
-                <td><input type="text" name="trainNumber"
-                           value="${train.trainNumber}" required/></td>
-            </tr>
+        <label>Train number:
+        <input type="text" name="trainNumber"
+               value="${train.trainNumber}" class="form-control" required/>
+        </label>
+        <br>
+        <label>Train name:
+        <input type="text" name="trainName"
+               value="${train.trainName}" class="form-control" required/>
+        </label>
+        <br>
+        <label>Max number of carriages:
+            <input type="number" name="maxNumberOfCarriages"
+                   value="${train.maxNumberOfCarriages}" class="form-control" required/>
+        </label>
+        <br>
+        <label>
+            <select name="trainType" class="form-control" required>
+                <option selected disabled hidden>Choose type</option>
+                <c:forEach var="trainType" items="${trainTypeEnum}">
+                    <option value="${trainType}">
+                            ${trainType}
+                    </option>
+                </c:forEach>
+            </select>
+        </label>
+        <br>
 
-            <tr>
-                <td><label>Train name:</label></td>
-                <td><input type="text" name="trainName"
-                           value="${train.trainName}" required/></td>
-            </tr>
-
-            <tr>
-                <td><label>Max number of carriages:</label></td>
-                <td><input type="number" name="maxNumberOfCarriages"
-                           value="${train.maxNumberOfCarriages}" required
-                /></td>
-            </tr>
-
-
-            <tr>
-                <td>
-                    <label>
-                        <select name="trainType" required>
-                            <option selected disabled hidden>Choose type</option>
-                            <c:forEach var="trainType" items="${trainTypeEnum}">
-                                <option value="${trainType}">
-                                        ${trainType}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td><label></label></td>
-                <td><input type="submit" value="Save" class="save"/></td>
-            </tr>
-
-            </tbody>
-        </table>
+        <input type="submit" value="Save" class="btn-primary"/>
 
         <c:choose>
             <c:when test="${train.id == null}">

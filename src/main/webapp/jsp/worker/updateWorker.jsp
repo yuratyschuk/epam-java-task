@@ -5,7 +5,7 @@
 
 <head>
     <title>Update Worker</title>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -17,54 +17,38 @@
     <form action="worker" method="post">
 
 
-        <input type="hidden" name="workerId" value="${worker.id}" />
+        <input type="hidden" name="workerId" value="${worker.id}"/>
 
-        <table>
-            <tbody>
-            <tr>
-                <td><label>First name:</label></td>
-                <td><input type="text" name="firstName"
-                           value="${worker.firstName}" required/></td>
-            </tr>
 
-            <tr>
-                <td><label>Last name:</label></td>
-                <td><input type="text" name="lastName"
-                           value="${worker.lastName}" required/></td>
-            </tr>
+        <label>First name:</label>
+        <input type="text" name="firstName" class="form-control"
+               value="${worker.firstName}" required/>
+        <br>
+        <label>Last name:</label>
+        <input type="text" name="lastName" class="form-control"
+               value="${worker.lastName}" required/>
+        <br>
+        <label>Working experience:</label>
+        <input type="number" name="workingExperience" class="form-control"
+               value="${worker.workingExperience}" required/>
+        <br>
+        <label>Hire Date: </label>
+        <input type="date" name="hireDate" value="${worker.hireDate}"
+               class="form-control" required>
+        <br>
+        <label>
+            <select name="position" class="form-control" required>
+                <c:forEach var="positions" items="${positionList}">
+                    <option selected disabled hidden>Choose position</option>
+                    <option value="${positions.id}">
+                            ${positions.jobName}
+                    </option>
+                </c:forEach>
+            </select>
+        </label>
 
-            <tr>
-                <td><label>Working experience:</label></td>
-                <td><input type="number" name="workingExperience"
-                           value="${worker.workingExperience}" required/></td>
-            </tr>
-
-            <tr>
-                <td><label>Hire Date: </label></td>
-                <td><input type="date" name="hireDate" value="${worker.hireDate}" required></td>
-            </tr>
-
-            <tr>
-                <td>
-                    <label>
-                        <select name="position" required>
-                            <c:forEach var="positions" items="${positionList}">
-                                <option selected disabled hidden>Choose position</option>
-                                <option value="${positions.id}">
-                                        ${positions.jobName}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td><label></label></td>
-                <td><input type="submit" value="Save" class="save" /></td>
-            </tr>
-
-            </tbody>
-        </table>
+        <br>
+        <input type="submit" value="Save" class="btn-primary"/>
 
         <c:choose>
             <c:when test="${worker.id == null}">
@@ -79,7 +63,7 @@
 
 
     <p>
-        <a href="worker?action=listWorkers">Back to List</a>
+        <a href="worker?action=workerList">Back to List</a>
     </p>
 </div>
 </body>

@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Position detail</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 </head>
 <body>
 <form action="position" method="post">
@@ -11,17 +13,17 @@
 
     <label>
         Job name:
-        <input type="text" name="jobName" value="${position.jobName}" required>
+        <input type="text" class="form-control" name="jobName" value="${position.jobName}" required>
     </label>
-
+    <br>
     <label>
         Salary
-        <input type="number" name="salary" value="${position.salary}" required>
+        <input type="number" name="salary"  class="form-control" value="${position.salary}" required>
     </label>
-
+    <br>
     <label>
         Active
-        <select name="active">
+        <select name="active"  class="form-control">
             <c:choose>
                 <c:when test="${position.active == false}">
                     <option value="false" selected="selected">No</option>
@@ -43,7 +45,8 @@
             <input type="hidden" name="action" value="positionUpdate">
         </c:when>
     </c:choose>
-    <button type="submit">Save</button>
+    <br>
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 </body>
 </html>

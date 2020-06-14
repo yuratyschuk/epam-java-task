@@ -10,19 +10,35 @@
 <html>
 <head>
     <title>User page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-${user.id}
-${user.username}
-${user.firstName}
-${user.lastName}
-${user.email}
-${user.password}
-
-<a href="user?action=userDelete">Delete account</a>
-<a href="user?action=userUpdate">Update info</a>
-
 <table class="table">
+    <tr>
+        <th>id</th>
+        <th>username</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>email</th>
+        <th>password</th>
+    </tr>
+    <tr>
+        <td>${user.id}</td>
+        <td>${user.username}</td>
+        <td>${user.firstName}</td>
+        <td>${user.lastName}</td>
+        <td>${user.email}</td>
+        <td>${user.password}</td>
+        <td><a href="user?action=userDelete">Delete account</a></td>
+        <td><a href="user?action=userUpdate">Update info</a></td>
+    </tr>
+
+</table>
+
+<br><br>
+<h1>Tickets</h1>
+<table class="table">
+
     <tr>
         <th>Departure place</th>
         <th>Departure time</th>
@@ -32,17 +48,17 @@ ${user.password}
         <th>Time when bought</th>
     </tr>
     <c:forEach items="${ticketList}" var="ticket">
-    <tr>
-        <td>${ticket.trip.route.departurePlace.placeName}</td>
-        <td>${ticket.trip.departureTime}</td>
-        <td>${ticket.trip.route.arrivalPlace.placeName}</td>
-        <td>${ticket.trip.arrivalTime}</td>
-        <td>${ticket.trip.ticketPrice}</td>
-        <td>${ticket.timeWhenTicketWasBought}</td>
-    </tr>
+        <tr>
+            <td>${ticket.trip.route.departurePlace.placeName}</td>
+            <td>${ticket.trip.departureTime}</td>
+            <td>${ticket.trip.route.arrivalPlace.placeName}</td>
+            <td>${ticket.trip.arrivalTime}</td>
+            <td>${ticket.trip.ticketPrice}</td>
+            <td>${ticket.timeWhenTicketWasBought}</td>
+        </tr>
     </c:forEach>
 </table>
 
-<c:if test="${empty ticketList}">You don't buy any tickets yet</c:if>
+<c:if test="${empty ticketList}">You didin't buy any tickets yet</c:if>
 </body>
 </html>

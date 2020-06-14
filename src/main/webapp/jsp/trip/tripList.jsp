@@ -3,11 +3,13 @@
 <html>
 <head>
     <title>Trip list</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 </head>
 <body>
 
 <a href="trip?action=tripAdd">Add new Trip</a>
-    <table>
+    <table class="table">
         <tr>
             <th>Departure time</th>
             <th>Departure place</th>

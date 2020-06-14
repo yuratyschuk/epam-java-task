@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <title>Update user info</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <a href="user?action=userChangePassword">Change password</a>
@@ -12,25 +13,28 @@
 
     <label>
         Enter new first name:
-        <input type="text" name="firstName" value="${user.firstName}" required>
+        <input type="text" name="firstName" class="form-control" value="${user.firstName}" required>
     </label>
+    <br>
     <label>
         Enter new last name:
-        <input type="text" name="lastName" value="${user.lastName}" required>
+        <input type="text" name="lastName" class="form-control" value="${user.lastName}" required>
     </label>
+    <br>
     <label>
         Enter new username:
-        <input type="text" name="username" value="${user.username}" required>
+        <input type="text" name="username" class="form-control" value="${user.username}" required>
     </label>
+    <br>
     <label>
         Enter new email:
-        <input type="email" name="email" value="${user.email}" required>
+        <input type="email" name="email" class="form-control" value="${user.email}" required>
     </label>
-
+    <br>
 
     <input type="hidden" name="action" value="userUpdateInfo">
 
-    <button type="submit">Update info</button>
+    <button type="submit" class="btn-primary">Update info</button>
 </form>
 
 ${updateValidation}

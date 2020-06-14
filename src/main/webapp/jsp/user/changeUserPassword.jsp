@@ -1,29 +1,25 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: yurat
-  Date: 6/9/2020
-  Time: 7:42 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Change password</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <form method="post">
     <label>
         Enter new password:
-        <input type="password" name="password" required>
+        <input type="password" name="password" class="form-control" required>
     </label>
-
+    <br>
     <label>
         Repeat new password:
-        <input type="password" name="repeatedPassword" required>
+        <input type="password" name="repeatedPassword" class="form-control" required>
     </label>
-
+    <br>
     <input type="hidden" name="action" value="userChangePasswordPost">
-    <button type="submit">Change password</button>
+    <button type="submit" class="btn-primary">Change password</button>
 </form>
 
 ${passwordValidation}

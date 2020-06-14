@@ -8,7 +8,7 @@
 </head>
 <body>
 <a href="train?action=trainAdd">Add new Train</a>
-<table class="table-bordered">
+<table class="table">
     <tr>
         <th>Train name</th>
         <th>Train number</th>

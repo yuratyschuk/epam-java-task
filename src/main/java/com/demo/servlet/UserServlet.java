@@ -153,6 +153,8 @@ public class UserServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         userService.delete(user);
+
+        session.setAttribute("user", null);
     }
 
     private void showUserPage(HttpServletRequest request) {

@@ -10,7 +10,7 @@
 
 <a href="trip?action=tripList">Trip List</a>
 <form action="trip" method="post">
-    <select name="from">
+    <select name="from" class="form-control">
         <option selected disabled hidden>Choose departure place</option>
         <c:forEach var="from" items="${placesList}">
             <option value="${from.id}">
@@ -19,7 +19,7 @@
         </c:forEach>
     </select>
 
-    <select name="to">
+    <select name="to" class="form-control">
         <option selected disabled hidden>Choose arrival place</option>
         <c:forEach var="to" items="${placesList}">
             <option value="${to.id}">
@@ -30,7 +30,7 @@
 
     <input type="hidden" name="action" value="searchTrip">
 
-    <button type="submit" value="Search"></button>
+    <button type="submit" value="Search" class="btn-primary"></button>
 </form>
 </body>
 </html>

@@ -7,6 +7,7 @@
 </head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 <body>
 <form action="trip" method="post">
@@ -14,12 +15,12 @@
 
     <label>
         Departure time:
-        <input type="date" name="departureTime" value="${trip.departureTime}" required>
+        <input type="date" name="departureTime" class="form-control" value="${trip.departureTime}" required>
     </label>
     <br>
     <label>
         Departure place:
-        <select name="departurePlaceId" required>
+        <select name="departurePlaceId" class="form-control" required>
             <option selected disabled hidden>Choose departue place</option>
             <c:forEach items="${placesList}" var="places">
                 <option value="${places.id}"
@@ -31,12 +32,12 @@
     <br>
     <label>
         Arrival time:
-        <input type="date" name="arrivalTime" value="${trip.arrivalTime}" required>
+        <input type="date" name="arrivalTime" class="form-control" value="${trip.arrivalTime}" required>
     </label>
     <br>
     <label>
         Arrival place:
-        <select name="arrivalPlaceId" required >
+        <select name="arrivalPlaceId" class="form-control" required >
             <option selected disabled hidden>Choose arrival place</option>
             <c:forEach items="${placesList}" var="places">
                 <option value="${places.id}"
@@ -48,7 +49,7 @@
 
     <label>
         Stops:
-        <select name="stopPlaceId" multiple="multiple" required>
+        <select name="stopPlaceId" multiple="multiple" class="form-control" required>
             <c:forEach items="${placesList}" var="places">
                 <option value="${places.id}">
                         ${places.placeName}
@@ -57,10 +58,9 @@
         </select>
     </label>
     <br>
-
     <label>
         Trip type:
-        <select name="trainType" id="trainType" required>
+        <select name="trainType" id="trainType" class="form-control" required>
             <option value="PASSENGER">Passenger</option>
             <option value="CARGO">Cargo</option>
             <option value="MULTI">Multi</option>
@@ -70,24 +70,24 @@
 
     <label>
         Number Of carriages:
-        <input type="number" name="numberOfCarriages" value="${trip.numberOfCarriages}" required>
+        <input type="number" name="numberOfCarriages" class="form-control"
+               value="${trip.numberOfCarriages}" required>
     </label>
     <br>
-
     <div id="passenger" style="display: none">
         <label>
             Price:
-            <input type="number" name="price" value="${trip.ticketPrice}" required>
+            <input type="number" name="price" class="form-control" value="${trip.ticketPrice}" required>
         </label>
         <br>
         <label>
             Number of places:
-            <input type="text" name="numberOfPlaces" value="${trip.numberOfPlaces}">
+            <input type="text" name="numberOfPlaces" class="form-control" value="${trip.numberOfPlaces}">
         </label>
-
+        <br>
         <label>
             Train:
-            <select name="trainId" required>
+            <select name="trainId" class="form-control" required>
                 <option selected disabled hidden>Choose train name</option>
                 <c:forEach items="${trainList}" var="train">
                     <c:if test="${train.trainType == 'PASSENGER' || train.trainType == 'MULTI'}">
@@ -98,11 +98,11 @@
             </select>
         </label>
     </div>
-
+    <br>
     <div id="cargo" style="display: none">
         <label>
             Train:
-            <select name="trainId" required>
+            <select name="trainId" class="form-control" required>
                 <option selected disabled hidden>Choose train name</option>
                 <c:forEach items="${trainList}" var="train">
                     <c:if test="${train.trainType == 'CARGO'}">
@@ -112,9 +112,9 @@
             </select>
         </label>
     </div>
+    <br>
 
-
-        <button type="submit" value="Save">Save</button>
+        <button type="submit" value="Save" class="btn-primary">Save</button>
     <label>
 
         <c:choose>
